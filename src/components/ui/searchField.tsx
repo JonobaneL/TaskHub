@@ -11,7 +11,7 @@ const SearchField = () => {
       />
       <Input
         placeholder="Search..."
-        className="pl-9 focus-visible:ring-1 focus-visible:ring-t-p "
+        className="pl-9 focus-visible:ring-1 focus-visible:ring-primary "
       />
     </div>
   );

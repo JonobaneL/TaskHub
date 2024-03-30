@@ -26,17 +26,18 @@ module.exports = {
     },
     extend: {
       colors: {
-        "t-p": "#3B60D1", //d
-        "t-t": "#0D111B", //d
-        "t-bg": "#F9FAFD", //d
-        "t-s": "#88A2EF", //d
-        "t-accent": "#F2B951", //d
+        // "t-p": "#3B60D1", //d
+        // "t-t": "#0D111B", //d
+        // "t-bg": "#F9FAFD", //d
+        // "t-s": "#88A2EF", //d
+        // "t-accent": "#F2B951", //d
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         background: "var(--background)",
         foreground: "hsl(var(--foreground))",
         text: "var(--text)",
+        "text/70": "var(--text-80)",
         primary: "var(--primary)",
         secondary: "var(--secondary)",
         "secondary/20": "var(--secondary-200)",
@@ -76,6 +77,9 @@ module.exports = {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+      },
+      backgroundImage: {
+        "back-img": "url(./src/assets/images/log-in-back-2.svg)",
       },
     },
   },

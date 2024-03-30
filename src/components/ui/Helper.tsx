@@ -17,7 +17,7 @@ const Helper = ({ content, children }: HelperProps) => {
       <TooltipProvider>
         <Tooltip delayDuration={200}>
           <TooltipTrigger asChild>{children}</TooltipTrigger>
-          <TooltipContent>
+          <TooltipContent className="bg-secondary shadow-sm cursor-default rounded-sm">
             <p className="font-main font-medium text-xs text-background">
               {content}
             </p>
