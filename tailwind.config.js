@@ -26,11 +26,6 @@ module.exports = {
     },
     extend: {
       colors: {
-        // "t-p": "#3B60D1", //d
-        // "t-t": "#0D111B", //d
-        // "t-bg": "#F9FAFD", //d
-        // "t-s": "#88A2EF", //d
-        // "t-accent": "#F2B951", //d
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -61,8 +56,9 @@ module.exports = {
         sm: "calc(var(--radius) - 4px)",
       },
       boxShadow: {
-        df: "rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;",
-        one: "rgba(0, 0, 0, 0.16) 0px 1px 4px",
+        "primary-button": "0 20px 50px -5px var(--primary)",
+        "form-shadow":
+          "rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;",
       },
       keyframes: {
         "accordion-down": {
