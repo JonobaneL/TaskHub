@@ -1,33 +1,44 @@
 import { forwardRef } from "react";
 import { Input } from "./input";
+import { FieldError } from "react-hook-form";
 
 type FieldProps = {
   variant: "standart" | "icon";
   icon?: string;
   alt?: string;
+  errors?: FieldError;
 } & React.InputHTMLAttributes<HTMLInputElement>;
 
 const Field = forwardRef<HTMLInputElement, FieldProps>(
-  ({ variant, icon, alt, ...props }, ref) => {
+  ({ variant, icon, alt, errors, ...props }, ref) => {
     return (
-      <div className="w-full relative">
-        {icon ? (
-          <img
-            className="absolute inset-y-1/2 -translate-y-1/2 left-2"
-            src={icon}
-            alt={alt}
+      <div>
+        <div className="w-full relative">
+          {icon ? (
+            <img
+              className="absolute inset-y-1/2 -translate-y-1/2 left-2"
+              src={icon}
+              alt={alt}
+            />
+          ) : null}
+          <Input
+            ref={ref}
+            {...props}
+            style={
+              variant == "standart"
+                ? { paddingLeft: "0.5rem" }
+                : { paddingLeft: "2.25rem" }
+            }
+            className={`focus:ring-1 focus-visible:ring-primary h-10 ${
+              errors ? "ring-1 ring-red-500" : ""
+            }`}
           />
-        ) : null}
-        <Input
-          ref={ref}
-          {...props}
-          style={
-            variant == "standart"
-              ? { paddingLeft: "0.5rem" }
-              : { paddingLeft: "2.25rem" }
-          }
-          className="focus:ring-1 focus-visible:ring-primary h-10"
-        />
+        </div>
+        {errors && (
+          <p className="text-red-600 text-xs mt-2 font-main font-medium mx-2">
+            {errors.message}
+          </p>
+        )}
       </div>
     );
   }

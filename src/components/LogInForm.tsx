@@ -1,13 +1,32 @@
-import { Link } from "react-router-dom";
-import { Input } from "./ui/input";
+import { Link, useNavigate } from "react-router-dom";
 import mailIcon from "../assets/images/mail.svg";
 import passwordIcon from "../assets/images/password.svg";
 import { Button } from "./ui/button";
 import Field from "./ui/Field";
+import { useForm } from "react-hook-form";
+import {
+  LogInFormParams,
+  emailValidation,
+  passwordValidation,
+} from "@/data/formOptions";
+import { useTypeDispatch } from "@/hooks/useReduxHooks";
+import { logInUser } from "@/store/reducers/userSlice";
 
 const LogInForm = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LogInFormParams>();
+  const dispatch = useTypeDispatch();
+  const navigate = useNavigate();
+  const onSubmit = (data: LogInFormParams) => {
+    dispatch(logInUser(data));
+    navigate("/dashboard");
+  };
+
   return (
-    <form>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <div className="space-y-4">
         <Field
           variant="icon"
@@ -15,6 +34,8 @@ const LogInForm = () => {
           alt="email"
           type="email"
           placeholder="Email"
+          errors={errors.email}
+          {...register("email", emailValidation)}
         />
         <Field
           variant="icon"
@@ -22,6 +43,8 @@ const LogInForm = () => {
           alt="password"
           type="password"
           placeholder="Password"
+          errors={errors.password}
+          {...register("password", passwordValidation)}
         />
       </div>
 

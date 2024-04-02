@@ -1,35 +1,46 @@
+import {
+  SingUpFormParams,
+  emailValidation,
+  fieldValidation,
+  passwordConfirmValidation,
+  passwordValidation,
+} from "@/data/formOptions";
 import mailIcon from "../assets/images/mail.svg";
-// import passwordIcon from "../assets/images/password.svg";
 import Field from "./ui/Field";
 import PasswordField from "./ui/PasswordField";
 import { Button } from "./ui/button";
-import { useForm, Controller } from "react-hook-form";
-
-type SingUpForm = {
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-};
+import { useForm } from "react-hook-form";
+import { useTypeDispatch } from "@/hooks/useReduxHooks";
+import { signUpUser } from "@/store/reducers/userSlice";
+import { useNavigate } from "react-router-dom";
 
 const SignUpForm = () => {
-  const { control, register, handleSubmit } = useForm<SingUpForm>();
-  const onSubmit = (data: SingUpForm) => console.log(data);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<SingUpFormParams>();
+  const dispatch = useTypeDispatch();
+  const navigate = useNavigate();
+  const onSubmit = (data: SingUpFormParams) => {
+    dispatch(signUpUser(data));
+    navigate("/dashboard");
+  };
   return (
     <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
       <div className="flex gap-4">
         {/* maybe change flex direcition on smaller screens */}
-
         <Field
           variant="standart"
           placeholder="First Name"
-          {...register("firstName")}
+          errors={errors.firstName}
+          {...register("firstName", fieldValidation)}
         />
         <Field
           variant="standart"
           placeholder="Last Name"
-          {...register("lastName")}
+          errors={errors.lastName}
+          {...register("lastName", fieldValidation)}
         />
       </div>
       <Field
@@ -37,17 +48,27 @@ const SignUpForm = () => {
         variant="icon"
         icon={mailIcon}
         alt="email"
-        placeholder="Email"
-        {...register("email")}
+        placeholder="Email address"
+        errors={errors.email}
+        {...register("email", emailValidation)}
       />
-      <PasswordField placeholder="Password" {...register("password")} />
+      <PasswordField
+        placeholder="Password"
+        errors={errors.password}
+        {...register("password", passwordValidation)}
+      />
       <PasswordField
         placeholder="Confirm Password"
-        {...register("confirmPassword")}
+        errors={errors.confirmPassword}
+        {...register("confirmPassword", passwordConfirmValidation)}
       />
       <div className="flex justify-center pt-4">
-        <Button className="text-background font-main font-medium text-md min-w-36 h-11 w-7/12 hover:shadow-primary-button transition duration-1 hover:translate-y-[-1px]">
-          Sign Up
+        <Button
+          type="submit"
+          disabled={isSubmitting}
+          className="text-background font-main font-medium text-md min-w-36 h-11 w-7/12 hover:shadow-primary-button transition duration-1 hover:translate-y-[-1px]"
+        >
+          {isSubmitting ? "Loading.." : "Sign Up"}
         </Button>
       </div>
     </form>

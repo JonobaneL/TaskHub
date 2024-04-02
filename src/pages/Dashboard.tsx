@@ -1,14 +1,25 @@
-import ProjectNav from "@/components/ProjectNav";
+import Header from "@/components/Header";
+import { auth } from "@/firebase";
+import { useTypeDispatch } from "@/hooks/useReduxHooks";
+import { fetchUserInfo } from "@/store/reducers/userSlice";
+import { onAuthStateChanged } from "firebase/auth";
+import { useEffect } from "react";
 import { Outlet } from "react-router-dom";
 
 const Dashboard = () => {
+  // const dispatch = useTypeDispatch();
+  // useEffect(() => {
+  //   const unsubscribe = onAuthStateChanged(auth, (user) => {
+  //     console.log(auth);
+  //     dispatch(fetchUserInfo(user?.uid || null));
+  //   });
+  //   return unsubscribe;
+  // }, []);
   return (
-    <main className="flex gap-10 px-[2.2rem] py-[1.4rem]">
-      <ProjectNav />
-      <section className="p-[1rem] rounded shadow-md w-full bg-[#fff]">
-        <Outlet />
-      </section>
-    </main>
+    <div>
+      <Header />
+      <Outlet />
+    </div>
   );
 };
 
