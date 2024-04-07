@@ -5,6 +5,8 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { useTypeDispatch, useTypeSelector } from "@/hooks/useReduxHooks";
+import { toggle } from "@/store/reducers/testSlice";
 import { useState } from "react";
 
 const TestPage = () => {
@@ -24,15 +26,25 @@ const TestPage = () => {
     "#C4C4C4",
     "#757575",
   ];
-  const handler = (name: string) => {
-    setColor(name);
-    setVisible(false);
-  };
+  const dispatch = useTypeDispatch();
+  const handler = () => {};
+  const { test } = useTypeSelector((state) => state.testReducer);
+  console.log(test);
   return (
     <div className="border border-primary m-10 p-4">
-      <div>
-        <div></div>
-      </div>
+      {
+        <div
+          style={
+            test
+              ? { width: "2rem", height: "2rem", background: "red" }
+              : { width: "4rem", height: "4rem", background: "green" }
+          }
+        />
+      }
+      <br />
+      <br />
+      <br />
+      <Button onClick={handler}>{test ? "Show" : "Hide"}</Button>
     </div>
   );
 };

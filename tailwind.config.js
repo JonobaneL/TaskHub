@@ -58,7 +58,8 @@ module.exports = {
       boxShadow: {
         "primary-button": "0 20px 50px -5px var(--primary)",
         "form-shadow":
-          "rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;",
+          "rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px",
+        footer: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
       },
       keyframes: {
         "accordion-down": {

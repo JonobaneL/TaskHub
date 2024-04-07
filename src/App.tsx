@@ -10,7 +10,7 @@ function App() {
   const dispatch = useTypeDispatch();
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      dispatch(fetchUserInfo(user?.uid || null));
+      dispatch(fetchUserInfo(user?.uid));
     });
     return unsubscribe;
   }, []);

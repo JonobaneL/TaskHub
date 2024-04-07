@@ -5,15 +5,13 @@ type PickerProps = {
   type: "round" | "square";
   color: string;
   colors: readonly string[];
+  onChange: (name: string) => void;
 };
 
-const ColorPicker = ({ type, color, colors }: PickerProps) => {
+const ColorPicker = ({ type, color, colors, onChange }: PickerProps) => {
   const [visible, setVisible] = useState(false);
-  const [colorName, setColor] = useState(color);
   const handler = (colorName: string) => {
-    // onChange(colorName);
-    //modify to actual version
-    setColor(colorName);
+    onChange(colorName);
     setVisible(false);
   };
   return (
@@ -21,7 +19,7 @@ const ColorPicker = ({ type, color, colors }: PickerProps) => {
       <PopoverTrigger>
         <div
           onClick={() => setVisible(true)}
-          style={{ background: colorName }}
+          style={{ background: color }}
           className={`size-5 cursor-pointer bg-black ${
             type == "round" ? "rounded-full" : "rounded-sm"
           }`}

@@ -1,6 +1,7 @@
 import App from "@/App";
 import Dashboard from "@/pages/Dashboard";
 import LogInPage from "@/pages/LogInPage";
+import PageWrapper from "@/pages/PageWrapper";
 import ProjectPage from "@/pages/ProjectPage";
 import SignUpPage from "@/pages/SignUpPage";
 import TablesPage from "@/pages/TablesPage";
@@ -17,8 +18,12 @@ const HubRoutes = () => {
     },
     {
       path: "/dashboard",
-      element: <Dashboard />,
+      element: <PageWrapper />,
       children: [
+        {
+          path: "/dashboard",
+          element: <Dashboard />,
+        },
         {
           path: "project/:id",
           element: <ProjectPage />,

@@ -12,16 +12,21 @@ import Helper from "./ui/Helper";
 import { project_nav } from "@/data/project_nav";
 import { useNavigate } from "react-router-dom";
 import RecentUsersList from "./RecentUsersList";
+import { useTypeSelector } from "@/hooks/useReduxHooks";
 
 const ProjectNav = () => {
   const navigate = useNavigate();
+  const { project, isLoading } = useTypeSelector(
+    (state) => state.projectReducer
+  );
+  //modify component
   return (
     <aside className="w-[18rem] h-fit flex-initial">
       <div className="flex items-center gap-[0.5rem] h-[3rem] mb-3 shadow-md p-2 rounded bg-[#fff] cursor-default">
         <div className="flex items-center justify-center h-full aspect-square bg-accent-y font-bold rounded-sm font-main text-base text-text">
-          F
+          {project?.name?.slice(0, 1)}
         </div>
-        <h2 className="font-main font-medium">First project</h2>
+        <h2 className="font-main font-medium">{project?.name}</h2>
       </div>
       <Command className="bg-background">
         <CommandList>

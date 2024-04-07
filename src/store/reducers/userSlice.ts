@@ -1,17 +1,14 @@
 import { auth } from "@/firebase";
-import { addNewUser, getUserInfo } from "@/firebase/userAPI";
+import { addNewUser, getAllProjects, getUserInfo } from "@/firebase/userAPI";
+import { ProjectParams } from "@/models/projectTypes";
+import { userDetails } from "@/models/userTypes";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
-type userDetails = {
-  id: null | string;
-  firstName: null | string;
-  lastName: null | string;
-  email: null | string;
-};
+
 type initialStateProps = {
   user: userDetails;
   isLoading: boolean;
@@ -23,12 +20,13 @@ const initialState = {
     firstName: null,
     lastName: null,
     email: null,
+    projects: null,
   },
   isLoading: false,
   error: null,
 } as initialStateProps;
 
-type userProps = {
+type signUpProps = {
   firstName: string;
   lastName: string;
   email: string;
@@ -53,17 +51,25 @@ export const logInUser = createAsyncThunk<string, logInProps>(
     }
   }
 );
-export const fetchUserInfo = createAsyncThunk<userDetails, string | null>(
+export const fetchUserInfo = createAsyncThunk<userDetails, string | undefined>(
   "user/fetch-user-info",
   async (userID, { rejectWithValue }) => {
-    if (userID == null) return initialState.user;
-    const userRes = await getUserInfo(userID);
-    if (!userRes) return rejectWithValue("No such user");
-    const userDetails = userRes.data() as userDetails;
-    return { ...userDetails, id: userID };
+    try {
+      const userRes = await getUserInfo(userID || null);
+      const userDetails = userRes.data() as userDetails;
+      const projectRes = await getAllProjects(userRes.id);
+      const projects: ProjectParams[] = [];
+      projectRes.forEach((item) => {
+        const project = { id: item.id, ...item.data() } as ProjectParams;
+        projects.push(project);
+      });
+      return { ...userDetails, id: userRes.id, projects };
+    } catch (err) {
+      return rejectWithValue("no such user");
+    }
   }
 );
-export const signUpUser = createAsyncThunk<void, userProps>(
+export const signUpUser = createAsyncThunk<void, signUpProps>(
   "user/sign-up",
   async (userInfo, { rejectWithValue }) => {
     try {
@@ -74,7 +80,7 @@ export const signUpUser = createAsyncThunk<void, userProps>(
       );
       await addNewUser(userInfo, res.user.uid);
     } catch (err) {
-      rejectWithValue(err);
+      return rejectWithValue(err);
     }
   }
 );
@@ -84,7 +90,7 @@ export const signOutUser = createAsyncThunk<void, undefined>(
     try {
       await signOut(auth);
     } catch (err) {
-      rejectWithValue(`User wasn't signed out`);
+      return rejectWithValue(`User wasn't signed out`);
     }
   }
 );

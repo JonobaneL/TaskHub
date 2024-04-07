@@ -1,4 +1,12 @@
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  setDoc,
+  where,
+} from "firebase/firestore";
 import { firestoreDB } from ".";
 import { UserParams } from "@/models/userTypes";
 
@@ -16,4 +24,13 @@ export const addNewUser = (
 export const getUserInfo = (uid: string | null) => {
   const userRef = doc(firestoreDB, "users", uid || "");
   return getDoc(userRef);
+};
+
+export const getAllProjects = (userID: string | null) => {
+  const collectionRef = collection(firestoreDB, "projects");
+  const projectsQuery = query(
+    collectionRef,
+    where("members", "array-contains", userID)
+  );
+  return getDocs(projectsQuery);
 };
