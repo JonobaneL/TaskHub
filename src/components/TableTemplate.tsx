@@ -19,11 +19,11 @@ type TemplateProps<TData, TValue> = {
   data: TData[];
   setData: React.Dispatch<React.SetStateAction<TData[]>>;
 };
-declare module "@tanstack/react-table" {
-  interface TableMeta<TData extends RowData> {
-    updateData: (rowIndex: number, columnId: string, value: unknown) => void;
-  }
-}
+// declare module "@tanstack/react-table" {
+//   interface TableMeta<TData extends RowData> {
+//     updateData: (rowIndex: number, columnId: string, value: unknown) => void;
+//   }
+// }
 
 const TableTemplate = <TData, TValue>({
   data,

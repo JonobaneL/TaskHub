@@ -1,6 +1,6 @@
 import { getProject } from "@/firebase/projectAPI";
 import { getAllTables, updateTableMethod } from "@/firebase/tablesAPI";
-import { ProjectParams, TableParams } from "@/models/projectTypes";
+import { ProjectParams, TableParams, TaskParams } from "@/models/projectTypes";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { RootStore } from "../store";
 
@@ -33,7 +33,7 @@ export const fetchProject = createAsyncThunk<ProjectParams, string | undefined>(
       const tables = [] as TableParams[];
       tablesRes?.forEach((item) => {
         const table = item.data() as TableParams;
-        tables.push({ ...table, id: item.id });
+        tables.push({ ...table, id: item.id, tasks: null });
       });
       return { ...project, tables };
     } catch (err) {
@@ -41,6 +41,13 @@ export const fetchProject = createAsyncThunk<ProjectParams, string | undefined>(
     }
   }
 );
+const fetchTasks = createAsyncThunk<void, string>(
+  "project/fetch-tasks",
+  async (tasksID, { rejectWithValue }) => {
+    //think about tasks organization
+  }
+);
+
 type UpdateProps = {
   tableID: string;
   key: "name" | "color";
@@ -69,7 +76,7 @@ const projectSlice = createSlice({
   initialState,
   reducers: {
     updateTableHeaderAction(state, action) {
-      const table = action.payload;
+      const table = action.payload as UpdateProps;
       const tables = state.project.tables?.map((item) => {
         if (item.id == table.tableID) {
           return { ...item, [table.key]: table.value };
@@ -92,16 +99,6 @@ const projectSlice = createSlice({
         state.error = "No such project";
         state.isLoading = false;
       });
-    // .addCase(updateTableHeader.fulfilled, (state, action) => {
-    //   const table = action.payload;
-    //   const tables = state.project.tables?.map((item) => {
-    //     if (item.id == table.tableID) {
-    //       return { ...item, [table.key]: table.value };
-    //     }
-    //     return item;
-    //   });
-    //   state.project.tables = tables || null;
-    // });
   },
 });
 export const { updateTableHeaderAction } = projectSlice.actions;

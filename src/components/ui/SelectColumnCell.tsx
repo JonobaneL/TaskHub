@@ -1,8 +1,8 @@
 import { Row } from "@tanstack/react-table";
-import { TaskType } from "@/data/tableTest";
+import { TaskParams } from "@/models/projectTypes";
 
 type SelectProps = {
-  row: Row<TaskType>;
+  row: Row<TaskParams>;
 };
 const SelectColumnCell = ({ row }: SelectProps) => {
   return (

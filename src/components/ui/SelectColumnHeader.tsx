@@ -1,9 +1,8 @@
 import { Table } from "@tanstack/react-table";
-import { Checkbox } from "./checkbox";
-import { TaskType } from "@/data/tableTest";
+import { TaskParams } from "@/models/projectTypes";
 
 type SelectProps = {
-  table: Table<TaskType>;
+  table: Table<TaskParams>;
 };
 
 const SelectColumnHeader = ({ table }: SelectProps) => {

@@ -1,10 +1,10 @@
-import { TaskType } from "@/data/tableTest";
 import { Row } from "@tanstack/react-table";
 import conIcon from "../../assets/images/con-icon.svg";
 import conIconActive from "../../assets/images/con-icon-active.svg";
+import { TaskParams } from "@/models/projectTypes";
 
 type ColumnProps = {
-  row: Row<TaskType>;
+  row: Row<TaskParams>;
 };
 const TaskColumn = ({ row }: ColumnProps) => {
   return (

@@ -19,3 +19,7 @@ export const updateTableMethod = (
     [key]: value,
   });
 };
+export const getAllTasks = (tableID: string) => {
+  const tasksRef = collection(firestoreDB, tableID);
+  return getDocs(tasksRef);
+};

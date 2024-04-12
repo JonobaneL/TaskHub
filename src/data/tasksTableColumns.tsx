@@ -1,11 +1,11 @@
 import SelectColumnHeader from "@/components/ui/SelectColumnHeader";
-import { TaskType } from "./tableTest";
 import { ColumnDef } from "@tanstack/react-table";
 import SelectColumnCell from "@/components/ui/SelectColumnCell";
 import TaskColumn from "@/components/ui/TaskColumn";
-import StatusColumn from "@/components/ui/StatusColumn";
+import { TaskParams } from "@/models/projectTypes";
+import StatusCell from "@/components/ui/StatusCell";
 
-export const todoColumns = [
+export const taskTableColumns = [
   {
     accessorKey: "selected",
     header: ({ table }) => <SelectColumnHeader table={table} />,
@@ -22,7 +22,7 @@ export const todoColumns = [
   {
     accessorKey: "status",
     header: "Status",
-    cell: (props) => <StatusColumn options={props} />,
+    cell: (props) => <StatusCell options={props} />,
   },
   {
     accessorKey: "due-date",
@@ -31,7 +31,7 @@ export const todoColumns = [
       const newDate = props.getValue() as string;
       return (
         <div className="min-w-28 px-4 h-full leading-9 text-center">
-          {newDate.slice(0, 10)}
+          {newDate?.slice(0, 10)}
         </div>
       );
     },
@@ -54,4 +54,4 @@ export const todoColumns = [
       </div>
     ),
   },
-] as ColumnDef<TaskType>[];
+] as ColumnDef<TaskParams>[];
