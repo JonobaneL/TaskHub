@@ -3,8 +3,8 @@ import ColorPicker from "./ui/ColorPicker";
 import { table_colors } from "@/data/table_colors";
 import { TableParams } from "@/models/projectTypes";
 import { useTypeDispatch } from "@/hooks/useReduxHooks";
-import { updateTableHeader } from "@/store/reducers/projectsSlice";
 import { useEventListener } from "@/hooks/useEventListener";
+import { updateTableHeader } from "@/store/thunks/projectsThunks";
 
 type EditorParams = {
   table: TableParams;

@@ -1,57 +1,53 @@
 import SelectColumnHeader from "@/components/ui/SelectColumnHeader";
 import { ColumnDef } from "@tanstack/react-table";
-import SelectColumnCell from "@/components/ui/SelectColumnCell";
-import TaskColumn from "@/components/ui/TaskColumn";
+import SelectCell from "@/components/ui/SelectCell";
+import TaskCell from "@/components/ui/TaskCell";
 import { TaskParams } from "@/models/projectTypes";
 import StatusCell from "@/components/ui/StatusCell";
+import DueDateCell from "@/components/ui/DueDateCell";
+import PriorityCell from "@/components/ui/PriorityCell";
 
 export const taskTableColumns = [
   {
     accessorKey: "selected",
     header: ({ table }) => <SelectColumnHeader table={table} />,
-    cell: ({ row }) => <SelectColumnCell row={row} />,
+    cell: ({ row }) => <SelectCell row={row} />,
     enableSorting: false,
     enableHiding: false,
-    maxSize: 9,
+    size: 2.25,
   },
   {
     accessorKey: "task",
     header: "Task",
-    cell: ({ row }) => <TaskColumn row={row} />,
+    cell: ({ row }) => <TaskCell row={row} />,
+    size: 22,
   },
   {
     accessorKey: "status",
     header: "Status",
     cell: (props) => <StatusCell options={props} />,
+    size: 11,
   },
   {
-    accessorKey: "due-date",
+    accessorKey: "due_date",
     header: "Due-date",
-    cell: (props) => {
-      const newDate = props.getValue() as string;
-      return (
-        <div className="min-w-28 px-4 h-full leading-9 text-center">
-          {newDate?.slice(0, 10)}
-        </div>
-      );
-    },
+    cell: (props) => <DueDateCell options={props} />,
+    size: 10,
   },
   {
     accessorKey: "priority",
     header: "Priority",
-    cell: (props) => (
-      <div className="min-w-24 capitalize px-4 text-center">
-        {props.getValue() as string}
-      </div>
-    ),
+    cell: (props) => <PriorityCell options={props} />,
+    size: 10,
   },
   {
     accessorKey: "note",
     header: "Note",
     cell: (props) => (
-      <div className="min-w-28 px-4 text-center min-w-24">
+      <div className="min-w-36 px-4 text-center min-w-24">
         {props.getValue() as string}
       </div>
     ),
+    size: 10,
   },
 ] as ColumnDef<TaskParams>[];

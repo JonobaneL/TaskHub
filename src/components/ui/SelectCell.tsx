@@ -4,7 +4,7 @@ import { TaskParams } from "@/models/projectTypes";
 type SelectProps = {
   row: Row<TaskParams>;
 };
-const SelectColumnCell = ({ row }: SelectProps) => {
+const SelectCell = ({ row }: SelectProps) => {
   return (
     <div className="flex items-center justify-center size-9">
       <input
@@ -18,4 +18,4 @@ const SelectColumnCell = ({ row }: SelectProps) => {
   );
 };
 
-export default SelectColumnCell;
+export default SelectCell;

@@ -3,12 +3,12 @@ import conIcon from "../../assets/images/con-icon.svg";
 import conIconActive from "../../assets/images/con-icon-active.svg";
 import { TaskParams } from "@/models/projectTypes";
 
-type ColumnProps = {
+type CellProps = {
   row: Row<TaskParams>;
 };
-const TaskColumn = ({ row }: ColumnProps) => {
+const TaskCell = ({ row }: CellProps) => {
   return (
-    <div className="min-w-80 flex justify-between items-center pl-2 gap-4">
+    <div className="flex justify-between items-center pl-2 gap-4">
       <p className="h-fit">{row.original.task}</p>
       <div className="size-9 flex items-center justify-center border-l">
         {row.original.conversation == null ? (
@@ -21,4 +21,4 @@ const TaskColumn = ({ row }: ColumnProps) => {
   );
 };
 
-export default TaskColumn;
+export default TaskCell;

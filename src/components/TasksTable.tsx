@@ -1,8 +1,5 @@
-import { getAllTasks } from "@/firebase/tablesAPI";
-import { useAsync } from "@/hooks/useAsync";
-import { TableParams, TaskParams } from "@/models/projectTypes";
+import { TableParams, TaskKeys, TaskParams } from "@/models/projectTypes";
 import TableName from "./TableName";
-import TableTemplate from "./TableTemplate";
 import {
   ColumnDef,
   RowData,
@@ -10,7 +7,9 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import { taskTableColumns } from "@/data/tasksTableColumns";
-import TableTest from "./TableTest";
+import TableTemplate from "./TableTemplate";
+import { updateTask } from "@/store/thunks/tasksThunks";
+import { useTypeDispatch } from "@/hooks/useReduxHooks";
 
 type TasksTableProps = {
   table: TableParams;
@@ -22,30 +21,32 @@ declare module "@tanstack/react-table" {
 }
 
 const TasksTable = ({ table }: TasksTableProps) => {
-  const [isTasksLoading, , tasks] = useAsync<TaskParams[]>(
-    () => getAllTasks(table.tasksID),
-    []
-  );
   const columns: ColumnDef<TaskParams>[] = taskTableColumns;
+  const dispatch = useTypeDispatch();
   const tableTemplate = useReactTable({
-    data: tasks || [],
+    data: table.tasks || [],
     columns,
+
     meta: {
-      updateData: (rowIndex: number, columnId: string, value: any) => {},
+      updateData: (rowIndex: number, columnId: string, value: any) => {
+        dispatch(
+          updateTask({
+            tableID: table.id,
+            taskID: table.tasks ? table.tasks[rowIndex].id : null,
+            key: columnId as TaskKeys,
+            value,
+          })
+        );
+      },
     },
     getCoreRowModel: getCoreRowModel(),
   });
 
   return (
     <div>
-      <TableName table={table} taskAmount={tasks?.length || 0} />
-      {/* <TableTemplate columns={columns} data={data} setData={setData} /> */}
+      <TableName table={table} taskAmount={table.tasks?.length || 0} />
       <div className="w-full h-fit rounded-l-[2px] overflow-hidden">
-        <TableTest
-          color={table.color}
-          isLoading={isTasksLoading}
-          table={tableTemplate}
-        />
+        <TableTemplate color={table.color} table={tableTemplate} />
       </div>
     </div>
   );

@@ -1,7 +1,8 @@
 import ProjectNav from "@/components/ProjectNav";
 import { useTypeDispatch } from "@/hooks/useReduxHooks";
 import { ProjectParams } from "@/models/projectTypes";
-import { fetchProject } from "@/store/reducers/projectsSlice";
+import { fetchProject } from "@/store/thunks/projectsThunks";
+import { fetchTasks } from "@/store/thunks/tasksThunks";
 import { useEffect } from "react";
 import { Outlet, useParams } from "react-router-dom";
 
@@ -10,16 +11,18 @@ const ProjectPage = () => {
   const dispatch = useTypeDispatch();
 
   useEffect(() => {
-    dispatch(fetchProject(id)).then((data) => {
-      const project = data.payload as ProjectParams;
-      // project.tables
-      console.log(project.tables);
-      project.tables?.forEach((item) => {
-        // dispatch(fetchTasks(item));
-        console.log(item.tasksID);
+    dispatch(fetchProject(id))
+      .then((data) => {
+        console.log("project fetch end", Date.now()); //remove later
+        return data;
+      })
+      .then((data) => {
+        const project = data.payload as ProjectParams;
+        dispatch(fetchTasks(project.tasksID));
+      })
+      .then(() => {
+        console.log("tasks fetch end", Date.now()); //remove later
       });
-      // dispatch(fetchTasks())
-    });
   }, []);
   return (
     <section className="flex gap-10">

@@ -1,4 +1,3 @@
-import { statusLables } from "@/data/statusLables";
 import edit from "../assets/images/edit.svg";
 import { Button } from "./ui/button";
 import { useTypeSelector } from "@/hooks/useReduxHooks";
@@ -17,12 +16,6 @@ const StatusLableList = ({ onChange, closeHandler }: ListProps) => {
   return (
     <div className="w-44">
       <ul className="space-y-1 mx-2">
-        <li
-          onClick={() => handler("none")}
-          className="bg-[#797E93] w-full h-9 text-background font-medium capitalize text-center leading-9 cursor-pointer rounded-sm text-sm"
-        >
-          None
-        </li>
         {project.status_lables?.map((item, index) => (
           <li
             key={index}
