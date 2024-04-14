@@ -54,6 +54,16 @@ const projectSlice = createSlice({
       });
       state.project.tables = tables || null;
     },
+    addNewTaskAction(state, action) {
+      const props = action.payload;
+      const tables = state.project.tables?.map((item) => {
+        if (item.id == props.tableID) {
+          return { ...item, tasks: [...(item.tasks || []), props] };
+        }
+        return item;
+      });
+      state.project.tables = tables || null;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -82,7 +92,7 @@ const projectSlice = createSlice({
       });
   },
 });
-export const { updateTableHeaderAction, updateTaskAction } =
+export const { updateTableHeaderAction, updateTaskAction, addNewTaskAction } =
   projectSlice.actions;
 
 export default projectSlice.reducer;

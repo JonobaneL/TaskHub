@@ -30,9 +30,10 @@ export type TaskParams = {
   status: string | "none";
   due_date: string | null;
   priority: string | null;
-  note: string;
+  notes: string;
   conversation: null;
   tableID: string;
+  author: string;
 };
 export type TaskKeys =
   | "conversation"
@@ -55,4 +56,10 @@ export type UpdateTaskProps = {
 };
 export type CellDefaultProps = {
   options: CellContext<TaskParams, unknown>;
+};
+export type AddTaskParams = {
+  task: string;
+  due_date?: string;
+  priority?: string;
+  status?: string;
 };

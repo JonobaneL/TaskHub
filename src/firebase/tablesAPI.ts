@@ -1,6 +1,12 @@
-import { collection, doc, getDocs, updateDoc } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  doc,
+  getDocs,
+  updateDoc,
+} from "firebase/firestore";
 import { firestoreDB } from ".";
-import { TaskKeys } from "@/models/projectTypes";
+import { TaskKeys, TaskParams } from "@/models/projectTypes";
 
 export const getAllTables = (tablesID: string | null) => {
   if (!tablesID) return;
@@ -37,4 +43,18 @@ export const updateTaskMethod = (
   return updateDoc(tableRef, {
     [key]: value,
   });
+};
+type NewTaskParams = {
+  task: string;
+  status: string | "none";
+  due_date: string | null;
+  priority: string | null;
+  notes: string;
+  conversation: null;
+  tableID: string;
+  author: string;
+};
+export const addTaskMethod = (tasksID: string, task: NewTaskParams) => {
+  const collectionRef = collection(firestoreDB, tasksID);
+  return addDoc(collectionRef, task);
 };

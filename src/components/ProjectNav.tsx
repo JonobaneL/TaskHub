@@ -21,7 +21,7 @@ const ProjectNav = () => {
   );
   //modify component
   return (
-    <aside className="w-[18rem] h-fit flex-initial">
+    <aside className="w-[14rem] h-fit flex-none">
       <div className="flex items-center gap-[0.5rem] h-[3rem] mb-3 shadow-md p-2 rounded bg-[#fff] cursor-default">
         <div className="flex items-center justify-center h-full aspect-square bg-accent-y font-bold rounded-sm font-main text-base text-text">
           {project?.name?.slice(0, 1)}

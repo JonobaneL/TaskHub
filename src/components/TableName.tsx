@@ -20,7 +20,10 @@ const TableName = ({ table, taskAmount }: NameProps) => {
   };
 
   return (
-    <div className="group flex items-center gap-2 py-2 w-fit" ref={nameRef}>
+    <div
+      className="group flex items-center gap-2 py-2 w-fit pl-1"
+      ref={nameRef}
+    >
       {edit ? (
         <TableHeaderEditor
           table={table}

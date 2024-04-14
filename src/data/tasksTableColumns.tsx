@@ -15,33 +15,39 @@ export const taskTableColumns = [
     enableSorting: false,
     enableHiding: false,
     size: 2.25,
+    minSize: 2.25,
   },
   {
     accessorKey: "task",
     header: "Task",
     cell: ({ row }) => <TaskCell row={row} />,
     size: 22,
+    minSize: 22,
   },
+
   {
     accessorKey: "status",
     header: "Status",
     cell: (props) => <StatusCell options={props} />,
     size: 11,
+    minSize: 10,
   },
   {
     accessorKey: "due_date",
     header: "Due-date",
     cell: (props) => <DueDateCell options={props} />,
     size: 10,
+    minSize: 10,
   },
   {
     accessorKey: "priority",
     header: "Priority",
     cell: (props) => <PriorityCell options={props} />,
     size: 10,
+    minSize: 10,
   },
   {
-    accessorKey: "note",
+    accessorKey: "notes",
     header: "Note",
     cell: (props) => (
       <div className="min-w-36 px-4 text-center min-w-24">
@@ -49,5 +55,6 @@ export const taskTableColumns = [
       </div>
     ),
     size: 10,
+    minSize: 10,
   },
 ] as ColumnDef<TaskParams>[];

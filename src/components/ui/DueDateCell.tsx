@@ -25,7 +25,7 @@ const DueDateCell = ({ options }: CellDefaultProps) => {
     <div className="group w-full h-9 p-1 ">
       <Popover>
         <PopoverTrigger asChild>
-          <div className="w-full h-full group-hover:border border-grey-500 flex items-center justify-center  cursor-pointer">
+          <div className="w-full h-full group-hover:border border-grey-500 flex items-center justify-center cursor-pointer">
             {calendarDate ? (
               <p>{shownDate ? shownDate[2] + " " + shownDate[1] : ""}</p>
             ) : (

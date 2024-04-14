@@ -21,7 +21,7 @@ const TablesPage = () => {
           {/*make a separate component*/}
         </div>
       ) : (
-        <div className="space-y-4">
+        <div className="space-y-4 w-full overflow-x-scroll pb-10">
           {project.tables?.map((item: TableParams) => (
             <TasksTable key={item.id} table={item} />
           ))}

@@ -13,6 +13,10 @@ const TasksTableHeader = ({ table }: HeaderProps) => {
           {head.headers.map((header) => (
             <TableHead
               key={header.id}
+              style={{
+                width: `${header.column.columnDef.size}rem`,
+                minWidth: `${header.column.columnDef?.minSize}rem`,
+              }}
               className={`w-[${header.column.columnDef.size}rem] px-0 text-center font-main h-9`}
             >
               {header.isPlaceholder
@@ -23,7 +27,7 @@ const TasksTableHeader = ({ table }: HeaderProps) => {
                   )}
             </TableHead>
           ))}
-          <TableHead className="h-9 " />
+          <TableHead className="px-0 h-9" />
           {/*empty*/}
         </TableRow>
       ))}

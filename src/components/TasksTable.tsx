@@ -1,4 +1,9 @@
-import { TableParams, TaskKeys, TaskParams } from "@/models/projectTypes";
+import {
+  AddTaskParams,
+  TableParams,
+  TaskKeys,
+  TaskParams,
+} from "@/models/projectTypes";
 import TableName from "./TableName";
 import {
   ColumnDef,
@@ -8,7 +13,7 @@ import {
 } from "@tanstack/react-table";
 import { taskTableColumns } from "@/data/tasksTableColumns";
 import TableTemplate from "./TableTemplate";
-import { updateTask } from "@/store/thunks/tasksThunks";
+import { addNewTask, updateTask } from "@/store/thunks/tasksThunks";
 import { useTypeDispatch } from "@/hooks/useReduxHooks";
 
 type TasksTableProps = {
@@ -17,6 +22,7 @@ type TasksTableProps = {
 declare module "@tanstack/react-table" {
   interface TableMeta<TData extends RowData> {
     updateData: (rowIndex: number, columnId: string, value: unknown) => void;
+    addTask: (task: AddTaskParams) => void;
   }
 }
 
@@ -26,7 +32,6 @@ const TasksTable = ({ table }: TasksTableProps) => {
   const tableTemplate = useReactTable({
     data: table.tasks || [],
     columns,
-
     meta: {
       updateData: (rowIndex: number, columnId: string, value: any) => {
         dispatch(
@@ -38,6 +43,9 @@ const TasksTable = ({ table }: TasksTableProps) => {
           })
         );
       },
+      addTask: (task: AddTaskParams) => {
+        dispatch(addNewTask({ ...task, tableID: table.id }));
+      },
     },
     getCoreRowModel: getCoreRowModel(),
   });
@@ -45,9 +53,9 @@ const TasksTable = ({ table }: TasksTableProps) => {
   return (
     <div>
       <TableName table={table} taskAmount={table.tasks?.length || 0} />
-      <div className="w-full h-fit rounded-l-[2px] overflow-hidden">
-        <TableTemplate color={table.color} table={tableTemplate} />
-      </div>
+      {/* <div className="w-full h-fit rounded-l-[2px]"> */}
+      <TableTemplate color={table.color} table={tableTemplate} />
+      {/* </div> */}
     </div>
   );
 };

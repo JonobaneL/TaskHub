@@ -1,15 +1,19 @@
 import { TaskParams, UpdateTaskProps } from "@/models/projectTypes";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { RootStore } from "../store";
-import { updateTaskAction } from "../reducers/projectsSlice";
-import { getAllTasks, updateTaskMethod } from "@/firebase/tablesAPI";
+import { addNewTaskAction, updateTaskAction } from "../reducers/projectsSlice";
+import {
+  addTaskMethod,
+  getAllTasks,
+  updateTaskMethod,
+} from "@/firebase/tablesAPI";
 
 type TaskResponseParams = {
   task: string;
   status: string | "none";
   due_date: string;
   priority: string | null;
-  note: string;
+  notes: string;
   conversation: null;
   tableID: string;
 };
@@ -70,3 +74,36 @@ export const updateTask = createAsyncThunk<
     }
   }
 );
+
+type AddNewTaskProps = {
+  task: string;
+  tableID: string;
+  author?: string | null;
+  due_date?: string;
+  priority?: string;
+  status?: string;
+};
+
+export const addNewTask = createAsyncThunk<
+  void,
+  AddNewTaskProps,
+  { state: RootStore }
+>("project/add-task", async (task, { rejectWithValue, getState, dispatch }) => {
+  try {
+    const state = getState();
+    const { project } = state.projectReducer;
+    const { user } = state.userReducer;
+    const defaultTask = {
+      due_date: null,
+      status: "none",
+      priority: null,
+      conversation: null,
+      notes: "",
+    };
+    const currentTask = { ...defaultTask, ...task, author: user.id || "" };
+    const res = await addTaskMethod(project.tasksID || "", currentTask);
+    dispatch(addNewTaskAction({ id: res.id, ...currentTask }));
+  } catch (err) {
+    rejectWithValue(err);
+  }
+});
