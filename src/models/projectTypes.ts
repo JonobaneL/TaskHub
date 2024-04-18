@@ -23,6 +23,7 @@ export type TableParams = {
   name: string;
   color: string;
   tasks: TaskParams[] | null;
+  main: boolean;
 };
 export type TaskParams = {
   id: string;

@@ -53,9 +53,7 @@ const TasksTable = ({ table }: TasksTableProps) => {
   return (
     <div>
       <TableName table={table} taskAmount={table.tasks?.length || 0} />
-      {/* <div className="w-full h-fit rounded-l-[2px]"> */}
       <TableTemplate color={table.color} table={tableTemplate} />
-      {/* </div> */}
     </div>
   );
 };

@@ -79,8 +79,8 @@ type AddNewTaskProps = {
   task: string;
   tableID: string;
   author?: string | null;
-  due_date?: string;
-  priority?: string;
+  due_date?: string | null;
+  priority?: string | null;
   status?: string;
 };
 

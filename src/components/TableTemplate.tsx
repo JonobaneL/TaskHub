@@ -1,5 +1,5 @@
 import { Table as TableParams } from "@tanstack/react-table";
-import { Table, TableCell, TableFooter, TableRow } from "./ui/table";
+import { Table } from "./ui/table";
 import { TaskParams } from "@/models/projectTypes";
 import TasksTableHeader from "./ui/TasksTableHeader";
 import TasksTableBody from "./ui/TasksTableBody";
