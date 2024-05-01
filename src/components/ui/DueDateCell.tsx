@@ -2,6 +2,7 @@ import { CellDefaultProps } from "@/models/projectTypes";
 import calendarIcon from "../../assets/images/calendar-add.svg";
 import { useState } from "react";
 import DateSelect from "./DateSelect";
+import HoverEditButton from "./HoverEditButton";
 
 const DueDateCell = ({ options }: CellDefaultProps) => {
   const { table, column, row } = options;
@@ -20,23 +21,23 @@ const DueDateCell = ({ options }: CellDefaultProps) => {
   };
 
   return (
-    <div className="group w-full h-9 p-1 ">
+    <div className="group w-full h-full">
       <DateSelect
         defaultValue={date}
         onChange={setCalendarDate}
         onBlur={updateHandler}
       >
-        <div className="w-full h-full group-hover:border border-grey-500 flex items-center justify-center cursor-pointer">
-          {calendarDate ? (
-            <p>{dateToShow}</p>
-          ) : (
-            <img
-              className="w-5 opacity-0 group-hover:opacity-100 transition"
-              src={calendarIcon}
-              alt="add date"
-            />
-          )}
-        </div>
+        {calendarDate ? (
+          <div className="w-full h-full p-1">
+            <div className="w-full h-full group-hover:border border-grey-500 flex items-center justify-center cursor-pointer">
+              <p>{dateToShow}</p>
+            </div>
+          </div>
+        ) : (
+          <div className="h-full">
+            <HoverEditButton img={calendarIcon} />
+          </div>
+        )}
       </DateSelect>
     </div>
   );

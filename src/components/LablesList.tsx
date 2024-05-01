@@ -1,14 +1,13 @@
+import { LableParams } from "@/models/projectTypes";
 import edit from "../assets/images/edit.svg";
 import { Button } from "./ui/button";
-import { useTypeSelector } from "@/hooks/useReduxHooks";
 
 type ListProps = {
+  lables: LableParams[] | null;
   onChange: (value: string) => void;
   closeHandler: () => void;
 };
-const StatusLableList = ({ onChange, closeHandler }: ListProps) => {
-  const { project } = useTypeSelector((state) => state.projectReducer);
-
+const LablesList = ({ lables, onChange, closeHandler }: ListProps) => {
   const handler = (value: string) => {
     onChange(value);
     closeHandler();
@@ -16,7 +15,7 @@ const StatusLableList = ({ onChange, closeHandler }: ListProps) => {
   return (
     <div className="w-44">
       <ul className="space-y-1 mx-2">
-        {project.status_lables?.map((item, index) => (
+        {lables?.map((item, index) => (
           <li
             key={index}
             className="w-full h-9 text-background font-medium capitalize text-center leading-9 cursor-pointer rounded-sm text-sm"
@@ -36,4 +35,4 @@ const StatusLableList = ({ onChange, closeHandler }: ListProps) => {
   );
 };
 
-export default StatusLableList;
+export default LablesList;

@@ -6,6 +6,7 @@ import { TaskParams } from "@/models/projectTypes";
 import StatusCell from "@/components/ui/StatusCell";
 import DueDateCell from "@/components/ui/DueDateCell";
 import PriorityCell from "@/components/ui/PriorityCell";
+import NoteCell from "@/components/ui/NoteCell";
 
 export const taskTableColumns = [
   {
@@ -36,8 +37,8 @@ export const taskTableColumns = [
     accessorKey: "due_date",
     header: "Due-date",
     cell: (props) => <DueDateCell options={props} />,
-    size: 8,
-    minSize: 8,
+    size: 9,
+    minSize: 9,
   },
   {
     accessorKey: "priority",
@@ -49,11 +50,7 @@ export const taskTableColumns = [
   {
     accessorKey: "notes",
     header: "Note",
-    cell: (props) => (
-      <div className="min-w-36 px-4 text-center min-w-24">
-        {props.getValue() as string}
-      </div>
-    ),
+    cell: (props) => <NoteCell options={props} />,
     size: 10,
     minSize: 10,
   },

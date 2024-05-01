@@ -14,7 +14,7 @@ type ChartProps = {
 };
 
 const PieChart = ({
-  params,
+  params = {},
   borderColor = "white",
   width = "10rem",
   legend = "left",
