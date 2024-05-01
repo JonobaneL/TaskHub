@@ -1,5 +1,4 @@
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { CommandItem, CommandList } from "./ui/command";
 
 const RecentUsersList = () => {
   const users = [
@@ -21,11 +20,11 @@ const RecentUsersList = () => {
     },
   ];
   return (
-    <CommandList>
+    <ul>
       {users.map((item, index) => (
-        <CommandItem
+        <li
           key={index}
-          className="flex items-center gap-2 text-second"
+          className="flex items-center gap-2 text-second py-1.5 px-2"
         >
           <Avatar className="w-9 h-9">
             <AvatarImage src={item.image} />
@@ -34,9 +33,9 @@ const RecentUsersList = () => {
             </AvatarFallback>
           </Avatar>
           <span className="font-second">{item.name}</span>
-        </CommandItem>
+        </li>
       ))}
-    </CommandList>
+    </ul>
   );
 };
 

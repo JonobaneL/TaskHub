@@ -17,6 +17,7 @@ export type ProjectParams = {
   tablesID: string | null;
   tasksID: string | null;
   tables: TableParams[] | null;
+  color: string;
 };
 export type TableParams = {
   id: string;

@@ -8,8 +8,9 @@ import TaskTableFooter from "./TaskTableFooter";
 type TableProps = {
   color: string;
   table: TableParams<TaskParams>;
+  tasks: TaskParams[] | null;
 };
-const TableTemplate = ({ color, table }: TableProps) => {
+const TableTemplate = ({ color, table, tasks }: TableProps) => {
   return (
     <Table
       style={{ borderColor: color }}

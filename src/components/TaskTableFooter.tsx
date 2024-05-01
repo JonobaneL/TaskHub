@@ -7,6 +7,7 @@ type FooterProps = {
   table: Table<TaskParams>;
 };
 const TaskTableFooter = ({ table }: FooterProps) => {
+  // console.log(table.getRowModel().rows);
   return (
     <TableFooter className="bg-white">
       <TableRow className="divide-x">

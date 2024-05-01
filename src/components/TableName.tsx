@@ -31,7 +31,7 @@ const TableName = ({ table, taskAmount }: NameProps) => {
           condition={conditionHandler}
         />
       ) : (
-        <Helper content="Click to Edit">
+        <Helper side="right" content="Click to Edit">
           <h3
             onClick={(e) => handler(e)}
             style={{ color: table.color }}

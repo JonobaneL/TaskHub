@@ -7,8 +7,13 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import gridIcon from "../assets/images/header/box-icon.svg";
+import { useTypeSelector } from "@/hooks/useReduxHooks";
+import Loader from "./ui/Loader";
+import { useNavigate } from "react-router-dom";
 
 const Projects = () => {
+  const { isLoading, user } = useTypeSelector((state) => state.userReducer);
+  const navigate = useNavigate();
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="p-[0.4rem] hover:bg-accent transition duration-150 rounded-sm ">
@@ -20,24 +25,25 @@ const Projects = () => {
       >
         <DropdownMenuLabel className="font-main">Projects</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem className="flex items-center gap-2">
-          <div className="w-8 h-8 bg-accent-y font-main text-text text-center leading-8 font-medium rounded-sm">
-            F
-          </div>
-          <span className="font-main">First Project</span>
-        </DropdownMenuItem>
-        <DropdownMenuItem className="flex items-center gap-2">
-          <div className="w-8 h-8 bg-accent-y font-main text-text text-center leading-8 font-medium rounded-sm">
-            S
-          </div>
-          <span className="font-main">Second Project</span>
-        </DropdownMenuItem>
-        <DropdownMenuItem className="flex items-center gap-2">
-          <div className="w-8 h-8 bg-accent-y font-main text-text text-center leading-8 font-medium rounded-sm">
-            T
-          </div>
-          <span className="font-main">Third Project</span>
-        </DropdownMenuItem>
+        {isLoading ? (
+          <Loader />
+        ) : (
+          user.projects?.map((item) => (
+            <DropdownMenuItem
+              className="flex items-center gap-2"
+              key={item.id}
+              onClick={() => navigate(`project/${item.id}/tables`)}
+            >
+              <div
+                style={{ background: item.color }}
+                className="w-8 h-8 font-main text-background text-center leading-8 font-medium rounded-sm"
+              >
+                {item.name?.slice(0, 1)}
+              </div>
+              <span className="font-main">{item.name}</span>
+            </DropdownMenuItem>
+          ))
+        )}
       </DropdownMenuContent>
     </DropdownMenu>
   );

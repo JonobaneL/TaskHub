@@ -1,5 +1,5 @@
 import { TableCell, TableRow } from "./table";
-import loader from "../../assets/images/tableLoader.svg";
+import loader from "../../assets/images/fadeLoader.svg";
 
 type LoaderProps = {
   length: number;

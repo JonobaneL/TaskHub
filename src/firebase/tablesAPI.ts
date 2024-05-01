@@ -9,7 +9,7 @@ import { firestoreDB } from ".";
 import { TaskKeys, TaskParams } from "@/models/projectTypes";
 
 export const getAllTables = (tablesID: string | null) => {
-  if (!tablesID) return;
+  if (!tablesID) return new Promise((_, rej) => rej());
   const collectionRef = collection(firestoreDB, tablesID);
   return getDocs(collectionRef);
 };
@@ -27,7 +27,7 @@ export const updateTableMethod = (
   });
 };
 export const getAllTasks = (tasksID: string | null) => {
-  if (!tasksID) return;
+  if (!tasksID) return new Promise((_, rej) => rej());
   const tasksRef = collection(firestoreDB, tasksID);
   return getDocs(tasksRef);
 };

@@ -20,10 +20,7 @@ const TablesNav = () => {
       <div className="w-fit space-x-2">
         <Sheet open={newTask} onOpenChange={setNewTask}>
           <SheetTrigger asChild>
-            <Button
-              className="h-8 p-2 font-medium text-background text-[0.8rem] font-main rounded-sm"
-              onClick={() => console.log("some")}
-            >
+            <Button className="h-8 p-2 font-medium text-background text-[0.8rem] font-main rounded-sm">
               New task
             </Button>
           </SheetTrigger>
