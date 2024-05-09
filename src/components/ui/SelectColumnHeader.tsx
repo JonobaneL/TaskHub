@@ -1,11 +1,6 @@
-import { Table } from "@tanstack/react-table";
-import { TaskParams } from "@/models/projectTypes";
+import { TableTanstack } from "@/models/projectTypes";
 
-type SelectProps = {
-  table: Table<TaskParams>;
-};
-
-const SelectColumnHeader = ({ table }: SelectProps) => {
+const SelectColumnHeader = ({ table }: TableTanstack) => {
   return (
     <div className="size-9 flex justify-center items-center">
       <input

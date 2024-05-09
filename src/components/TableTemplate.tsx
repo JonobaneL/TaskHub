@@ -14,7 +14,7 @@ const TableTemplate = ({ color, table, tasks }: TableProps) => {
   return (
     <Table
       style={{ borderColor: color }}
-      className="border-l-4 overflow-x-auto"
+      className="border-l-4 overflow-x-auto border-y border-y-slate-200"
     >
       <TasksTableHeader table={table} />
       <TasksTableBody table={table} />

@@ -1,4 +1,4 @@
-import { CellContext } from "@tanstack/react-table";
+import { CellContext, Table } from "@tanstack/react-table";
 
 export type LableParams = {
   color: string;
@@ -55,6 +55,9 @@ export type UpdateTaskProps = {
 };
 export type CellDefaultProps = {
   options: CellContext<TaskParams, unknown>;
+};
+export type TableTanstack = {
+  table: Table<TaskParams>;
 };
 export type AddTaskParams = {
   task: string;

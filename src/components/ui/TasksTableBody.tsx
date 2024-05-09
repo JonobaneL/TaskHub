@@ -1,15 +1,11 @@
-import { TaskParams } from "@/models/projectTypes";
-import { Table, flexRender } from "@tanstack/react-table";
+import { TableTanstack } from "@/models/projectTypes";
+import { flexRender } from "@tanstack/react-table";
 import { TableBody, TableCell, TableRow } from "./table";
 import TasksTableLoader from "./TasksTableLoader";
 import TasksTableEmpty from "./TasksTableEmpty";
 import { useTypeSelector } from "@/hooks/useReduxHooks";
 
-type BodyProps = {
-  table: Table<TaskParams>;
-};
-
-const TasksTableBody = ({ table }: BodyProps) => {
+const TasksTableBody = ({ table }: TableTanstack) => {
   const { isTasksLoading } = useTypeSelector((state) => state.projectReducer);
   return (
     <TableBody>

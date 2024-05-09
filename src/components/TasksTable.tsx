@@ -15,6 +15,7 @@ import { taskTableColumns } from "@/data/tasksTableColumns";
 import TableTemplate from "./TableTemplate";
 import { addNewTask, updateTask } from "@/store/thunks/tasksThunks";
 import { useTypeDispatch } from "@/hooks/useReduxHooks";
+import TasksTableStatistic from "./TasksTableStatistic";
 
 type TasksTableProps = {
   table: TableParams;
@@ -23,6 +24,7 @@ declare module "@tanstack/react-table" {
   interface TableMeta<TData extends RowData> {
     updateData: (rowIndex: number, columnId: string, value: unknown) => void;
     addTask: (task: AddTaskParams) => void;
+    tableID: string;
   }
 }
 
@@ -46,6 +48,7 @@ const TasksTable = ({ table }: TasksTableProps) => {
       addTask: (task: AddTaskParams) => {
         dispatch(addNewTask({ ...task, tableID: table.id }));
       },
+      tableID: table.id,
     },
     getCoreRowModel: getCoreRowModel(),
   });
@@ -58,6 +61,7 @@ const TasksTable = ({ table }: TasksTableProps) => {
         color={table.color}
         table={tableTemplate}
       />
+      <TasksTableStatistic table={tableTemplate} />
     </div>
   );
 };

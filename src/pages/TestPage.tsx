@@ -1,4 +1,5 @@
 import Field from "@/components/ui/Field";
+import LineChart from "@/components/ui/LineChart";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import {
@@ -166,6 +167,23 @@ const TestPage = () => {
       <br />
       <br />
       <br />
+      <LineChart
+        params={{
+          done: {
+            value: 2,
+            color: "green",
+          },
+          none: {
+            value: 1,
+            color: "grey",
+          },
+          "in progres": {
+            value: 4,
+            color: "yellow",
+          },
+        }}
+        total={7}
+      />
     </div>
   );
 };

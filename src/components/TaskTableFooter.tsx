@@ -1,13 +1,8 @@
 import { TableCell, TableFooter, TableRow } from "./ui/table";
 import AddTaskCell from "./AddTaskCell";
-import { Table } from "@tanstack/react-table";
-import { TaskParams } from "@/models/projectTypes";
+import { TableTanstack } from "@/models/projectTypes";
 
-type FooterProps = {
-  table: Table<TaskParams>;
-};
-const TaskTableFooter = ({ table }: FooterProps) => {
-  // console.log(table.getRowModel().rows);
+const TaskTableFooter = ({ table }: TableTanstack) => {
   return (
     <TableFooter className="bg-white">
       <TableRow className="divide-x">

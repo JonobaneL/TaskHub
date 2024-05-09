@@ -1,11 +1,8 @@
-import { TaskParams } from "@/models/projectTypes";
-import { Table, flexRender } from "@tanstack/react-table";
+import { TableTanstack } from "@/models/projectTypes";
+import { flexRender } from "@tanstack/react-table";
 import { TableHead, TableHeader, TableRow } from "./table";
 
-type HeaderProps = {
-  table: Table<TaskParams>;
-};
-const TasksTableHeader = ({ table }: HeaderProps) => {
+const TasksTableHeader = ({ table }: TableTanstack) => {
   return (
     <TableHeader>
       {table.getHeaderGroups().map((head) => (
@@ -17,7 +14,7 @@ const TasksTableHeader = ({ table }: HeaderProps) => {
                 width: `${header.column.columnDef.size}rem`,
                 minWidth: `${header.column.columnDef?.minSize}rem`,
               }}
-              className={`w-[${header.column.columnDef.size}rem] px-0 text-center font-main h-9`}
+              className={` px-0 text-center font-main h-9`}
             >
               {header.isPlaceholder
                 ? null

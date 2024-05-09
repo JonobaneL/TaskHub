@@ -1,14 +1,8 @@
+import { DynamicKeyObject } from "@/models/RareUseTypes";
 import Helper from "./Helper";
 
-type Params = {
-  [key: string]: {
-    value: number;
-    color: string;
-  };
-};
-
 type ChartProps = {
-  params: Params;
+  params: DynamicKeyObject;
   total: number;
   asChild?: boolean;
   config?: {
@@ -17,7 +11,12 @@ type ChartProps = {
   };
 };
 
-const LineChart = ({ params, total, asChild = false, config }: ChartProps) => {
+const LineChart = ({
+  params,
+  total = 1,
+  asChild = false,
+  config,
+}: ChartProps) => {
   const options = Object.keys(params).map((key) => {
     const width = (params[key].value / total) * 100;
     return {
@@ -46,7 +45,12 @@ const LineChart = ({ params, total, asChild = false, config }: ChartProps) => {
           <Helper side="bottom" key={item.name} content={content}>
             <div
               key={item.name}
-              style={{ width: `${item.width}%`, background: item.color }}
+              style={{
+                width: `${item.width}%`,
+                background: item.color,
+                border:
+                  item.name == "empty" ? "1px solid rgb(209 213 219)" : "none",
+              }}
               className={`group h-full flex items-center justify-center transition-all duration-200 hover:scale-105 `}
             ></div>
           </Helper>

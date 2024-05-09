@@ -7,6 +7,9 @@ import StatusCell from "@/components/ui/StatusCell";
 import DueDateCell from "@/components/ui/DueDateCell";
 import PriorityCell from "@/components/ui/PriorityCell";
 import NoteCell from "@/components/ui/NoteCell";
+import StatusColumnFooter from "@/components/StatusColumnFooter";
+import PriorityColumnFooter from "@/components/PriorityColumnFooter";
+import DateColumnFooter from "@/components/DateColumnFooter";
 
 export const taskTableColumns = [
   {
@@ -30,8 +33,9 @@ export const taskTableColumns = [
     accessorKey: "status",
     header: "Status",
     cell: (props) => <StatusCell options={props} />,
-    size: 11,
+    size: 10,
     minSize: 10,
+    footer: ({ table }) => <StatusColumnFooter table={table} />,
   },
   {
     accessorKey: "due_date",
@@ -39,6 +43,7 @@ export const taskTableColumns = [
     cell: (props) => <DueDateCell options={props} />,
     size: 9,
     minSize: 9,
+    footer: ({ table }) => <DateColumnFooter table={table} />,
   },
   {
     accessorKey: "priority",
@@ -46,6 +51,7 @@ export const taskTableColumns = [
     cell: (props) => <PriorityCell options={props} />,
     size: 9,
     minSize: 9,
+    footer: ({ table }) => <PriorityColumnFooter table={table} />,
   },
   {
     accessorKey: "notes",

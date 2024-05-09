@@ -23,7 +23,7 @@ const StatusCell = ({ options }: CellDefaultProps) => {
         <PopoverTrigger asChild>
           <div
             style={{ backgroundColor: color }}
-            className="h-full cursor-pointer px-4 capitalize text-center leading-9 text-background font-semibold"
+            className="h-full cursor-pointer px-4 capitalize text-center leading-9 text-background"
           >
             {row.original.status}
           </div>

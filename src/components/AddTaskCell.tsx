@@ -1,13 +1,8 @@
 import { TableCell } from "./ui/table";
 import { useState } from "react";
-import { Table } from "@tanstack/react-table";
-import { TaskParams } from "@/models/projectTypes";
+import { TableTanstack } from "@/models/projectTypes";
 
-type CellProps = {
-  table: Table<TaskParams>;
-};
-
-const AddTaskCell = ({ table }: CellProps) => {
+const AddTaskCell = ({ table }: TableTanstack) => {
   const [task, setTask] = useState("");
   const addTaskHandler = async () => {
     if (task) {
