@@ -31,7 +31,7 @@ const PriorityColumnFooter = ({ table }: TableTanstack) => {
   return (
     <div className="w-full h-full p-1.5">
       <LineChart
-        config={{ width: true }}
+        config={{ width: true, tooltipAlign: "top" }}
         params={chartParams}
         asChild={true}
         total={tasks?.length || 0}

@@ -11,7 +11,7 @@ const TasksTableStatistic = ({ table }: TableTanstack) => {
           {footerGroup.headers.map((footer) => (
             <div
               key={footer.id}
-              className="p-0 h-9 flex-cover"
+              className="p-0 h-9 flex-cover rounded-b-sm"
               style={{
                 width: `${footer.column.columnDef.size}rem`,
                 minWidth: `${footer.column.columnDef.minSize}rem`,

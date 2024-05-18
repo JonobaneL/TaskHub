@@ -54,6 +54,7 @@ const TestPage = () => {
   const onSubmit = (data: NewTaskForm) => {
     console.log(data);
   };
+  const [isHovered, setIsHovered] = useState(false);
   return (
     <div className="border border-primary m-10 p-4 bg-slate-200">
       <div className="w-[28rem] p-5 shadow-sm bg-white">
@@ -184,6 +185,26 @@ const TestPage = () => {
         }}
         total={7}
       />
+      <br />
+      <br />
+      <br />
+      <div></div>
+      <div
+        className={`relative h-24 w-30 border border-red-500`}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
+        <div
+          className="absolute w-24 h-24 bg-blue-500 transition"
+          style={{ left: isHovered ? "100px" : 0 }}
+        >
+          Hover me
+        </div>
+      </div>
+      <div className="flex h-10 w-full border border-red-500 group overflow-hidden">
+        <div className="w-10 h-10 bg-green-400 -translate-x-10 group-hover:translate-x-0 transition-transform	duration-300"></div>
+        <div className=" w-20 h-full bg-slate-800 -translate-x-10	group-hover:translate-x-2 transition-transform	duration-300"></div>
+      </div>
     </div>
   );
 };

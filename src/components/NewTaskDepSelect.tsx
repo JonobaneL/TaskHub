@@ -6,7 +6,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "./ui/select";
-import { NewTaskFormParams } from "@/models/newTaskTypes";
+import { NewTaskFormParams } from "@/models/formTypes";
 import { LableParams } from "@/models/projectTypes";
 
 type SelectProps = {

@@ -3,6 +3,8 @@ import calendarIcon from "../../assets/images/calendar-add.svg";
 import { useState } from "react";
 import DateSelect from "./DateSelect";
 import HoverEditButton from "./HoverEditButton";
+import { checkDeadline } from "@/utils/checkDeadline";
+import AttentionNotification from "../AttentionNotification";
 
 const DueDateCell = ({ options }: CellDefaultProps) => {
   const { table, column, row } = options;
@@ -19,6 +21,7 @@ const DueDateCell = ({ options }: CellDefaultProps) => {
       );
     }
   };
+  const isDeadlinePassed = checkDeadline(date);
 
   return (
     <div className="group w-full h-full">
@@ -29,7 +32,8 @@ const DueDateCell = ({ options }: CellDefaultProps) => {
       >
         {calendarDate ? (
           <div className="w-full h-full p-1">
-            <div className="w-full h-full group-hover:border border-grey-500 flex items-center justify-center cursor-pointer">
+            <div className="w-full h-full flex items-center justify-center cursor-pointer relative">
+              {isDeadlinePassed ? <AttentionNotification /> : null}
               <p>{dateToShow}</p>
             </div>
           </div>

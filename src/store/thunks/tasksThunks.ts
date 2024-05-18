@@ -25,6 +25,7 @@ export const fetchTasks = createAsyncThunk<TaskParams[], string | null>(
       const res = await getAllTasks(tasksID);
       const tasks: TaskParams[] = [];
       res?.forEach((item) => {
+        //check this later
         const task = item.data() as TaskResponseParams;
         const date = task.due_date;
         tasks.push({

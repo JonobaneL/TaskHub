@@ -2,7 +2,6 @@ import {
   SingUpFormParams,
   emailValidation,
   fieldValidation,
-  passwordConfirmValidation,
   passwordValidation,
 } from "@/data/formOptions";
 import mailIcon from "../assets/images/mail.svg";
@@ -13,6 +12,7 @@ import { useForm } from "react-hook-form";
 import { useTypeDispatch } from "@/hooks/useReduxHooks";
 import { signUpUser } from "@/store/reducers/userSlice";
 import { useNavigate } from "react-router-dom";
+import { passwordConfirmValidation } from "@/utils/formValidations";
 
 const SignUpForm = () => {
   const {

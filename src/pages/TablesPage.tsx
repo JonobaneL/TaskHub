@@ -9,12 +9,13 @@ const TablesPage = () => {
     (state) => state.projectReducer
   );
   return (
-    <section>
-      <h2 className="font-main text-[1.5rem] font-semibold text-text">
-        Tables
-      </h2>
-
-      <TablesNav />
+    <section className="p-5">
+      <div className="">
+        <h2 className="font-main text-[1.5rem] font-semibold text-text">
+          Tables
+        </h2>
+        <TablesNav />
+      </div>
       {isLoading ? (
         <div className="flex justify-center h-24">
           <img src={loaderIcon} alt="Loading..." />

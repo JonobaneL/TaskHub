@@ -31,12 +31,10 @@ const NoteCell = ({ options }: CellDefaultProps) => {
         </div>
       ) : row.original.notes ? (
         <div
-          className="h-full w-full p-1 group"
+          className="h-full w-full p-1 flex items-center"
           onClick={() => setIsOpen(true)}
         >
-          <div className="h-full group-hover:border border-grey-500 flex items-center justify-center cursor-pointer">
-            <p className="text-nowrap truncate">{row.original.notes}</p>
-          </div>
+          <p className="text-nowrap truncate">{row.original.notes}</p>
         </div>
       ) : (
         <div className="h-full" onClick={() => setIsOpen(true)}>

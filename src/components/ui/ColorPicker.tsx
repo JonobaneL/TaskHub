@@ -14,13 +14,14 @@ const ColorPicker = ({ type, color, colors, onChange }: PickerProps) => {
     onChange(colorName);
     setVisible(false);
   };
+
   return (
     <Popover open={visible} onOpenChange={setVisible}>
       <PopoverTrigger>
         <div
           onClick={() => setVisible(true)}
           style={{ background: color }}
-          className={`size-5 cursor-pointer bg-black ${
+          className={`size-5 cursor-pointer ${
             type == "round" ? "rounded-full" : "rounded-sm"
           }`}
         />

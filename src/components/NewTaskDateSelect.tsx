@@ -1,6 +1,6 @@
 import { Control, Controller } from "react-hook-form";
 import DateSelect from "./ui/DateSelect";
-import { NewTaskFormParams } from "@/models/newTaskTypes";
+import { NewTaskFormParams } from "@/models/formTypes";
 import { dateFormating } from "@/utils/dateFormating";
 
 type SelectProps = {

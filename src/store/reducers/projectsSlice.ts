@@ -19,11 +19,12 @@ const initialState: InitialProps = {
     id: null,
     name: null,
     members: null,
-    priority_labels: null,
+    priority_lables: null,
     status_lables: null,
     tablesID: null,
     tables: null,
     tasksID: null,
+    color: "",
   },
   isTasksLoading: false,
   isLoading: false,
@@ -64,6 +65,14 @@ const projectSlice = createSlice({
       });
       state.project.tables = tables || null;
     },
+    addNewGroupAction(state, action) {
+      state.project.tables = [...(state?.project.tables || []), action.payload];
+    },
+    deleteGroupAction(state, action) {
+      state.project.tables =
+        state.project.tables?.filter((item) => item.id !== action.payload) ||
+        null;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -92,7 +101,12 @@ const projectSlice = createSlice({
       });
   },
 });
-export const { updateTableHeaderAction, updateTaskAction, addNewTaskAction } =
-  projectSlice.actions;
+export const {
+  updateTableHeaderAction,
+  updateTaskAction,
+  addNewTaskAction,
+  addNewGroupAction,
+  deleteGroupAction,
+} = projectSlice.actions;
 
 export default projectSlice.reducer;

@@ -1,5 +1,10 @@
 import { getProject } from "@/firebase/projectAPI";
-import { getAllTables, updateTableMethod } from "@/firebase/tablesAPI";
+import {
+  addNewGroupMethod,
+  deleteGroupMethod,
+  getAllTables,
+  updateTableMethod,
+} from "@/firebase/tablesAPI";
 import {
   ProjectParams,
   TableParams,
@@ -7,7 +12,12 @@ import {
 } from "@/models/projectTypes";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { RootStore } from "../store";
-import { updateTableHeaderAction } from "../reducers/projectsSlice";
+import {
+  addNewGroupAction,
+  deleteGroupAction,
+  updateTableHeaderAction,
+} from "../reducers/projectsSlice";
+import { NewGroupFormParams } from "@/models/formTypes";
 
 export const fetchProject = createAsyncThunk<ProjectParams, string | undefined>(
   "project/fetch-project",
@@ -18,6 +28,7 @@ export const fetchProject = createAsyncThunk<ProjectParams, string | undefined>(
       const tablesRes = await getAllTables(project?.tablesID);
       const tables = [] as TableParams[];
       tablesRes?.forEach((item) => {
+        //check this later
         const table = item.data() as TableParams;
         tables.push({ ...table, id: item.id, tasks: null });
       });
@@ -41,7 +52,37 @@ export const updateTableHeader = createAsyncThunk<
       dispatch(updateTableHeaderAction({ tableID, key, value }));
       await updateTableMethod(project?.tablesID, tableID, key, value);
     } catch (err) {
-      return rejectWithValue("something wrong");
+      return rejectWithValue("something wrong project/update-table");
+    }
+  }
+);
+export const addNewGroup = createAsyncThunk<
+  void,
+  NewGroupFormParams,
+  { state: RootStore }
+>(
+  "project/add-new-group",
+  async (table, { rejectWithValue, getState, dispatch }) => {
+    try {
+      const state = getState();
+      const { project } = state.projectReducer;
+      dispatch(addNewGroupAction(table));
+      await addNewGroupMethod(project?.tablesID, table);
+    } catch (err) {
+      return rejectWithValue("something wrong project/add-new-group");
+    }
+  }
+);
+export const deleteGroup = createAsyncThunk<void, string, { state: RootStore }>(
+  "project/delete-group",
+  async (tableID, { rejectWithValue, dispatch, getState }) => {
+    try {
+      const state = getState();
+      const { project } = state.projectReducer;
+      dispatch(deleteGroupAction(tableID));
+      await deleteGroupMethod(tableID, project.tablesID);
+    } catch (err) {
+      return rejectWithValue("something wrong project/delete-group");
     }
   }
 );

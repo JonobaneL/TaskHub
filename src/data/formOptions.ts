@@ -14,13 +14,7 @@ export const passwordValidation = {
   minLength: { value: 6, message: "Password must be at least 6 character" },
   maxLength: { value: 20, message: "Password must be less than 20 characters" },
 };
-export const passwordConfirmValidation = {
-  ...passwordValidation,
-  validate: (value: string, formValues: SingUpFormParams) => {
-    if (value !== formValues.password) return "Passwords do not match.";
-    return true;
-  },
-};
+
 export const fieldValidation = {
   required: "This field is required",
 };

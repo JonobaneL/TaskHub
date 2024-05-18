@@ -8,6 +8,7 @@ type ChartProps = {
   config?: {
     width?: boolean;
     name?: boolean;
+    tooltipAlign?: "top" | "left" | "bottom" | "right";
   };
 };
 
@@ -42,7 +43,11 @@ const LineChart = ({
           config?.name ? item.name : "",
         ];
         return (
-          <Helper side="bottom" key={item.name} content={content}>
+          <Helper
+            side={config?.tooltipAlign || "bottom"}
+            key={item.name}
+            content={content}
+          >
             <div
               key={item.name}
               style={{

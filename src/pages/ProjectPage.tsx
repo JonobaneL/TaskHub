@@ -27,7 +27,7 @@ const ProjectPage = () => {
   return (
     <section className="flex gap-10 w-full">
       <ProjectNav />
-      <section className="p-[1rem] rounded shadow-md w-full bg-[#fff] overflow-x-hidden">
+      <section className="rounded shadow-md w-full bg-[#fff] overflow-x-hidden">
         <Outlet />
       </section>
     </section>

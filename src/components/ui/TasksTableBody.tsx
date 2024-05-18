@@ -14,7 +14,7 @@ const TasksTableBody = ({ table }: TableTanstack) => {
       ) : table.getRowModel().rows?.length ? (
         table.getRowModel().rows.map((row) => (
           <TableRow
-            className="h-9 divide-x"
+            className="h-9 divide-x hover:shadow data-[state=selected]:shadow"
             key={row.id}
             data-state={row.getIsSelected() && "selected"}
           >

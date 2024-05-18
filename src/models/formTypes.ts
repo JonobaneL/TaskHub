@@ -5,3 +5,8 @@ export type NewTaskFormParams = {
   due_date: string | null;
   priority: string | null;
 };
+
+export type NewGroupFormParams = {
+  name: string;
+  color: string;
+};

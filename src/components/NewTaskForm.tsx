@@ -4,7 +4,7 @@ import { Button } from "./ui/button";
 import { useForm } from "react-hook-form";
 import { fieldValidation } from "@/data/formOptions";
 import { addNewTask } from "@/store/thunks/tasksThunks";
-import { NewTaskFormParams } from "@/models/newTaskTypes";
+import { NewTaskFormParams } from "@/models/formTypes";
 import NewTaskDateSelect from "./NewTaskDateSelect";
 import NewTaskDepSelect from "./NewTaskDepSelect";
 
@@ -58,7 +58,7 @@ const NewTaskForm = ({ onClose }: FormProps) => {
         name="priority"
       />
       <Button
-        className="w-1/4 h-9 text-white font-main self-end mt-2"
+        className="w-fit h-9 text-white font-main self-end mt-2"
         variant="default"
         type="submit"
         disabled={isSubmitting}

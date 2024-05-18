@@ -8,13 +8,12 @@ import TaskTableFooter from "./TaskTableFooter";
 type TableProps = {
   color: string;
   table: TableParams<TaskParams>;
-  tasks: TaskParams[] | null;
 };
-const TableTemplate = ({ color, table, tasks }: TableProps) => {
+const TableTemplate = ({ color, table }: TableProps) => {
   return (
     <Table
       style={{ borderColor: color }}
-      className="border-l-4 overflow-x-auto border-y border-y-slate-200"
+      className="border-l-4 border-y border-y-slate-200 shadow"
     >
       <TasksTableHeader table={table} />
       <TasksTableBody table={table} />
