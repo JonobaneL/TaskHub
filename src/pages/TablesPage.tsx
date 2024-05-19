@@ -1,8 +1,8 @@
 import TablesNav from "@/components/TablesNav";
-import loaderIcon from "../assets/images/bouncingLoader.svg";
 import { useTypeSelector } from "@/hooks/useReduxHooks";
 import TasksTable from "@/components/TasksTable";
 import { TableParams } from "@/models/projectTypes";
+import Loader from "@/components/ui/Loader";
 
 const TablesPage = () => {
   const { isLoading, project } = useTypeSelector(
@@ -17,10 +17,7 @@ const TablesPage = () => {
         <TablesNav />
       </div>
       {isLoading ? (
-        <div className="flex justify-center h-24">
-          <img src={loaderIcon} alt="Loading..." />
-          {/*make a separate component*/}
-        </div>
+        <Loader type="bouncing" />
       ) : (
         <div className="space-y-4 w-full overflow-x-scroll pb-10">
           {project.tables?.map((item: TableParams) => (

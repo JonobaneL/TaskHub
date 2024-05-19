@@ -14,7 +14,7 @@ type MenuProps = {
   table: TableParams;
 };
 
-const TableContextMenu = ({ table }: MenuProps) => {
+const TableDropdownMenu = ({ table }: MenuProps) => {
   const dispatch = useTypeDispatch();
   const deleteHandler = () => {
     dispatch(deleteGroup(table.id));
@@ -41,4 +41,4 @@ const TableContextMenu = ({ table }: MenuProps) => {
   );
 };
 
-export default TableContextMenu;
+export default TableDropdownMenu;

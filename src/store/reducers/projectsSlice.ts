@@ -65,6 +65,17 @@ const projectSlice = createSlice({
       });
       state.project.tables = tables || null;
     },
+    deleteTaskAction(state, action) {
+      const props = action.payload;
+      const tables = state.project.tables?.map((item) => {
+        if (item.id == props.tableID) {
+          const tasks = item.tasks?.filter((task) => task.id !== props.taskID);
+          return { ...item, tasks: tasks || [] };
+        }
+        return item;
+      });
+      state.project.tables = tables || null;
+    },
     addNewGroupAction(state, action) {
       state.project.tables = [...(state?.project.tables || []), action.payload];
     },
@@ -107,6 +118,7 @@ export const {
   addNewTaskAction,
   addNewGroupAction,
   deleteGroupAction,
+  deleteTaskAction,
 } = projectSlice.actions;
 
 export default projectSlice.reducer;

@@ -31,7 +31,7 @@ const ProjectInfoDetails = ({ project, tasks }: DetailsProps) => {
       </div>
       <div className="space-y-1 mt-4">
         {isTablesLoading ? (
-          <Loader />
+          <Loader type="fade" />
         ) : (
           <>
             <p className="text-sm">Groups: {tables?.length}</p>

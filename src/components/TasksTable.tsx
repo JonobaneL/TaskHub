@@ -56,13 +56,8 @@ const TasksTable = ({ table }: TasksTableProps) => {
   return (
     <div>
       <TableName table={table} taskAmount={table.tasks?.length || 0} />
-      <div className="flex gap-0">
-        <div className="w-0" />
-        <div>
-          <TableTemplate color={table.color} table={tableTemplate} />
-          <TasksTableStatistic table={tableTemplate} />
-        </div>
-      </div>
+      <TableTemplate color={table.color} table={tableTemplate} />
+      <TasksTableStatistic table={tableTemplate} />
     </div>
   );
 };

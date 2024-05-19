@@ -1,9 +1,14 @@
 import { TaskParams, UpdateTaskProps } from "@/models/projectTypes";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { RootStore } from "../store";
-import { addNewTaskAction, updateTaskAction } from "../reducers/projectsSlice";
+import {
+  addNewTaskAction,
+  deleteTaskAction,
+  updateTaskAction,
+} from "../reducers/projectsSlice";
 import {
   addTaskMethod,
+  deleteTaskMethod,
   getAllTasks,
   updateTaskMethod,
 } from "@/firebase/tablesAPI";
@@ -83,6 +88,7 @@ type AddNewTaskProps = {
   due_date?: string | null;
   priority?: string | null;
   status?: string;
+  notes?: string | null;
 };
 
 export const addNewTask = createAsyncThunk<
@@ -108,3 +114,25 @@ export const addNewTask = createAsyncThunk<
     rejectWithValue(err);
   }
 });
+type DeleteTaskProps = {
+  taskID: string;
+  tableID: string;
+};
+
+export const deleteTask = createAsyncThunk<
+  void,
+  DeleteTaskProps,
+  { state: RootStore }
+>(
+  "project/delete-task",
+  async (props, { rejectWithValue, getState, dispatch }) => {
+    try {
+      const state = getState();
+      const { project } = state.projectReducer;
+      dispatch(deleteTaskAction(props));
+      await deleteTaskMethod(props.taskID, project.tasksID);
+    } catch (err) {
+      rejectWithValue(err);
+    }
+  }
+);

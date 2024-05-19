@@ -4,11 +4,11 @@ import {
   deleteDoc,
   doc,
   getDocs,
+  setDoc,
   updateDoc,
 } from "firebase/firestore";
 import { firestoreDB } from ".";
 import { TaskKeys } from "@/models/projectTypes";
-import { NewGroupFormParams } from "@/models/formTypes";
 
 export const getAllTables = (tablesID: string | null) => {
   if (!tablesID) return new Promise((_, rej) => rej());
@@ -60,13 +60,23 @@ export const addTaskMethod = (tasksID: string, task: NewTaskParams) => {
   const collectionRef = collection(firestoreDB, tasksID);
   return addDoc(collectionRef, task);
 };
+export const deleteTaskMethod = (taskID: string, tasksID: string | null) => {
+  if (tasksID == null) return new Promise((_, rej) => rej());
+  const docRef = doc(firestoreDB, tasksID, taskID);
+  return deleteDoc(docRef);
+};
+type NewGroupFormParams = {
+  color: string;
+  name: string;
+  id: string;
+};
 export const addNewGroupMethod = (
   tablesID: string | null,
   table: NewGroupFormParams
 ) => {
   if (tablesID == null) return new Promise((_, rej) => rej());
-  const collectionRef = collection(firestoreDB, tablesID);
-  return addDoc(collectionRef, table);
+  const docRef = doc(firestoreDB, tablesID, table.id);
+  return setDoc(docRef, { name: table.name, color: table.color });
 };
 
 export const deleteGroupMethod = (

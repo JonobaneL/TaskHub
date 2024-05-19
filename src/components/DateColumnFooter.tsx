@@ -28,9 +28,11 @@ const DateColumnFooter = ({ table }: TableTanstack) => {
                   {dateFormating(date?.startDate)} -{" "}
                   {dateFormating(date?.endDate)}
                 </p>
-                <p className="font-normal text-background hidden group-hover:block">
-                  {days} days
-                </p>
+                {date?.startDate && (
+                  <p className="font-normal text-background hidden group-hover:block">
+                    {days} days
+                  </p>
+                )}
               </>
             ) : (
               <p className="font-normal text-background">

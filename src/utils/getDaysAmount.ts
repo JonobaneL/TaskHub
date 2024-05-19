@@ -1,6 +1,6 @@
 export const getDaysAmount = (
-  startDate: string | undefined,
-  endDate: string | undefined
+  startDate: string | null | undefined,
+  endDate: string | null | undefined
 ) => {
   if (!startDate || !endDate) return 0;
   const start = new Date(startDate).getTime();

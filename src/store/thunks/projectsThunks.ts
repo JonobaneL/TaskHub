@@ -66,8 +66,9 @@ export const addNewGroup = createAsyncThunk<
     try {
       const state = getState();
       const { project } = state.projectReducer;
-      dispatch(addNewGroupAction(table));
-      await addNewGroupMethod(project?.tablesID, table);
+      const id = "table" + Date.now();
+      dispatch(addNewGroupAction({ id, ...table, tasks: [] }));
+      await addNewGroupMethod(project?.tablesID, { id, ...table });
     } catch (err) {
       return rejectWithValue("something wrong project/add-new-group");
     }

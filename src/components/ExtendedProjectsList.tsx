@@ -4,7 +4,7 @@ import Loader from "./ui/Loader";
 
 const ExtendedProjectsList = () => {
   const { isLoading, user } = useTypeSelector((state) => state.userReducer);
-  if (isLoading) return <Loader />;
+  if (isLoading) return <Loader type="fade" />;
   return (
     <ul className="divide-y-2">
       {user.projects?.map((item) => (

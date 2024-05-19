@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import Helper from "./ui/Helper";
 import { TableParams } from "@/models/projectTypes";
 import TableHeaderEditor from "./TableHeaderEditor";
-import TableContextMenu from "./TableContextMenu";
+import TableDropdownMenu from "./TableDropdownMenu";
 
 type NameProps = {
   table: TableParams;
@@ -33,7 +33,7 @@ const TableName = ({ table, taskAmount }: NameProps) => {
         />
       ) : (
         <div className="flex items-center">
-          <TableContextMenu table={table} />
+          <TableDropdownMenu table={table} />
           <Helper side="right" content="Click to Edit">
             <h3
               onClick={(e) => handler(e)}
@@ -47,7 +47,7 @@ const TableName = ({ table, taskAmount }: NameProps) => {
           </Helper>
         </div>
       )}
-      <p className="cursor-pointer opacity-0 group-hover:opacity-100 transition-opacity duration-100 text-sm leading-7 text-xs text-gray-500">
+      <p className="cursor-pointer opacity-0 group-hover:opacity-100 transition-opacity duration-100 text-sm  text-xs text-gray-500">
         {taskAmount} Tasks
       </p>
     </div>

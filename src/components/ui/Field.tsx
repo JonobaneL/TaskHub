@@ -24,14 +24,9 @@ const Field = forwardRef<HTMLInputElement, FieldProps>(
           <Input
             ref={ref}
             {...props}
-            style={
-              variant == "standart"
-                ? { paddingLeft: "0.5rem" }
-                : { paddingLeft: "2.25rem" }
-            }
             className={`focus:ring-1 focus-visible:ring-primary h-10 ${
               errors ? "ring-1 ring-red-500" : ""
-            }`}
+            } ${variant == "standart" ? "pl-2" : "pl-9"}`}
           />
         </div>
         {errors && (

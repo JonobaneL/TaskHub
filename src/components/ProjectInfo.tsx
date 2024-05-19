@@ -17,7 +17,7 @@ const ProjectInfo = ({ project }: ProjectInfoProps) => {
   return (
     <li className="flex justify-between divide-x-[1px] divide-slate-300">
       {isTasksLoading ? (
-        <Loader />
+        <Loader type="fade" />
       ) : (
         <>
           <ProjectInfoDetails project={project} tasks={tasks} />

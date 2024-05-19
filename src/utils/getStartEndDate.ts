@@ -10,6 +10,8 @@ export const getStartEndDate = (tasks: TaskParams[] | null | undefined) => {
   );
   const min = Math.min.apply(null, convertedDate);
   const max = Math.max.apply(null, convertedDate);
+  if (min == Infinity || max == -Infinity)
+    return { startDate: null, endDate: null };
   const startDate = new Date(min).toDateString();
   const endDate = new Date(max).toDateString();
   return { startDate, endDate };
