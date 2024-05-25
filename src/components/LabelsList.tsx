@@ -17,12 +17,19 @@ const LabelsList = ({ labels, onChange, closeHandler, type }: ListProps) => {
     onChange(value);
     closeHandler();
   };
+
   const [labelsForm, setLabelsForm] = useState(false);
   const labelsLength = labels?.length || 0;
   return (
-    <div className="w-fit">
-      {!labelsForm ? (
-        <>
+    <div className="w-fit ">
+      {labelsForm ? (
+        <LabelsForm
+          type={type}
+          onClose={() => setLabelsForm(false)}
+          labels={labels}
+        />
+      ) : (
+        <div>
           <ul
             className={`grid gap-x-1.5 gap-y-1 ${
               labelsLength <= 5 ? "grid-cols-1" : "grid-cols-2"
@@ -48,13 +55,7 @@ const LabelsList = ({ labels, onChange, closeHandler, type }: ListProps) => {
             <img src={edit} alt="Edit" />
             <p className="font-medium text-text ml-2 rounded-sm">Edit Labels</p>
           </Button>
-        </>
-      ) : (
-        <LabelsForm
-          type={type}
-          onClose={() => setLabelsForm(false)}
-          labels={labels}
-        />
+        </div>
       )}
     </div>
   );

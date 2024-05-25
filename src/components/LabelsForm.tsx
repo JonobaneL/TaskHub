@@ -6,7 +6,6 @@ import { LabelFormParams } from "@/models/formTypes";
 import { useTypeDispatch, useTypeSelector } from "@/hooks/useReduxHooks";
 import { updateLabels } from "@/store/thunks/projectsThunks";
 import { LabelsTypeParams } from "@/models/RareUseTypes";
-import { checkArrays } from "@/utils/checkArrays";
 import LabelField from "./LabelField";
 
 type FormProps = {
@@ -19,7 +18,7 @@ const LabelsForm = ({ labels, type, onClose }: FormProps) => {
   const { control, handleSubmit, formState } = useForm<LabelFormParams>({
     defaultValues: { stages: labels || [] },
   });
-  const { fields, append, remove } = useFieldArray({
+  const { fields, append, remove, update } = useFieldArray({
     control: control,
     name: "stages",
   });
@@ -27,13 +26,6 @@ const LabelsForm = ({ labels, type, onClose }: FormProps) => {
   const errors = formState.errors.stages ? formState.errors.stages : [];
   const dispatch = useTypeDispatch();
   const submitHandler = (data: LabelFormParams) => {
-    const isChanged = checkArrays<LabelParams>(
-      data.stages,
-      project[type] || []
-    );
-    if (isChanged) {
-      dispatch(updateLabels({ type, labels: data.stages }));
-    }
     onClose();
   };
   const removeHandler = (index: number) => {
@@ -44,17 +36,23 @@ const LabelsForm = ({ labels, type, onClose }: FormProps) => {
       [];
     dispatch(updateLabels({ type, labels: updatedLabel }));
   };
-  const addLabel = (index: number, value: string) => {
+
+  const updateLabel = (index: number, key: string, value: string) => {
+    const { id, ...field } = fields[index];
     const newLabel = {
-      color: fields[index].color,
-      name: value,
-      labelID: fields[index].labelID,
+      ...field,
+      [key]: value,
     };
-    const updatedLabel = [...(project[type] || []), newLabel];
-    const labelContains = project[type]?.[index] ?? null;
-    if (!labelContains) {
-      dispatch(updateLabels({ type, labels: updatedLabel }));
+    if (value.length > 0) {
+      console.log(value);
+      update(index, newLabel);
     }
+    const labels = fields.map((item) => {
+      const { id, ...rest } = item;
+      if (item.labelID === fields[index].labelID) return newLabel;
+      return rest;
+    });
+    dispatch(updateLabels({ type, labels: labels }));
   };
 
   return (
@@ -71,8 +69,11 @@ const LabelsForm = ({ labels, type, onClose }: FormProps) => {
             error={errors[index] ? true : false}
             fieldItem={item}
             index={index}
+            fieldName={type.split("_")[0]}
             remove={() => removeHandler(index)}
-            addLabel={(value) => addLabel(index, value)}
+            updateLabel={(key: string, value: string) =>
+              updateLabel(index, key, value)
+            }
           />
         ))}
         {fields.length < 10 && <NewLabelButton append={append} />}

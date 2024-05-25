@@ -1,4 +1,3 @@
-import { TableParams, TaskParams } from "@/models/projectTypes";
 import {
   ContextMenu,
   ContextMenuTrigger,
@@ -9,30 +8,28 @@ import {
   ContextMenuSubTrigger,
 } from "./ui/context-menu";
 import { useTypeDispatch, useTypeSelector } from "@/hooks/useReduxHooks";
-import { Row, Table } from "@tanstack/react-table";
 import { addNewTask, deleteTask, updateTask } from "@/store/thunks/tasksThunks";
 import {
   addNewTaskAction,
   deleteTaskAction,
 } from "@/store/reducers/projectsSlice";
+import { TaskContextMenuProps } from "@/models/RareUseTypes";
 
-type MenuProps = {
-  children: React.ReactNode;
-  table: Table<TaskParams>;
-  row: Row<TaskParams>;
-};
-
-const TaskContextMenu = ({ table, row, children }: MenuProps) => {
+const TaskContextMenu = ({ table, row, children }: TaskContextMenuProps) => {
   const { project } = useTypeSelector((state) => state.projectReducer);
   const currentTableID = table.options.meta?.tableID || "";
   const currentTaskID = row.original.id;
+  const getTaskAndTable = () => {
+    const table = project.tables?.find((item) => item.id == currentTableID);
+    const task = table?.tasks?.find((item) => item.id == currentTaskID);
+    return task;
+  };
   const dispatch = useTypeDispatch();
   const deleteHandler = () => {
     dispatch(deleteTask({ taskID: currentTaskID, tableID: currentTableID }));
   };
   const moveToHandler = (tableID: string) => {
-    const table = project.tables?.find((item) => item.id == currentTableID);
-    const task = table?.tasks?.find((item) => item.id == currentTaskID);
+    const task = getTaskAndTable();
     dispatch(
       updateTask({
         tableID: currentTableID,
@@ -47,8 +44,7 @@ const TaskContextMenu = ({ table, row, children }: MenuProps) => {
     );
   };
   const duplicateHandler = () => {
-    const table = project.tables?.find((item) => item.id == currentTableID);
-    const task = table?.tasks?.find((item) => item.id == currentTaskID);
+    const task = getTaskAndTable();
     dispatch(
       addNewTask({
         task: task?.task + " (copy)",

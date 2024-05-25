@@ -24,5 +24,6 @@ export type LabelFieldProps = {
   control: Control<LabelFormParams, any>;
   index: number;
   remove: () => void;
-  addLabel: (value: string) => void;
+  updateLabel: (key: string, value: string) => void;
+  fieldName: string;
 };

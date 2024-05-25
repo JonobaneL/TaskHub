@@ -38,6 +38,7 @@ const PriorityCell = ({ options }: CellDefaultProps) => {
         </PopoverTrigger>
         <PopoverContent className="w-fit rounded-sm shadow-md ">
           <LabelsList
+            type="priority_labels"
             labels={project.priority_labels}
             onChange={handler}
             closeHandler={() => setIsOpen(false)}

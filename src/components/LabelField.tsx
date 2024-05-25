@@ -6,6 +6,9 @@ import { fieldValidation } from "@/data/formOptions";
 import removeIcon from "../assets/images/remove.svg";
 import { useOptionUse } from "@/hooks/useOptionUse";
 import Helper from "./ui/Helper";
+import { useTypeDispatch } from "@/hooks/useReduxHooks";
+import { updateTask } from "@/store/thunks/tasksThunks";
+import { TaskKeys } from "@/models/projectTypes";
 
 const LabelField = ({
   fieldItem,
@@ -13,9 +16,11 @@ const LabelField = ({
   error,
   control,
   remove,
-  addLabel,
+  updateLabel,
+  fieldName,
 }: LabelFieldProps) => {
-  const ids = useOptionUse("status", fieldItem.name);
+  const dispatch = useTypeDispatch();
+  const ids = useOptionUse(fieldName as TaskKeys, fieldItem.name);
   const removeHandler = () => {
     if (ids.length === 0) remove();
   };
@@ -24,7 +29,24 @@ const LabelField = ({
       if (ids.length === 0) remove();
       return;
     }
-    addLabel(value);
+    if (fieldItem.name !== value) {
+      if (ids.length > 0) {
+        ids.forEach((item) => {
+          console.log(item);
+          dispatch(
+            updateTask({
+              ...item,
+              key: fieldName as TaskKeys,
+              value: value,
+            })
+          );
+        });
+      }
+      updateLabel("name", value);
+    }
+  };
+  const colorHandler = (value: string) => {
+    updateLabel("color", value);
   };
   return (
     <li
@@ -57,7 +79,10 @@ const LabelField = ({
             type="square"
             colors={labelColors}
             color={field.value}
-            onChange={field.onChange}
+            onChange={(value) => {
+              field.onChange(value);
+              colorHandler(value);
+            }}
             asChild={true}
           />
         )}

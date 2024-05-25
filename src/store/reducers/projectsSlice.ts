@@ -89,6 +89,7 @@ const projectSlice = createSlice({
       const type = action.payload.type as LabelsTypeParams;
       state.project[type] = action.payload.labels;
     },
+    // updateTasks(state)
   },
   extraReducers: (builder) => {
     builder
