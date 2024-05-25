@@ -1,4 +1,4 @@
-import { getProject, updateLablesMethod } from "@/firebase/projectAPI";
+import { getProject, updateLabelsMethod } from "@/firebase/projectAPI";
 import {
   addNewGroupMethod,
   deleteGroupMethod,
@@ -7,7 +7,7 @@ import {
   updateTableMethod,
 } from "@/firebase/tablesAPI";
 import {
-  LableParams,
+  LabelParams,
   ProjectParams,
   TableParams,
   UpdateTableProps,
@@ -17,11 +17,11 @@ import { RootStore } from "../store";
 import {
   addNewGroupAction,
   deleteGroupAction,
-  updateLablesAction,
+  updateLabelsAction,
   updateTableHeaderAction,
 } from "../reducers/projectsSlice";
 import { NewGroupFormParams } from "@/models/formTypes";
-import { LablesTypeParams } from "@/models/RareUseTypes";
+import { LabelsTypeParams } from "@/models/RareUseTypes";
 
 export const fetchProject = createAsyncThunk<ProjectParams, string | undefined>(
   "project/fetch-project",
@@ -97,23 +97,23 @@ export const deleteGroup = createAsyncThunk<void, string, { state: RootStore }>(
   }
 );
 
-type UpdateLablesProps = {
-  type: LablesTypeParams;
-  lables: LableParams[];
+type UpdateLabelsProps = {
+  type: LabelsTypeParams;
+  labels: LabelParams[];
 };
-export const updateLables = createAsyncThunk<
+export const updateLabels = createAsyncThunk<
   void,
-  UpdateLablesProps,
+  UpdateLabelsProps,
   { state: RootStore }
 >(
-  "project/update-lables",
-  async ({ type, lables }, { rejectWithValue, dispatch, getState }) => {
+  "project/update-labels",
+  async ({ type, labels }, { rejectWithValue, dispatch, getState }) => {
     try {
       const state = getState();
       const { project } = state.projectReducer;
-      dispatch(updateLablesAction({ type, lables }));
+      dispatch(updateLabelsAction({ type, labels }));
       if (!project.id) return rejectWithValue("no projectID");
-      await updateLablesMethod(project.id, type, lables);
+      await updateLabelsMethod(project.id, type, labels);
     } catch (err) {
       console.log(err);
       return rejectWithValue("something wrong project/delete-group");

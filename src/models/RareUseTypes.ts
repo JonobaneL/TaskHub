@@ -4,4 +4,4 @@ export type DynamicKeyObject = {
     color: string;
   };
 };
-export type LablesTypeParams = "status_lables" | "priority_lables";
+export type LabelsTypeParams = "status_labels" | "priority_labels";

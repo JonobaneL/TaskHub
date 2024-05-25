@@ -1,5 +1,5 @@
 import { Control, FieldArrayWithId } from "react-hook-form";
-import { LableParams } from "./projectTypes";
+import { LabelParams } from "./projectTypes";
 
 export type NewTaskFormParams = {
   task: string;
@@ -14,16 +14,15 @@ export type NewGroupFormParams = {
   color: string;
 };
 
-export type LableFormParams = {
-  stages: LableParams[];
+export type LabelFormParams = {
+  stages: LabelParams[];
 };
 
-export type LableFieldProps = {
-  fieldItem: FieldArrayWithId<LableFormParams, "stages", "id">;
+export type LabelFieldProps = {
+  fieldItem: FieldArrayWithId<LabelFormParams, "stages", "id">;
   error: boolean;
-  control: Control<LableFormParams, any>;
+  control: Control<LabelFormParams, any>;
   index: number;
-  update: (ids: string[]) => void;
   remove: () => void;
-  addLable: (value: string) => void;
+  addLabel: (value: string) => void;
 };

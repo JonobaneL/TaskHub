@@ -12,7 +12,7 @@ const PriorityColumnFooter = ({ table }: TableTanstack) => {
   )?.tasks;
   const chartParams = useMemo(() => {
     const initial: DynamicKeyObject =
-      project.priority_lables?.reduce(
+      project.priority_labels?.reduce(
         (prev, current) => {
           return {
             ...prev,
@@ -27,7 +27,7 @@ const PriorityColumnFooter = ({ table }: TableTanstack) => {
       initial[priority].value = initial[priority].value + 1;
     });
     return initial;
-  }, [project.priority_lables, tasks]);
+  }, [project.priority_labels, tasks]);
   return (
     <div className="w-full h-full p-1.5">
       <LineChart

@@ -1,16 +1,16 @@
 import ExtendedProjectsList from "@/components/ExtendedProjectsList";
 import { Button } from "@/components/ui/button";
 import { useTypeDispatch, useTypeSelector } from "@/hooks/useReduxHooks";
-import { updateLables } from "@/store/thunks/projectsThunks";
+import { updateLabels } from "@/store/thunks/projectsThunks";
 
 const Dashboard = () => {
   const { project } = useTypeSelector((state) => state.projectReducer);
   const dispatch = useTypeDispatch();
   const handler = () => {
     dispatch(
-      updateLables({
-        type: "status_lables",
-        lables: project.status_lables || [],
+      updateLabels({
+        type: "status_labels",
+        labels: project.status_labels || [],
       })
     );
   };

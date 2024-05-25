@@ -7,15 +7,15 @@ import {
   SelectValue,
 } from "./ui/select";
 import { NewTaskFormParams } from "@/models/formTypes";
-import { LableParams } from "@/models/projectTypes";
+import { LabelParams } from "@/models/projectTypes";
 
 type SelectProps = {
   control: Control<NewTaskFormParams>;
-  lables: LableParams[] | null;
+  labels: LabelParams[] | null;
   name: FieldPath<NewTaskFormParams>;
 };
 
-const NewTaskDepSelect = ({ control, lables, name }: SelectProps) => {
+const NewTaskDepSelect = ({ control, labels, name }: SelectProps) => {
   return (
     <div className="flex item-center justify-between">
       <p className="text-sm leading-9 capitalize">{name}</p>
@@ -31,7 +31,7 @@ const NewTaskDepSelect = ({ control, lables, name }: SelectProps) => {
               <SelectValue placeholder={`Select ${name}`} />
             </SelectTrigger>
             <SelectContent>
-              {lables?.map((item) => (
+              {labels?.map((item) => (
                 <SelectItem
                   key={item.color}
                   className="capitalize"

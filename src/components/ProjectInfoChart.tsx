@@ -11,7 +11,7 @@ type ChartProps = {
 const ProjectInfoChart = ({ project, tasks }: ChartProps) => {
   const chartData = useMemo(() => {
     const initial: DynamicKeyObject =
-      project.status_lables?.reduce((prev, current) => {
+      project.status_labels?.reduce((prev, current) => {
         return { ...prev, [current.name]: { value: 0, color: current.color } };
       }, {}) || {};
     tasks?.forEach((task) => {
@@ -19,7 +19,7 @@ const ProjectInfoChart = ({ project, tasks }: ChartProps) => {
       initial[status].value = initial[status].value + 1;
     });
     return initial;
-  }, [project.status_lables, tasks?.length]);
+  }, [project.status_labels, tasks?.length]);
   return (
     <div className="pl-6">
       <PieChart params={chartData} />

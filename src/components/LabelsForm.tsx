@@ -1,23 +1,23 @@
-import { LableParams } from "@/models/projectTypes";
+import { LabelParams } from "@/models/projectTypes";
 import { useFieldArray, useForm } from "react-hook-form";
 import { Button } from "./ui/button";
-import NewLableButton from "./NewLableButton";
-import { LableFormParams } from "@/models/formTypes";
-import LableField from "./LableField";
+import NewLabelButton from "./NewLabelButton";
+import { LabelFormParams } from "@/models/formTypes";
 import { useTypeDispatch, useTypeSelector } from "@/hooks/useReduxHooks";
-import { updateLables } from "@/store/thunks/projectsThunks";
-import { LablesTypeParams } from "@/models/RareUseTypes";
+import { updateLabels } from "@/store/thunks/projectsThunks";
+import { LabelsTypeParams } from "@/models/RareUseTypes";
 import { checkArrays } from "@/utils/checkArrays";
+import LabelField from "./LabelField";
 
 type FormProps = {
-  lables: LableParams[] | null;
-  type: LablesTypeParams;
+  labels: LabelParams[] | null;
+  type: LabelsTypeParams;
   onClose: () => void;
 };
 
-const LablesForm = ({ lables, type, onClose }: FormProps) => {
-  const { control, handleSubmit, formState } = useForm<LableFormParams>({
-    defaultValues: { stages: lables || [] },
+const LabelsForm = ({ labels, type, onClose }: FormProps) => {
+  const { control, handleSubmit, formState } = useForm<LabelFormParams>({
+    defaultValues: { stages: labels || [] },
   });
   const { fields, append, remove } = useFieldArray({
     control: control,
@@ -26,35 +26,34 @@ const LablesForm = ({ lables, type, onClose }: FormProps) => {
   const { project } = useTypeSelector((state) => state.projectReducer);
   const errors = formState.errors.stages ? formState.errors.stages : [];
   const dispatch = useTypeDispatch();
-  const submitHandler = (data: LableFormParams) => {
-    const isChanged = checkArrays<LableParams>(
+  const submitHandler = (data: LabelFormParams) => {
+    const isChanged = checkArrays<LabelParams>(
       data.stages,
       project[type] || []
     );
-    console.log(fields);
     if (isChanged) {
-      dispatch(updateLables({ type, lables: data.stages }));
+      dispatch(updateLabels({ type, labels: data.stages }));
     }
     onClose();
   };
   const removeHandler = (index: number) => {
-    const removedLable = fields[index];
+    const removedLabel = fields[index];
     remove(index);
-    const updatedLables =
-      project[type]?.filter((item) => item.lableID !== removedLable.lableID) ||
+    const updatedLabel =
+      project[type]?.filter((item) => item.labelID !== removedLabel.labelID) ||
       [];
-    dispatch(updateLables({ type, lables: updatedLables }));
+    dispatch(updateLabels({ type, labels: updatedLabel }));
   };
-  const addLable = (index: number, value: string) => {
-    const newLable = {
+  const addLabel = (index: number, value: string) => {
+    const newLabel = {
       color: fields[index].color,
       name: value,
-      lableID: fields[index].lableID,
+      labelID: fields[index].labelID,
     };
-    const updatedLables = [...(project[type] || []), newLable];
-    const lableContains = project[type] == null ? null : project[type][index]; //don't get why I have this message
-    if (!lableContains) {
-      dispatch(updateLables({ type, lables: updatedLables }));
+    const updatedLabel = [...(project[type] || []), newLabel];
+    const labelContains = project[type]?.[index] ?? null;
+    if (!labelContains) {
+      dispatch(updateLabels({ type, labels: updatedLabel }));
     }
   };
 
@@ -66,17 +65,17 @@ const LablesForm = ({ lables, type, onClose }: FormProps) => {
         }`}
       >
         {fields?.map((item, index) => (
-          <LableField
+          <LabelField
             key={index}
             control={control}
             error={errors[index] ? true : false}
             fieldItem={item}
             index={index}
             remove={() => removeHandler(index)}
-            addLable={(value) => addLable(index, value)}
+            addLabel={(value) => addLabel(index, value)}
           />
         ))}
-        {fields.length < 10 && <NewLableButton append={append} />}
+        {fields.length < 10 && <NewLabelButton append={append} />}
       </ul>
       <div className="h-[1px] w-full bg-accent my-2" />
       <Button
@@ -90,4 +89,4 @@ const LablesForm = ({ lables, type, onClose }: FormProps) => {
   );
 };
 
-export default LablesForm;
+export default LabelsForm;

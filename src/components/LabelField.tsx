@@ -1,31 +1,30 @@
-import { LableFieldProps } from "@/models/formTypes";
+import { LabelFieldProps } from "@/models/formTypes";
 import { Controller } from "react-hook-form";
 import ColorPicker from "./ui/ColorPicker";
-import { lableColors } from "@/data/table_colors";
+import { labelColors } from "@/data/table_colors";
 import { fieldValidation } from "@/data/formOptions";
 import removeIcon from "../assets/images/remove.svg";
 import { useOptionUse } from "@/hooks/useOptionUse";
 import Helper from "./ui/Helper";
-import { useEffect } from "react";
 
-const LableField = ({
+const LabelField = ({
   fieldItem,
   index,
   error,
   control,
   remove,
-  addLable,
-}: LableFieldProps) => {
+  addLabel,
+}: LabelFieldProps) => {
   const ids = useOptionUse("status", fieldItem.name);
   const removeHandler = () => {
-    console.log(ids.length);
+    if (ids.length === 0) remove();
   };
   const blurHandler = (value: string) => {
     if (value == "") {
       if (ids.length === 0) remove();
       return;
     }
-    addLable(value);
+    addLabel(value);
   };
   return (
     <li
@@ -56,7 +55,7 @@ const LableField = ({
         render={({ field }) => (
           <ColorPicker
             type="square"
-            colors={lableColors}
+            colors={labelColors}
             color={field.value}
             onChange={field.onChange}
             asChild={true}
@@ -84,4 +83,4 @@ const LableField = ({
   );
 };
 
-export default LableField;
+export default LabelField;

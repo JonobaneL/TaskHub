@@ -12,7 +12,7 @@ export const table_colors = [
   "#757575",
 ] as const;
 
-export const lableColors = [
+export const labelColors = [
   "#359970",
   "#B0DC51",
   "#D5C567",

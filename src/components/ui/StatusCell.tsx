@@ -1,5 +1,5 @@
 import { Popover, PopoverContent, PopoverTrigger } from "./popover";
-import LablesList from "../LablesList";
+import LabelsList from "../LabelsList";
 import { useState } from "react";
 import { CellDefaultProps } from "@/models/projectTypes";
 import { useTypeSelector } from "@/hooks/useReduxHooks";
@@ -7,7 +7,7 @@ import { useTypeSelector } from "@/hooks/useReduxHooks";
 const StatusCell = ({ options }: CellDefaultProps) => {
   const { project } = useTypeSelector((state) => state.projectReducer);
   const { table, column, row } = options;
-  const color = project.status_lables?.find(
+  const color = project.status_labels?.find(
     (item) => item.name === row.original.status
   )?.color;
   const [isOpen, setIsOpen] = useState(false);
@@ -29,9 +29,9 @@ const StatusCell = ({ options }: CellDefaultProps) => {
           </div>
         </PopoverTrigger>
         <PopoverContent className="w-fit rounded-sm shadow-md ">
-          <LablesList
-            type="status_lables"
-            lables={project.status_lables}
+          <LabelsList
+            type="status_labels"
+            labels={project.status_labels}
             onChange={handler}
             closeHandler={() => setIsOpen(false)}
           />

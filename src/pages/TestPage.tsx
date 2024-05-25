@@ -24,12 +24,12 @@ import { useTypeDispatch, useTypeSelector } from "@/hooks/useReduxHooks";
 import { useState } from "react";
 import { Controller, useFieldArray, useForm } from "react-hook-form";
 import removeIcon from "../assets/images/remove.svg";
-import { LableParams } from "@/models/projectTypes";
+import { LabelParams } from "@/models/projectTypes";
 import ColorPicker from "@/components/ui/ColorPicker";
-import { lableColors } from "@/data/table_colors";
+import { labelColors } from "@/data/table_colors";
 
 type FormParams = {
-  lables: LableParams[];
+  labels: LabelParams[];
 };
 const TestPage = () => {
   const handler = () => {

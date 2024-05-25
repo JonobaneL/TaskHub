@@ -1,20 +1,20 @@
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { firestoreDB } from ".";
-import { LablesTypeParams } from "@/models/RareUseTypes";
-import { LableParams } from "@/models/projectTypes";
+import { LabelsTypeParams } from "@/models/RareUseTypes";
+import { LabelParams } from "@/models/projectTypes";
 
 export const getProject = (id: string) => {
   const projectRef = doc(firestoreDB, "projects", id);
   return getDoc(projectRef);
 };
 
-export const updateLablesMethod = (
+export const updateLabelsMethod = (
   projectID: string,
-  type: LablesTypeParams,
-  lables: LableParams[]
+  type: LabelsTypeParams,
+  labels: LabelParams[]
 ) => {
   const docRef = doc(firestoreDB, "projects", projectID);
   return updateDoc(docRef, {
-    [type]: lables,
+    [type]: labels,
   });
 };

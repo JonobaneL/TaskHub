@@ -1,17 +1,17 @@
 import { CellContext, Table } from "@tanstack/react-table";
 
-export type LableParams = {
+export type LabelParams = {
   color: string;
   name: string;
-  lableID: string;
+  labelID: string;
 };
 
 export type ProjectParams = {
   id: string | null;
   name: string | null;
   members: string[] | null;
-  priority_lables: LableParams[] | null;
-  status_lables: LableParams[] | null;
+  priority_labels: LabelParams[] | null;
+  status_labels: LabelParams[] | null;
   tablesID: string | null;
   tasksID: string | null;
   tables: TableParams[] | null;

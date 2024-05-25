@@ -12,7 +12,7 @@ const StatusColumnFooter = ({ table }: TableTanstack) => {
   )?.tasks;
   const chartParams = useMemo(() => {
     const initial: DynamicKeyObject =
-      project.status_lables?.reduce((prev, current) => {
+      project.status_labels?.reduce((prev, current) => {
         return { ...prev, [current.name]: { value: 0, color: current.color } };
       }, {}) || {};
     tasks?.forEach((task) => {
@@ -20,7 +20,7 @@ const StatusColumnFooter = ({ table }: TableTanstack) => {
       initial[status].value = initial[status].value + 1;
     });
     return initial;
-  }, [project.status_lables, tasks]);
+  }, [project.status_labels, tasks]);
   return (
     <div className="w-full h-full p-1.5">
       <LineChart

@@ -1,5 +1,5 @@
 import { Popover, PopoverContent, PopoverTrigger } from "./popover";
-import LablesList from "../LablesList";
+import LabelsList from "../LabelsList";
 import { useState } from "react";
 import { CellDefaultProps } from "@/models/projectTypes";
 import { useTypeSelector } from "@/hooks/useReduxHooks";
@@ -9,7 +9,7 @@ import HoverEditButton from "./HoverEditButton";
 const PriorityCell = ({ options }: CellDefaultProps) => {
   const { project } = useTypeSelector((state) => state.projectReducer);
   const { table, column, row } = options;
-  const color = project.priority_lables?.find(
+  const color = project.priority_labels?.find(
     (item) => item.name === row.original.priority
   )?.color;
   const [isOpen, setIsOpen] = useState(false);
@@ -37,8 +37,8 @@ const PriorityCell = ({ options }: CellDefaultProps) => {
           )}
         </PopoverTrigger>
         <PopoverContent className="w-fit rounded-sm shadow-md ">
-          <LablesList
-            lables={project.priority_lables}
+          <LabelsList
+            labels={project.priority_labels}
             onChange={handler}
             closeHandler={() => setIsOpen(false)}
           />

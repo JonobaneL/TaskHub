@@ -48,13 +48,13 @@ const NewTaskForm = ({ onClose }: FormProps) => {
       />
       <NewTaskDepSelect
         control={control}
-        lables={project.status_lables}
+        labels={project.status_labels}
         name="status"
       />
       <NewTaskDateSelect control={control} />
       <NewTaskDepSelect
         control={control}
-        lables={project.priority_lables}
+        labels={project.priority_labels}
         name="priority"
       />
       <Button
