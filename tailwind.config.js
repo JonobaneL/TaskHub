@@ -59,6 +59,7 @@ module.exports = {
       },
       flex: {
         cover: "1 0 auto",
+        fix: "0 0 auto",
       },
       keyframes: {
         "accordion-down": {

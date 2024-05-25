@@ -6,6 +6,7 @@ import {
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchTasks } from "../thunks/tasksThunks";
 import { fetchProject } from "../thunks/projectsThunks";
+import { LablesTypeParams } from "@/models/RareUseTypes";
 
 type InitialProps = {
   isLoading: boolean;
@@ -84,6 +85,10 @@ const projectSlice = createSlice({
         state.project.tables?.filter((item) => item.id !== action.payload) ||
         null;
     },
+    updateLablesAction(state, action) {
+      const type = action.payload.type as LablesTypeParams;
+      state.project[type] = action.payload.lables;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -119,6 +124,7 @@ export const {
   addNewGroupAction,
   deleteGroupAction,
   deleteTaskAction,
+  updateLablesAction,
 } = projectSlice.actions;
 
 export default projectSlice.reducer;

@@ -12,7 +12,7 @@ type ProjectInfoProps = {
 //include more data along with development some features
 const ProjectInfo = ({ project }: ProjectInfoProps) => {
   const [isTasksLoading, , tasks] = useAsync<TaskParams[]>(() =>
-    getAllTasks(project.tasksID)
+    getAllTasks(project.tasksID || "")
   );
   return (
     <li className="flex justify-between divide-x-[1px] divide-slate-300">

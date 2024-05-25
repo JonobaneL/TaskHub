@@ -30,6 +30,7 @@ const StatusCell = ({ options }: CellDefaultProps) => {
         </PopoverTrigger>
         <PopoverContent className="w-fit rounded-sm shadow-md ">
           <LablesList
+            type="status_lables"
             lables={project.status_lables}
             onChange={handler}
             closeHandler={() => setIsOpen(false)}

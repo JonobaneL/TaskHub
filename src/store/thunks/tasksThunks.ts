@@ -27,10 +27,10 @@ export const fetchTasks = createAsyncThunk<TaskParams[], string | null>(
   "project/fetch-tasks",
   async (tasksID, { rejectWithValue }) => {
     try {
+      if (tasksID == null) return rejectWithValue("tasksID doesn't exist");
       const res = await getAllTasks(tasksID);
       const tasks: TaskParams[] = [];
       res?.forEach((item) => {
-        //check this later
         const task = item.data() as TaskResponseParams;
         const date = task.due_date;
         tasks.push({

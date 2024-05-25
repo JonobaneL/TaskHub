@@ -10,8 +10,7 @@ import {
 import { firestoreDB } from ".";
 import { TaskKeys } from "@/models/projectTypes";
 
-export const getAllTables = (tablesID: string | null) => {
-  if (!tablesID) return new Promise((_, rej) => rej());
+export const getAllTables = (tablesID: string) => {
   const collectionRef = collection(firestoreDB, tablesID);
   return getDocs(collectionRef);
 };
@@ -28,8 +27,7 @@ export const updateTableMethod = (
     [key]: value,
   });
 };
-export const getAllTasks = (tasksID: string | null) => {
-  if (!tasksID) return new Promise((_, rej) => rej());
+export const getAllTasks = (tasksID: string) => {
   const tasksRef = collection(firestoreDB, tasksID);
   return getDocs(tasksRef);
 };
@@ -51,7 +49,7 @@ type NewTaskParams = {
   status: string | "none";
   due_date: string | null;
   priority: string | null;
-  notes: string;
+  notes: string | null;
   conversation: null;
   tableID: string;
   author: string;

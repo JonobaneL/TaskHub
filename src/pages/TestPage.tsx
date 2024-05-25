@@ -22,23 +22,20 @@ import { fieldValidation } from "@/data/formOptions";
 
 import { useTypeDispatch, useTypeSelector } from "@/hooks/useReduxHooks";
 import { useState } from "react";
-import { Controller, useForm } from "react-hook-form";
+import { Controller, useFieldArray, useForm } from "react-hook-form";
+import removeIcon from "../assets/images/remove.svg";
+import { LableParams } from "@/models/projectTypes";
+import ColorPicker from "@/components/ui/ColorPicker";
+import { lableColors } from "@/data/table_colors";
 
-type NewTaskForm = {
-  task: string;
-  notes: string;
-  status: string | null;
-  due_date: string | null;
-  priority: string | null;
+type FormParams = {
+  lables: LableParams[];
 };
-
 const TestPage = () => {
   const handler = () => {
     console.log("Click");
   };
 
-  const [status, setStatus] = useState("none");
-  const [due_date, setDate] = useState("Sat Apr 20 2024");
   return (
     <div className="border border-primary m-10 p-4 bg-slate-200">
       <div className="w-[28rem] p-5 shadow-sm bg-white">
@@ -53,10 +50,32 @@ const TestPage = () => {
       <br />
       <br />
       <br />
-      <Button onClick={() => setStatus("done")}>Done</Button>
-      <div className="w-1/5 h-10 relative border border-red-500 flex items-center justify-center">
-        <p className="text-sm">{due_date}</p>
+      <br />
+      <br />
+      <div className="bg-background shadow rounded h-12 flex items-center justify-between w-3/5 overflow-hidden">
+        <div className="flex items-center gap-3">
+          <div className="h-12 w-12 flex items-center justify-center bg-accent-b">
+            <p className="font-medium text-white text-lg">3</p>
+          </div>
+          <p className="text-sm font-medium">Tasks selected</p>
+        </div>
+        <div className="flex items-center">
+          <Button variant="ghost" className="rounded-sm">
+            Duplicate
+          </Button>
+          <Button variant="ghost" className="rounded-sm">
+            Move To
+          </Button>
+          <Button variant="ghost" className="rounded-sm">
+            Delete
+          </Button>
+        </div>
+        <div className="w-12 h-12 flex items-center justify-center">
+          <img src={removeIcon} className="w-4 h-4" alt="close" />
+        </div>
       </div>
+      <br />
+      <br />
     </div>
   );
 };

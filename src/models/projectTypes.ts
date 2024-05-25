@@ -3,6 +3,7 @@ import { CellContext, Table } from "@tanstack/react-table";
 export type LableParams = {
   color: string;
   name: string;
+  lableID: string;
 };
 
 export type ProjectParams = {
