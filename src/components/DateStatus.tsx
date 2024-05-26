@@ -1,29 +1,9 @@
-import attentionIcon from "../assets/images/attention.svg";
-import doneIcon from "../assets/images/done.svg";
-import doneLaterIcon from "../assets/images/done-later.svg";
 import { useMemo } from "react";
 import { Row } from "@tanstack/react-table";
 import { TaskParams } from "@/models/projectTypes";
 import { checkDeadline } from "@/utils/checkDeadline";
 import Helper from "./ui/Helper";
-
-const statusNotification = [
-  {
-    name: "attention",
-    content: "Deadline Passed",
-    icon: attentionIcon,
-  },
-  {
-    name: "done",
-    content: "Done on time",
-    icon: doneIcon,
-  },
-  {
-    name: "done-later",
-    content: "Done after deadline",
-    icon: doneLaterIcon,
-  },
-];
+import { dateStatuses } from "@/data/dateStatuses";
 
 type StatusProps = {
   row: Row<TaskParams>;
@@ -32,11 +12,10 @@ type StatusProps = {
 const DateStatus = ({ row }: StatusProps) => {
   const { status, due_date } = row.original;
   const isDeadlinePassed = checkDeadline(due_date);
-
   const currentStatus = useMemo(() => {
-    if (status == "done" && !isDeadlinePassed) return statusNotification[1];
-    if (status == "done" && isDeadlinePassed) return statusNotification[2];
-    if (isDeadlinePassed) return statusNotification[0];
+    if (status == "done" && !isDeadlinePassed) return dateStatuses[1];
+    if (status == "done" && isDeadlinePassed) return dateStatuses[2];
+    if (isDeadlinePassed) return dateStatuses[0];
     return null;
   }, [status, due_date]);
   return (

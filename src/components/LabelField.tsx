@@ -3,12 +3,8 @@ import { Controller } from "react-hook-form";
 import ColorPicker from "./ui/ColorPicker";
 import { labelColors } from "@/data/table_colors";
 import { fieldValidation } from "@/data/formOptions";
-import removeIcon from "../assets/images/remove.svg";
-import { useOptionUse } from "@/hooks/useOptionUse";
-import Helper from "./ui/Helper";
-import { useTypeDispatch } from "@/hooks/useReduxHooks";
-import { updateTask } from "@/store/thunks/tasksThunks";
-import { TaskKeys } from "@/models/projectTypes";
+import { useLableField } from "@/hooks/useLableField";
+import LabelRemoveButton from "./LabelRemoveButton";
 
 const LabelField = ({
   fieldItem,
@@ -19,35 +15,12 @@ const LabelField = ({
   updateLabel,
   fieldName,
 }: LabelFieldProps) => {
-  const dispatch = useTypeDispatch();
-  const ids = useOptionUse(fieldName as TaskKeys, fieldItem.name);
-  const removeHandler = () => {
-    if (ids.length === 0) remove();
-  };
-  const blurHandler = (value: string) => {
-    if (value == "") {
-      if (ids.length === 0) remove();
-      return;
-    }
-    if (fieldItem.name !== value) {
-      if (ids.length > 0) {
-        ids.forEach((item) => {
-          console.log(item);
-          dispatch(
-            updateTask({
-              ...item,
-              key: fieldName as TaskKeys,
-              value: value,
-            })
-          );
-        });
-      }
-      updateLabel("name", value);
-    }
-  };
-  const colorHandler = (value: string) => {
-    updateLabel("color", value);
-  };
+  const { ids, removeHandler, blurHandler, colorHandler } = useLableField(
+    fieldName,
+    fieldItem,
+    updateLabel,
+    remove
+  );
   return (
     <li
       key={fieldItem.id}
@@ -56,20 +29,8 @@ const LabelField = ({
       } relative flex gap-2 p-1 items-center`}
     >
       {fieldItem.name.length > 0 && (
-        <div
-          onClick={removeHandler}
-          className="absolute right-1.5 bg-background cursor-pointer opacity-0 invisible group-hover:opacity-100  group-hover:visible"
-        >
-          <Helper
-            side="right"
-            content="Can't be deleted while in use"
-            disableContent={ids.length == 0}
-          >
-            <img src={removeIcon} alt="remove" className="size-4" />
-          </Helper>
-        </div>
+        <LabelRemoveButton idsLength={ids.length} handler={removeHandler} />
       )}
-
       <Controller
         name={`stages.${index}.color`}
         control={control}

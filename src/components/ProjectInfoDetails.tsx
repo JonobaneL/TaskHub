@@ -11,7 +11,7 @@ type DetailsProps = {
 
 const ProjectInfoDetails = ({ project, tasks }: DetailsProps) => {
   const [isTablesLoading, , tables] = useAsync<TableParams[]>(() =>
-    getAllTables(project.tablesID)
+    getAllTables(project.tablesID || "")
   );
   const navigate = useNavigate();
 

@@ -26,7 +26,7 @@ const Projects = () => {
         <DropdownMenuLabel className="font-main">Projects</DropdownMenuLabel>
         <DropdownMenuSeparator />
         {isLoading ? (
-          <Loader />
+          <Loader type="fade" />
         ) : (
           user.projects?.map((item) => (
             <DropdownMenuItem

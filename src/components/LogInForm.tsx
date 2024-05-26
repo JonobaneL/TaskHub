@@ -31,7 +31,6 @@ const LogInForm = () => {
         <Field
           variant="icon"
           icon={mailIcon}
-          alt="email"
           type="email"
           placeholder="Email"
           errors={errors.email}
@@ -40,7 +39,6 @@ const LogInForm = () => {
         <Field
           variant="icon"
           icon={passwordIcon}
-          alt="password"
           type="password"
           placeholder="Password"
           errors={errors.password}

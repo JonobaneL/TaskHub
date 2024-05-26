@@ -47,7 +47,6 @@ const SignUpForm = () => {
         type="email"
         variant="icon"
         icon={mailIcon}
-        alt="email"
         placeholder="Email address"
         errors={errors.email}
         {...register("email", emailValidation)}

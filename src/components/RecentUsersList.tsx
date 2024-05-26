@@ -2,6 +2,7 @@ import { fakeMembers } from "@/data/fakeMembers";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 
 const RecentUsersList = () => {
+  //fake component for demonstation
   return (
     <ul>
       {fakeMembers.map((item, index) => (

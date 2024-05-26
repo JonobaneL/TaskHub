@@ -2,6 +2,7 @@ import { fakeMembers } from "@/data/fakeMembers";
 import { Button } from "./ui/button";
 
 const ProjectInfoMembers = () => {
+  //fake component,using only for demonstration
   return (
     <div className="w-1/4 pl-6">
       <ul>

@@ -5,7 +5,6 @@ import { FieldError } from "react-hook-form";
 type FieldProps = {
   variant: "standart" | "icon";
   icon?: string;
-  alt?: string;
   errors?: FieldError;
 } & React.InputHTMLAttributes<HTMLInputElement>;
 
@@ -18,7 +17,7 @@ const Field = forwardRef<HTMLInputElement, FieldProps>(
             <img
               className="absolute inset-y-1/2 -translate-y-1/2 left-2"
               src={icon}
-              alt={alt}
+              alt={props.name}
             />
           ) : null}
           <Input

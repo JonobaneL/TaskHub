@@ -1,5 +1,5 @@
 import { Popover, PopoverContent, PopoverTrigger } from "./popover";
-import LabelsList from "../LabelsList";
+import Labels from "../Labels";
 import { useState } from "react";
 import { CellDefaultProps } from "@/models/projectTypes";
 import { useTypeSelector } from "@/hooks/useReduxHooks";
@@ -37,7 +37,7 @@ const PriorityCell = ({ options }: CellDefaultProps) => {
           )}
         </PopoverTrigger>
         <PopoverContent className="w-fit rounded-sm shadow-md ">
-          <LabelsList
+          <Labels
             type="priority_labels"
             labels={project.priority_labels}
             onChange={handler}

@@ -14,3 +14,13 @@ export type TaskContextMenuProps = {
   table: Table<TaskParams>;
   row: Row<TaskParams>;
 };
+export type LineChartProps = {
+  params: DynamicKeyObject;
+  total: number;
+  asChild?: boolean;
+  config?: {
+    width?: boolean;
+    name?: boolean;
+    tooltipAlign?: "top" | "left" | "bottom" | "right";
+  };
+};

@@ -1,5 +1,5 @@
 import { Popover, PopoverContent, PopoverTrigger } from "./popover";
-import LabelsList from "../LabelsList";
+import Labels from "../Labels";
 import { useState } from "react";
 import { CellDefaultProps } from "@/models/projectTypes";
 import { useTypeSelector } from "@/hooks/useReduxHooks";
@@ -29,7 +29,7 @@ const StatusCell = ({ options }: CellDefaultProps) => {
           </div>
         </PopoverTrigger>
         <PopoverContent className="w-fit rounded-sm shadow-md ">
-          <LabelsList
+          <Labels
             type="status_labels"
             labels={project.status_labels}
             onChange={handler}

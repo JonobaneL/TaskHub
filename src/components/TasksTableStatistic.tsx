@@ -3,7 +3,7 @@ import { flexRender } from "@tanstack/react-table";
 
 const TasksTableStatistic = ({ table }: TableTanstack) => {
   const footerGroups = table.getFooterGroups();
-  const borderException = ["selected", "task"];
+  const borderException = ["selected", "task", "notes"];
   return (
     <div className="w-fit h-9 pl-1">
       {footerGroups.map((footerGroup) => (

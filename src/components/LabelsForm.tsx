@@ -1,12 +1,9 @@
 import { LabelParams } from "@/models/projectTypes";
-import { useFieldArray, useForm } from "react-hook-form";
 import { Button } from "./ui/button";
 import NewLabelButton from "./NewLabelButton";
-import { LabelFormParams } from "@/models/formTypes";
-import { useTypeDispatch, useTypeSelector } from "@/hooks/useReduxHooks";
-import { updateLabels } from "@/store/thunks/projectsThunks";
 import { LabelsTypeParams } from "@/models/RareUseTypes";
 import LabelField from "./LabelField";
+import { useLabelForm } from "@/hooks/useLabelForm";
 
 type FormProps = {
   labels: LabelParams[] | null;
@@ -15,45 +12,17 @@ type FormProps = {
 };
 
 const LabelsForm = ({ labels, type, onClose }: FormProps) => {
-  const { control, handleSubmit, formState } = useForm<LabelFormParams>({
-    defaultValues: { stages: labels || [] },
-  });
-  const { fields, append, remove, update } = useFieldArray({
-    control: control,
-    name: "stages",
-  });
-  const { project } = useTypeSelector((state) => state.projectReducer);
+  const {
+    control,
+    handleSubmit,
+    formState,
+    fields,
+    append,
+    removeHandler,
+    updateLabel,
+    submitHandler,
+  } = useLabelForm(labels, type, onClose);
   const errors = formState.errors.stages ? formState.errors.stages : [];
-  const dispatch = useTypeDispatch();
-  const submitHandler = (data: LabelFormParams) => {
-    onClose();
-  };
-  const removeHandler = (index: number) => {
-    const removedLabel = fields[index];
-    remove(index);
-    const updatedLabel =
-      project[type]?.filter((item) => item.labelID !== removedLabel.labelID) ||
-      [];
-    dispatch(updateLabels({ type, labels: updatedLabel }));
-  };
-
-  const updateLabel = (index: number, key: string, value: string) => {
-    const { id, ...field } = fields[index];
-    const newLabel = {
-      ...field,
-      [key]: value,
-    };
-    if (value.length > 0) {
-      console.log(value);
-      update(index, newLabel);
-    }
-    const labels = fields.map((item) => {
-      const { id, ...rest } = item;
-      if (item.labelID === fields[index].labelID) return newLabel;
-      return rest;
-    });
-    dispatch(updateLabels({ type, labels: labels }));
-  };
 
   return (
     <form onSubmit={handleSubmit(submitHandler)}>

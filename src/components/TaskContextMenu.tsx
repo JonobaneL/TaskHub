@@ -7,55 +7,19 @@ import {
   ContextMenuSubContent,
   ContextMenuSubTrigger,
 } from "./ui/context-menu";
-import { useTypeDispatch, useTypeSelector } from "@/hooks/useReduxHooks";
-import { addNewTask, deleteTask, updateTask } from "@/store/thunks/tasksThunks";
-import {
-  addNewTaskAction,
-  deleteTaskAction,
-} from "@/store/reducers/projectsSlice";
+import { useTypeSelector } from "@/hooks/useReduxHooks";
 import { TaskContextMenuProps } from "@/models/RareUseTypes";
+import { useMenuMethods } from "@/hooks/useMenuMethods";
 
 const TaskContextMenu = ({ table, row, children }: TaskContextMenuProps) => {
   const { project } = useTypeSelector((state) => state.projectReducer);
   const currentTableID = table.options.meta?.tableID || "";
   const currentTaskID = row.original.id;
-  const getTaskAndTable = () => {
-    const table = project.tables?.find((item) => item.id == currentTableID);
-    const task = table?.tasks?.find((item) => item.id == currentTaskID);
-    return task;
-  };
-  const dispatch = useTypeDispatch();
-  const deleteHandler = () => {
-    dispatch(deleteTask({ taskID: currentTaskID, tableID: currentTableID }));
-  };
-  const moveToHandler = (tableID: string) => {
-    const task = getTaskAndTable();
-    dispatch(
-      updateTask({
-        tableID: currentTableID,
-        taskID: task?.id || "",
-        key: "tableID",
-        value: tableID,
-      })
-    );
-    dispatch(addNewTaskAction({ ...task, tableID: tableID }));
-    dispatch(
-      deleteTaskAction({ tableID: currentTableID, taskID: task?.id || "" })
-    );
-  };
-  const duplicateHandler = () => {
-    const task = getTaskAndTable();
-    dispatch(
-      addNewTask({
-        task: task?.task + " (copy)",
-        tableID: currentTableID,
-        notes: task?.notes || null,
-        status: task?.status,
-        due_date: task?.due_date,
-        priority: task?.priority,
-      })
-    );
-  };
+
+  const { deleteHandler, moveToHandler, duplicateHandler } = useMenuMethods(
+    currentTaskID,
+    currentTableID
+  );
   return (
     <ContextMenu>
       <ContextMenuTrigger asChild>{children}</ContextMenuTrigger>
