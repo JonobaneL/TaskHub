@@ -5,6 +5,7 @@ type EmptyProps = {
 };
 
 const TasksTableEmpty = ({ length }: EmptyProps) => {
+  //add aditional value like search query and only the show this message
   return (
     <TableRow>
       <TableCell colSpan={length} className="h-24 text-center">

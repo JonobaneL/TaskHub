@@ -48,7 +48,7 @@ const LineChart = ({
                   item.name == "empty" ? "1px solid rgb(209 213 219)" : "none",
               }}
               className={`group h-full flex items-center justify-center transition-all duration-200 hover:scale-105 `}
-            ></div>
+            />
           </Helper>
         );
       })}

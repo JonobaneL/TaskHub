@@ -23,7 +23,7 @@ const FormsNav = () => {
           </Button>
         </SheetTrigger>
         <SheetContent
-          style={{ width: "26rem", maxWidth: "28rem" }}
+          style={{ minWidth: "26rem", maxWidth: "28rem" }}
           className="overflow-auto"
         >
           <SheetHeader className="mb-4">

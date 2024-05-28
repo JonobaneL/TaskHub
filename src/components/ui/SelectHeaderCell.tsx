@@ -1,6 +1,6 @@
 import { TableTanstack } from "@/models/projectTypes";
 
-const SelectColumnHeader = ({ table }: TableTanstack) => {
+const SelectHeaderCell = ({ table }: TableTanstack) => {
   return (
     <div className="size-9 flex justify-center items-center">
       <input
@@ -18,4 +18,4 @@ const SelectColumnHeader = ({ table }: TableTanstack) => {
   );
 };
 
-export default SelectColumnHeader;
+export default SelectHeaderCell;

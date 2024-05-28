@@ -1,4 +1,3 @@
-import SelectColumnHeader from "@/components/ui/SelectColumnHeader";
 import { ColumnDef } from "@tanstack/react-table";
 import SelectCell from "@/components/ui/SelectCell";
 import TaskCell from "@/components/ui/TaskCell";
@@ -10,11 +9,12 @@ import NoteCell from "@/components/ui/NoteCell";
 import StatusFooterCell from "@/components/StatusFooterCell";
 import PriorityFooterCell from "@/components/PriorityFooterCell";
 import DateFooterCell from "@/components/DateFooterCell";
+import SelectHeaderCell from "@/components/ui/SelectHeaderCell";
 
 export const taskTableColumns = [
   {
     accessorKey: "selected",
-    header: ({ table }) => <SelectColumnHeader table={table} />,
+    header: ({ table }) => <SelectHeaderCell table={table} />,
     cell: ({ row }) => <SelectCell row={row} />,
     enableSorting: false,
     enableHiding: false,
@@ -40,7 +40,7 @@ export const taskTableColumns = [
   },
   {
     accessorKey: "due_date",
-    header: "Due-date",
+    header: "Due date",
     cell: (props) => <DueDateCell options={props} />,
     size: 9, //rem
     minSize: 9,
