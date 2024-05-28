@@ -1,24 +1,17 @@
 import { CellDefaultProps } from "@/models/projectTypes";
 import calendarIcon from "../../assets/images/calendar-add.svg";
-import { useState } from "react";
 import DateSelect from "./DateSelect";
 import HoverEditButton from "./HoverEditButton";
 import DateStatus from "../DateStatus";
 import removeIcon from "../../assets/images/remove.svg";
+import { dateFormating } from "@/utils/dateFormating";
 
 const DueDateCell = ({ options }: CellDefaultProps) => {
   const { table, column, row } = options;
   const { status, due_date } = row.original;
-  const [calendarDate, setCalendarDate] = useState(due_date || "");
-  const dateString = due_date?.split(" ") || "";
-  const dateToShow = due_date ? dateString[2] + " " + dateString[1] : "";
-  const updateHandler = () => {
-    if (due_date !== calendarDate) {
-      table.options.meta?.updateData(
-        row.index,
-        column.id,
-        calendarDate || null
-      );
+  const updateHandler = (value: string) => {
+    if (due_date !== value && value) {
+      table.options.meta?.updateData(row.index, column.id, value || null);
     }
   };
   const removeHandler = (e: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
@@ -27,16 +20,12 @@ const DueDateCell = ({ options }: CellDefaultProps) => {
   };
   return (
     <div className="group w-full h-full">
-      <DateSelect
-        defaultValue={due_date}
-        onChange={setCalendarDate}
-        onBlur={updateHandler}
-      >
+      <DateSelect defaultValue={due_date || ""} onChange={updateHandler}>
         {due_date ? (
           <div className="w-full h-full flex items-center justify-center cursor-pointer relative">
             <DateStatus row={row} />
             <p className={`${status == "done" && "line-through"}`}>
-              {dateToShow}
+              {dateFormating(due_date)}
             </p>
             <img
               src={removeIcon}

@@ -16,16 +16,15 @@ const DateSelect = ({
   children,
 }: SelectProps) => {
   const today = new Date(Date.now());
-  const [date, setDate] = useState<Date | undefined>(
-    defaultValue ? new Date(defaultValue) : undefined
-  );
+  const [visible, setVisible] = useState(false);
+  const date = defaultValue ? new Date(defaultValue) : undefined;
   const selectHandler = (calendar: Date | undefined) => {
-    setDate(calendar);
     const dateString = calendar?.toDateString() || "";
     onChange(dateString);
+    setVisible(false);
   };
   return (
-    <Popover>
+    <Popover open={visible} onOpenChange={setVisible}>
       <PopoverTrigger asChild>{children}</PopoverTrigger>
       <PopoverContent onInteractOutside={onBlur}>
         <Calendar

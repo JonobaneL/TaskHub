@@ -18,7 +18,7 @@ const StatusFooterCell = ({ table }: TableTanstack) => {
   return (
     <div className="w-full h-full p-1.5">
       <LineChart
-        config={{ width: true, tooltipAlign: "top" }}
+        config={{ width: true }}
         params={chartParams}
         asChild={true}
         total={tasks?.length || 0}

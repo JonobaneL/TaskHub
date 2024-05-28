@@ -18,7 +18,7 @@ const NewTaskDateSelect = ({ control }: SelectProps) => {
           <DateSelect onChange={field.onChange} defaultValue={field.value}>
             <input
               type="text"
-              className="placeholder:text-text placeholder:font-main h-9 w-1/3 border rounded-md text-sm text-center bg-transparent focus:ring-1 focus:ring-primary"
+              className="placeholder:text-text placeholder:font-main h-9 w-1/3 border rounded-md text-sm text-center bg-transparent focus:ring-1 focus-visible:ring-1 focus:ring-primary focus:outline-none"
               placeholder="Select Date"
               value={dateFormating(field.value)}
               readOnly

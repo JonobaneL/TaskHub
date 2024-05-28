@@ -1,17 +1,11 @@
-import { DynamicKeyObject } from "@/models/RareUseTypes";
+import { ChartLegendProps } from "@/models/RareUseTypes";
 
-type LegendProps = {
-  params: DynamicKeyObject;
-  align?: "left" | "right" | "top" | "bottom";
-  keys: string[];
-  onChange: React.Dispatch<React.SetStateAction<string[]>>;
-};
 const ChartLegend = ({
   params,
   keys,
   align = "left",
   onChange,
-}: LegendProps) => {
+}: ChartLegendProps) => {
   const defaultKeys = Object.keys(params);
   const legendHandler = (key: string) => {
     if (keys.includes(key)) {

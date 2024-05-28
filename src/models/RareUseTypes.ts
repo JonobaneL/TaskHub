@@ -24,3 +24,10 @@ export type LineChartProps = {
     tooltipAlign?: "top" | "left" | "bottom" | "right";
   };
 };
+
+export type ChartLegendProps = {
+  params: DynamicKeyObject;
+  align?: "left" | "right" | "top" | "bottom";
+  keys: string[];
+  onChange: React.Dispatch<React.SetStateAction<string[]>>;
+};

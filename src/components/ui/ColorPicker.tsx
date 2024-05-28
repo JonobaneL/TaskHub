@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Popover, PopoverContent, PopoverTrigger } from "./popover";
+import ColorPickerItem from "./ColorPickerItem";
 
 type PickerProps = {
   type: "round" | "square";
@@ -38,16 +39,11 @@ const ColorPicker = ({
           {colors.map(
             (item, index) =>
               item !== color && (
-                <li
+                <ColorPickerItem
                   key={index}
-                  style={{ backgroundColor: item }}
-                  className={`size-[1.4rem] flex-fix cursor-pointer hover:ring-1 hover:ring-gray-500 transition duration-150 ${
-                    type == "round" ? "rounded-full" : "rounded-sm"
-                  }`}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handler(item);
-                  }}
+                  item={item}
+                  type={type}
+                  handler={handler}
                 />
               )
           )}
