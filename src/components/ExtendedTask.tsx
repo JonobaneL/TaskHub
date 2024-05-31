@@ -9,8 +9,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
 import { TaskParams } from "@/models/projectTypes";
 import TaskDetails from "./TaskDetails";
-import TaskChat from "./TaskChat";
-import TaskUpdates from "./TaskUpdates";
+import TaskComments from "./TaskComments";
 
 type TaskProps = {
   row: Row<TaskParams>;
@@ -23,25 +22,24 @@ const ExtendedTask = ({ row }: TaskProps) => {
       <SheetTrigger>
         <p className="h-fit">{task}</p>
       </SheetTrigger>
-      <SheetContent style={{ minWidth: "30rem" }} className="overflow-auto">
+      <SheetContent className="overflow-auto min-w-[30rem]">
         <SheetHeader className="mb-4">
           <SheetTitle className="text-primary">{task}</SheetTitle>
-          <div className="h-4"></div>
+          <div className="h-4" />
           <Tabs defaultValue="details">
             <TabsList className="grid w-full grid-cols-2 h-fit rounded-md">
               <TabsTrigger value="details" className="h-8 rounded-md">
                 Details
               </TabsTrigger>
               <TabsTrigger value="chat" className="h-8 rounded-md">
-                Updates
+                Comments
               </TabsTrigger>
             </TabsList>
             <TabsContent value="details">
               <TaskDetails row={row} />
             </TabsContent>
             <TabsContent value="chat">
-              {/* <TaskChat /> */}
-              <TaskUpdates />
+              <TaskComments />
             </TabsContent>
           </Tabs>
         </SheetHeader>

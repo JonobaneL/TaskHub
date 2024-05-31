@@ -1,30 +1,18 @@
 import { useState } from "react";
-import { Input } from "./ui/input";
-import { Textarea } from "./ui/textarea";
 import { Button } from "./ui/button";
 import { fakeMembers } from "@/data/fakeMembers";
 import replyIcon from "../assets/images/reply.svg";
 import dotsIcon from "../assets/images/dots-grey.svg";
 import clockIcon from "../assets/images/clock.svg";
+import CommentForm from "./CommentForm";
 
 const TaskUpdates = () => {
   const [update, setUpdate] = useState("");
   return (
     <div className="mt-4">
-      <Input placeholder="Write an update..." />
-      <div className="h-2" />
-      <Textarea
-        className="min-h-24"
-        placeholder="Write an update..."
-        value={update}
-        onChange={(e) => setUpdate(e.target.value)}
-      />
-      <Button
-        variant="default"
-        className="px-2 py-1 text-white font-main mr-0 ml-auto block mt-2 mb-4"
-      >
-        Update
-      </Button>
+      <CommentForm />
+
+      <div className="h-4"></div>
       <div>
         <div className="rounded border p-2">
           <div className="flex items-center justify-between mb-5">
@@ -49,15 +37,20 @@ const TaskUpdates = () => {
             </div>
           </div>
 
-          <div className="my-2 mx-2 pl-5">
-            <p className="text-sm">We also need to set up github</p>
+          <div className="my-2 mx-2 pl-5 list-disc [&_li]:list-disc">
+            {/* <p className="text-sm">We also need to set up github</p> */}
+            <ul className="list-disc">
+              <li className="list-disc list-inside">first</li>
+              <li>second</li>
+              <li>third</li>
+            </ul>
           </div>
           <div>
             <Button
               variant="ghost"
               className="p-2 flex gap-2 items-center mr-0 ml-auto"
             >
-              <img src={replyIcon} alt="arrow" />
+              <img src={replyIcon} className="size-4" alt="arrow" />
               <p className="text-sm text-primary font-main leading-9">Reply</p>
             </Button>
           </div>

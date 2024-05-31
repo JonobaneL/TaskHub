@@ -1,7 +1,6 @@
 import { TaskParams } from "@/models/projectTypes";
 import { Textarea } from "./ui/textarea";
 import { Row } from "@tanstack/react-table";
-import { Input } from "./ui/input"; //use this component in forms
 import { dateFormating } from "@/utils/dateFormating";
 import { getLabelsColors } from "@/utils/getLabelsColors";
 type TaskProps = {
