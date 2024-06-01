@@ -31,12 +31,19 @@ export type TaskParams = {
   due_date: string | null;
   priority: string | null;
   notes: string;
-  conversation: null;
+  commentsID: null;
+  comments: null | CommentParams[];
   tableID: string;
   author: string;
 };
+export type CommentParams = {
+  authorID: string;
+  content: string;
+  date: string;
+  reply: null;
+};
 export type TaskKeys =
-  | "conversation"
+  | "commentsID"
   | "due_date"
   | "notes"
   | "priority"

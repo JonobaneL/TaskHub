@@ -2,7 +2,7 @@ import ProjectNav from "@/components/ProjectNav";
 import { useTypeDispatch } from "@/hooks/useReduxHooks";
 import { ProjectParams } from "@/models/projectTypes";
 import { fetchProject } from "@/store/thunks/projectsThunks";
-import { fetchTasks } from "@/store/thunks/tasksThunks";
+import { fetchTasks, fetchTasks1 } from "@/store/thunks/tasksThunks";
 import { useEffect } from "react";
 import { Outlet, useParams } from "react-router-dom";
 
@@ -18,7 +18,10 @@ const ProjectPage = () => {
       })
       .then((data) => {
         const project = data.payload as ProjectParams;
-        dispatch(fetchTasks(project.tasksID));
+        // dispatch(fetchTasks(project.tasksID));
+        // dispatch(
+        //   fetchTasks1({ tasksID: project.tasksID, projectID: project.id })
+        // );
       })
       .then(() => {
         console.log("tasks fetch end", Date.now()); //remove later

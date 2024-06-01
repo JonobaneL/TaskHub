@@ -22,12 +22,12 @@ const EditorToolbar = ({ editor }: ToolbarProps) => {
     },
     {
       pressed: editor?.isActive("italic"),
-      callback: () => editor?.chain().focus().toggleStrike().run(),
+      callback: () => editor?.chain().focus().toggleItalic().run(),
       icon: <GoItalic className="size-full" />,
     },
     {
       pressed: editor?.isActive("strike"),
-      callback: () => editor?.chain().focus().toggleItalic().run(),
+      callback: () => editor?.chain().focus().toggleStrike().run(),
       icon: <MdOutlineFormatUnderlined className="size-full" />,
     },
     {

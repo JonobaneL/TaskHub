@@ -1,4 +1,8 @@
-import { TaskParams, UpdateTaskProps } from "@/models/projectTypes";
+import {
+  CommentParams,
+  TaskParams,
+  UpdateTaskProps,
+} from "@/models/projectTypes";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { RootStore } from "../store";
 import {
@@ -12,6 +16,11 @@ import {
   getAllTasks,
   updateTaskMethod,
 } from "@/firebase/tablesAPI";
+import {
+  addCommentMethod,
+  getAllComments,
+  updateCommentsMethod,
+} from "@/firebase/taskAPI";
 
 type TaskResponseParams = {
   task: string;
@@ -19,7 +28,7 @@ type TaskResponseParams = {
   due_date: string;
   priority: string | null;
   notes: string;
-  conversation: null;
+  commentsID: null;
   tableID: string;
 };
 
@@ -46,6 +55,52 @@ export const fetchTasks = createAsyncThunk<TaskParams[], string | null>(
     }
   }
 );
+type fetchTasksProps = {
+  tasksID: string | null;
+  projectID: string | null;
+};
+type CommentsResponse = {
+  id: string;
+  comments: CommentParams[];
+};
+export const fetchTasks1 = createAsyncThunk<TaskParams[], fetchTasksProps>(
+  "project/fetch-tasks",
+  async ({ tasksID, projectID }, { rejectWithValue }) => {
+    try {
+      if (tasksID == null) return rejectWithValue("tasksID doesn't exist");
+
+      const res = await getAllTasks(tasksID);
+      if (!res) return rejectWithValue("No tasks found");
+
+      const tasks = [] as TaskParams[];
+      await Promise.all(
+        res.forEach(async (item) => {
+          const task = item.data() as TaskResponseParams;
+          let comments = [];
+          if (task.commentsID) {
+            const collection = `${projectID}_comments`;
+            const response = (await getAllComments(
+              collection,
+              task.commentsID
+            )) as CommentsResponse;
+            comments = response.comments;
+          }
+          // tasks.push({
+          //   ...task,
+          //   id: item.id,
+          //   comments: comments,
+          //   due_date: task.due_date,
+          // });
+        })
+      );
+
+      return tasks;
+    } catch (err) {
+      console.log(err);
+      return rejectWithValue(err);
+    }
+  }
+);
 
 export const updateTask = createAsyncThunk<
   void,
@@ -53,28 +108,23 @@ export const updateTask = createAsyncThunk<
   { state: RootStore }
 >(
   "project/udate-task",
-  async (props, { rejectWithValue, getState, dispatch }) => {
+  async (
+    { tableID, taskID, key, value },
+    { rejectWithValue, getState, dispatch }
+  ) => {
     try {
       const state = getState();
       const { project } = state.projectReducer;
-      const table = project.tables?.find((item) => item.id === props.tableID);
-      const modifiedTasks = table?.tasks?.map((task) => {
-        if (task.id === props.taskID)
-          return { ...task, [props.key]: props.value };
-        return task;
-      });
+
       dispatch(
         updateTaskAction({
-          tableID: props.tableID,
-          tasks: modifiedTasks,
+          tableID,
+          taskID,
+          key,
+          value,
         })
       );
-      await updateTaskMethod(
-        project.tasksID,
-        props.taskID,
-        props.key,
-        props.value
-      );
+      await updateTaskMethod(project.tasksID, taskID, key, value);
     } catch (err) {
       return rejectWithValue(err);
     }
@@ -104,7 +154,7 @@ export const addNewTask = createAsyncThunk<
       due_date: null,
       status: "none",
       priority: null,
-      conversation: null,
+      commentsID: null,
       notes: "",
     };
     const currentTask = { ...defaultTask, ...task, author: user.id || "" };
@@ -136,3 +186,67 @@ export const deleteTask = createAsyncThunk<
     }
   }
 );
+
+type AddCommentProps = {
+  tableID: string;
+  taskID: string;
+  commentsID: string | null;
+  comment: CommentParams;
+};
+export const addComment = createAsyncThunk<
+  void,
+  AddCommentProps,
+  { state: RootStore }
+>(
+  "project/add-comment",
+  async (
+    { commentsID, comment, tableID, taskID },
+    { rejectWithValue, getState, dispatch }
+  ) => {
+    try {
+      const state = getState();
+      const { project } = state.projectReducer;
+      const collection = project.id + "_comments";
+      const task = project.tables
+        ?.find((item) => item.id == tableID)
+        ?.tasks?.find((item) => item.id == taskID);
+      if (!commentsID) {
+        const res = await addCommentMethod(collection, comment);
+        dispatch(
+          updateTaskAction({
+            tableID,
+            taskID,
+            key: "commentsID",
+            value: res.id,
+          })
+        );
+
+        await updateTaskMethod(project.tasksID, taskID, "commentsID", res.id);
+      } else {
+        await updateCommentsMethod(collection, commentsID, comment);
+      }
+      dispatch(
+        updateTaskAction({
+          tableID,
+          taskID,
+          key: "comments",
+          value: [...(task?.comments || []), comment],
+        })
+      );
+    } catch (err) {
+      rejectWithValue(err);
+    }
+  }
+);
+export const fetchComments = createAsyncThunk<
+  void,
+  undefined,
+  { state: RootStore }
+>("task/fetch-comments", async (_, { rejectWithValue, getState, dispatch }) => {
+  try {
+    const state = getState();
+    const { project } = state.projectReducer;
+  } catch (err) {
+    rejectWithValue(err);
+  }
+});

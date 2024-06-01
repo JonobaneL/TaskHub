@@ -50,7 +50,7 @@ type NewTaskParams = {
   due_date: string | null;
   priority: string | null;
   notes: string | null;
-  conversation: null;
+  commentsID: null;
   tableID: string;
   author: string;
 };

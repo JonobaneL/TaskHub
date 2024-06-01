@@ -12,7 +12,7 @@ const TaskCell = ({ row }: CellProps) => {
     <div className="flex justify-between items-center pl-2 gap-4">
       <ExtendedTask row={row} />
       <div className="size-9 flex items-center justify-center border-l">
-        {row.original.conversation == null ? (
+        {row.original.commentsID == null ? (
           <img src={conIcon} alt="con-icon" className="cursor-pointer" />
         ) : (
           <img src={conIconActive} alt="con-icon" className="cursor-pointer" />

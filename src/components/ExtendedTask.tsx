@@ -16,7 +16,7 @@ type TaskProps = {
 };
 
 const ExtendedTask = ({ row }: TaskProps) => {
-  const { task, conversation } = row.original;
+  const { task } = row.original;
   return (
     <Sheet>
       <SheetTrigger>
@@ -39,7 +39,7 @@ const ExtendedTask = ({ row }: TaskProps) => {
               <TaskDetails row={row} />
             </TabsContent>
             <TabsContent value="chat">
-              <TaskComments />
+              <TaskComments task={row.original} />
             </TabsContent>
           </Tabs>
         </SheetHeader>

@@ -46,13 +46,17 @@ const projectSlice = createSlice({
       });
       state.project.tables = tables || null;
     },
+
     updateTaskAction(state, action) {
-      const props = action.payload;
-      const tables = state.project.tables?.map((item) => {
-        if (item.id == props.tableID) {
-          return { ...item, tasks: props.tasks };
-        }
-        return item;
+      const { tableID, taskID, key, value } = action.payload;
+      const tables = state.project.tables?.map((table) => {
+        if (table.id !== tableID) return table;
+        const updatedTasks =
+          table.tasks?.map((task) => {
+            if (task.id !== taskID) return task;
+            return { ...task, [key]: value };
+          }) ?? [];
+        return { ...table, tasks: updatedTasks };
       });
       state.project.tables = tables || null;
     },
@@ -89,7 +93,6 @@ const projectSlice = createSlice({
       const type = action.payload.type as LabelsTypeParams;
       state.project[type] = action.payload.labels;
     },
-    // updateTasks(state)
   },
   extraReducers: (builder) => {
     builder
