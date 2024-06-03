@@ -2,7 +2,7 @@ import { fakeMembers } from "@/data/fakeMembers";
 import { CommentParams } from "@/models/projectTypes";
 import replyIcon from "../assets/images/reply.svg";
 import dotsIcon from "../assets/images/dots-grey.svg";
-import clockIcon from "../assets/images/clock.svg";
+import { TbClockHour8 } from "react-icons/tb";
 import { Button } from "./ui/button";
 type ListProps = {
   comments: CommentParams[] | undefined;
@@ -22,9 +22,9 @@ const CommentsList = ({ comments }: ListProps) => {
               />
               <p className="text-sm font-main">{fakeMembers[0].name}</p>
             </div>
-            <div className="flex items-center gap-1 cursor-default">
+            <div className="flex items-center gap-0.5 cursor-default">
               <div className="flex gap-1 items-center">
-                <img src={clockIcon} alt="clock" className="size-4" />
+                <TbClockHour8 className="size-4" color="#6B6B6B" />
                 <p className="text-sm font-main text-slate-500 font-medium">
                   1m
                 </p>

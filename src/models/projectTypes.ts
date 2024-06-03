@@ -55,12 +55,7 @@ export type UpdateTableProps = {
   key: "name" | "color";
   value: string;
 };
-export type UpdateTaskProps = {
-  tableID: string | null;
-  taskID: string | null;
-  key: TaskKeys;
-  value: any;
-};
+
 export type CellDefaultProps = {
   options: CellContext<TaskParams, unknown>;
 };

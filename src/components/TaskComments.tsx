@@ -1,19 +1,12 @@
 import CommentForm from "./CommentForm";
-import { CommentParams, TaskParams } from "@/models/projectTypes";
-import { useTypeSelector } from "@/hooks/useReduxHooks";
+import { TaskParams } from "@/models/projectTypes";
 import CommentsList from "./CommentsList";
 
 type UpdateProps = {
   task: TaskParams;
 };
-type CommentsResponse = {
-  id: string;
-  comments: CommentParams[];
-};
 
-const TaskUpdates = ({ task }: UpdateProps) => {
-  const { project } = useTypeSelector((state) => state.projectReducer);
-  console.log(task.comments);
+const TaskComments = ({ task }: UpdateProps) => {
   return (
     <div className="mt-4">
       <CommentForm task={task} />
@@ -29,4 +22,4 @@ const TaskUpdates = ({ task }: UpdateProps) => {
   );
 };
 
-export default TaskUpdates;
+export default TaskComments;

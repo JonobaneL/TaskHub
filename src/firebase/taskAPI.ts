@@ -28,8 +28,7 @@ export const updateCommentsMethod = (
     comments: arrayUnion(comment),
   });
 };
-export const getAllComments = (collectionID: string, docID: string | null) => {
-  if (docID === null) return new Promise((_, rej) => rej());
+export const getAllComments = (collectionID: string, docID: string) => {
   const docRef = doc(firestoreDB, collectionID, docID);
   return getDoc(docRef);
 };

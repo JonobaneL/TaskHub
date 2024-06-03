@@ -1,24 +1,36 @@
 import { Row } from "@tanstack/react-table";
-import conIcon from "../../assets/images/con-icon.svg";
-import conIconActive from "../../assets/images/con-icon-active.svg";
 import { TaskParams } from "@/models/projectTypes";
 import ExtendedTask from "../ExtendedTask";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "./sheet";
+import TaskHeader from "../TaskHeader";
+import { useState } from "react";
 
 type CellProps = {
   row: Row<TaskParams>;
 };
 const TaskCell = ({ row }: CellProps) => {
+  const { task, commentsID } = row.original;
+  const [tab, setTab] = useState("details");
   return (
-    <div className="flex justify-between items-center pl-2 gap-4">
-      <ExtendedTask row={row} />
-      <div className="size-9 flex items-center justify-center border-l">
-        {row.original.commentsID == null ? (
-          <img src={conIcon} alt="con-icon" className="cursor-pointer" />
-        ) : (
-          <img src={conIconActive} alt="con-icon" className="cursor-pointer" />
-        )}
-      </div>
-    </div>
+    <Sheet>
+      <SheetTrigger asChild>
+        <div>
+          <TaskHeader task={task} commnets={commentsID} setTab={setTab} />
+        </div>
+      </SheetTrigger>
+      <SheetContent className="overflow-auto min-w-[30rem]">
+        <SheetHeader className="mb-4">
+          <SheetTitle className="text-primary">{task}</SheetTitle>
+        </SheetHeader>
+        <ExtendedTask row={row} tab={tab} />
+      </SheetContent>
+    </Sheet>
   );
 };
 

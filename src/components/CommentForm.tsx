@@ -4,7 +4,7 @@ import Editor from "./ui/Editor";
 import { Controller, useForm } from "react-hook-form";
 import { TaskParams } from "@/models/projectTypes";
 import { useTypeDispatch } from "@/hooks/useReduxHooks";
-import { addComment } from "@/store/thunks/tasksThunks";
+import { addComment } from "@/store/thunks/commentsThunks";
 
 type FormParams = {
   comment: string;
