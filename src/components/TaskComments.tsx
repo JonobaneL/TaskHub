@@ -7,6 +7,8 @@ type UpdateProps = {
 };
 
 const TaskComments = ({ task }: UpdateProps) => {
+  const pinnedComments = task.comments?.filter((item) => item.isPinned);
+  const restComments = task.comments?.filter((item) => !item.isPinned);
   return (
     <div className="mt-4">
       <CommentForm task={task} />
@@ -16,7 +18,16 @@ const TaskComments = ({ task }: UpdateProps) => {
           No comments yet
         </div>
       ) : (
-        <CommentsList comments={task.comments || []} />
+        <div className="space-y-4">
+          <CommentsList
+            commentsID={task.commentsID}
+            comments={pinnedComments || []}
+          />
+          <CommentsList
+            commentsID={task.commentsID}
+            comments={restComments || []}
+          />
+        </div>
       )}
     </div>
   );

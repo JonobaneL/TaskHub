@@ -15,7 +15,9 @@ const Editor = ({ value, onChange, onClose = () => {} }: EditorProps) => {
   const editor = useEditor(editorConfig);
   const editorRef = useRef<HTMLDivElement>(null);
   const onBlur = (e: Event) => {
-    if (!editorRef.current?.contains(e.target as Node)) onClose();
+    if (!editorRef.current?.contains(e.target as Node)) {
+      onClose();
+    }
   };
   useEventListener("click", onBlur);
   return (

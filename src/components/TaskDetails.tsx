@@ -10,6 +10,7 @@ type TaskProps = {
 const TaskDetails = ({ row }: TaskProps) => {
   const { notes, status, priority, due_date } = row.original;
   const { statusColor, priorityColor } = getLabelsColors(status, priority);
+  // think about content in this component
   return (
     <div>
       <div className="text-right my-2">

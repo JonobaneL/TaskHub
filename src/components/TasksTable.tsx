@@ -9,6 +9,7 @@ import { taskTableColumns } from "@/data/tasksTableColumns";
 import TableTemplate from "./TableTemplate";
 import TasksTableStatistic from "./TasksTableStatistic";
 import { generateTableMeta } from "@/utils/generateTableMeta";
+import { useTableContex } from "@/context/TableContext";
 
 type TasksTableProps = {
   table: TableParams;
@@ -16,10 +17,14 @@ type TasksTableProps = {
 
 const TasksTable = ({ table }: TasksTableProps) => {
   const columns: ColumnDef<TaskParams>[] = taskTableColumns;
+  const { editColumns } = useTableContex();
   const tableMeta = generateTableMeta(table);
   const tableTemplate = useReactTable({
     data: table.tasks || [],
     columns,
+    state: {
+      columnVisibility: editColumns,
+    },
     meta: tableMeta,
     getCoreRowModel: getCoreRowModel(),
   });

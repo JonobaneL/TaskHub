@@ -1,8 +1,8 @@
 import { Button } from "./ui/button";
 import magGlass from "../assets/images/mag-glass.svg";
 import filter from "../assets/images/filter.svg";
-import edit from "../assets/images/edit.svg";
 import FormsNav from "./FormsNav";
+import EditColumns from "./EditColumns";
 
 const TablesNav = () => {
   return (
@@ -23,13 +23,7 @@ const TablesNav = () => {
           <img src={filter} alt="filter" className="mr-1" />
           Filter
         </Button>
-        <Button
-          variant="ghost"
-          className="h-8 p-2 rounded-sm font-medium text-text font-main text-[0.8rem]"
-        >
-          <img src={edit} alt="edit" className="mr-1" />
-          Edit
-        </Button>
+        <EditColumns />
       </div>
     </nav>
   );

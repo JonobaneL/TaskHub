@@ -65,7 +65,7 @@ const SignUpForm = () => {
         <Button
           type="submit"
           disabled={isSubmitting}
-          className="text-background font-main font-medium text-md min-w-36 h-11 w-7/12 hover:shadow-primary-button transition duration-1 hover:translate-y-[-1px]"
+          className="text-background font-main font-medium text-md min-w-36 h-11 w-7/12 hover:shadow-primary-button transition-all duration-3 hover:-translate-y-[1px]"
         >
           {isSubmitting ? "Loading.." : "Sign Up"}
         </Button>

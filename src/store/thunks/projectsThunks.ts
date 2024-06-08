@@ -52,8 +52,7 @@ export const updateTableHeader = createAsyncThunk<
   "project/update-table",
   async ({ tableID, key, value }, { rejectWithValue, getState, dispatch }) => {
     try {
-      const state = getState();
-      const { project } = state.projectReducer;
+      const { project } = getState().projectReducer;
       dispatch(updateTableHeaderAction({ tableID, key, value }));
       await updateTableMethod(project?.tablesID, tableID, key, value);
     } catch (err) {
@@ -83,8 +82,7 @@ export const deleteGroup = createAsyncThunk<void, string, { state: RootStore }>(
   "project/delete-group",
   async (tableID, { rejectWithValue, dispatch, getState }) => {
     try {
-      const state = getState();
-      const { project } = state.projectReducer;
+      const { project } = getState().projectReducer;
       const tasks = project.tables?.find((item) => item.id == tableID)?.tasks;
       dispatch(deleteGroupAction(tableID));
       await deleteGroupMethod(tableID, project.tablesID);
@@ -109,8 +107,7 @@ export const updateLabels = createAsyncThunk<
   "project/update-labels",
   async ({ type, labels }, { rejectWithValue, dispatch, getState }) => {
     try {
-      const state = getState();
-      const { project } = state.projectReducer;
+      const { project } = getState().projectReducer;
       dispatch(updateLabelsAction({ type, labels }));
       if (!project.id) return rejectWithValue("no projectID");
       await updateLabelsMethod(project.id, type, labels);

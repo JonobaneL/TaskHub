@@ -9,9 +9,11 @@ import { dateFormating } from "@/utils/dateFormating";
 const DueDateCell = ({ options }: CellDefaultProps) => {
   const { table, column, row } = options;
   const { status, due_date } = row.original;
+
   const updateHandler = (value: string) => {
-    if (due_date !== value && value) {
-      table.options.meta?.updateData(row.index, column.id, value || null);
+    const currentDate = value.slice(4, 15);
+    if (due_date !== currentDate && value) {
+      table.options.meta?.updateData(row.index, column.id, currentDate);
     }
   };
   const removeHandler = (e: React.MouseEvent<HTMLImageElement, MouseEvent>) => {

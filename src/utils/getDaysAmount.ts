@@ -6,6 +6,6 @@ export const getDaysAmount = (
   const start = new Date(startDate).getTime();
   const end = new Date(endDate).getTime();
   const difference = end - start;
-  const converted = Math.ceil(difference / (1000 * 60 * 60 * 24));
+  const converted = Math.ceil(difference / (1000 * 60 * 60 * 24)) + 1;
   return converted;
 };

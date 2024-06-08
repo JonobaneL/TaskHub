@@ -5,19 +5,17 @@ import { Controller, useForm } from "react-hook-form";
 import { TaskParams } from "@/models/projectTypes";
 import { useTypeDispatch } from "@/hooks/useReduxHooks";
 import { addComment } from "@/store/thunks/commentsThunks";
+import { CommentFormParams } from "@/models/commentTypes";
 
-type FormParams = {
-  comment: string;
-};
 type FormProps = {
   task: TaskParams;
 };
 
 const CommentForm = ({ task }: FormProps) => {
   const [visible, setVisible] = useState(false);
-  const { control, handleSubmit } = useForm<FormParams>({});
+  const { control, handleSubmit, setValue } = useForm<CommentFormParams>({});
   const dispatch = useTypeDispatch();
-  const onSubmit = (data: FormParams) => {
+  const onSubmit = (data: CommentFormParams) => {
     dispatch(
       addComment({
         tableID: task.tableID,
@@ -26,11 +24,14 @@ const CommentForm = ({ task }: FormProps) => {
         comment: {
           authorID: "author1", //change it later to actual userID
           content: data.comment,
-          date: "",
-          reply: null, //add those later
         },
       })
     );
+    setValue("comment", "");
+    setVisible(false);
+  };
+  const onClose = () => {
+    setValue("comment", "");
     setVisible(false);
   };
   return (
@@ -44,7 +45,7 @@ const CommentForm = ({ task }: FormProps) => {
               <Editor
                 value={field.value}
                 onChange={field.onChange}
-                onClose={() => setVisible(false)}
+                onClose={onClose}
               />
             )}
           />

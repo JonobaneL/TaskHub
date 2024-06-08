@@ -55,7 +55,7 @@ const LogInForm = () => {
         </Link>
       </div>
       <div className="flex justify-center mt-8">
-        <Button className="text-background font-main font-medium text-md min-w-36 h-11 w-7/12 hover:shadow-primary-button transition duration-1 hover:translate-y-[-1px]">
+        <Button className="text-background font-main font-medium text-md min-w-36 h-11 w-7/12 hover:shadow-primary-button transition-all duration-3 hover:-translate-y-[1px]">
           Log In
         </Button>
       </div>

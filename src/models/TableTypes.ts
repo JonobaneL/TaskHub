@@ -8,3 +8,9 @@ declare module "@tanstack/react-table" {
     tableID: string;
   }
 }
+type Column = {
+  name: string;
+  label: string;
+  checked: boolean;
+};
+export type EditColumnsParams = Column[];

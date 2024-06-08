@@ -1,4 +1,4 @@
-import { CommentParams, TaskKeys, TaskParams } from "./projectTypes";
+import { TaskKeys } from "./projectTypes";
 
 export type TaskResponseParams = {
   task: string;
@@ -15,9 +15,9 @@ export type UpdateTaskProps = {
   key: TaskKeys;
   value: any;
 };
-export type CommentsResponse = {
-  comments: CommentParams[];
-};
+// export type CommentsResponse = {
+//   comments: CommentParams[];
+// };
 export type AddNewTaskProps = {
   task: string;
   tableID: string;
@@ -31,13 +31,16 @@ export type DeleteTaskProps = {
   taskID: string;
   tableID: string;
 };
-export type AddCommentProps = {
-  tableID: string;
-  taskID: string;
-  commentsID: string | null;
-  comment: CommentParams;
-};
-export type fetchCommentsProps = {
-  projectID: string | null;
-  tasks: TaskParams[];
-};
+// export type AddCommentProps = {
+//   tableID: string;
+//   taskID: string;
+//   commentsID: string | null;
+//   comment: {
+//     authorID: string;
+//     content: string;
+//   };
+// };
+// export type fetchCommentsProps = {
+//   projectID: string | null;
+//   tasks: TaskParams[];
+// };

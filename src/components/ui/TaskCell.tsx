@@ -24,7 +24,12 @@ const TaskCell = ({ row }: CellProps) => {
           <TaskHeader task={task} commnets={commentsID} setTab={setTab} />
         </div>
       </SheetTrigger>
-      <SheetContent className="overflow-auto min-w-[30rem]">
+      <SheetContent
+        className="overflow-auto min-w-[32rem]"
+        onContextMenu={(e) => {
+          e.preventDefault();
+        }}
+      >
         <SheetHeader className="mb-4">
           <SheetTitle className="text-primary">{task}</SheetTitle>
         </SheetHeader>

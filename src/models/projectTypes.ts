@@ -1,4 +1,5 @@
 import { CellContext, Table } from "@tanstack/react-table";
+import { CommentParams } from "./commentTypes";
 
 export type LabelParams = {
   color: string;
@@ -36,13 +37,9 @@ export type TaskParams = {
   tableID: string;
   author: string;
 };
-export type CommentParams = {
-  authorID: string;
-  content: string;
-  date: string;
-  reply: null;
-};
+
 export type TaskKeys =
+  | "id"
   | "commentsID"
   | "due_date"
   | "notes"

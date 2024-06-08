@@ -22,11 +22,7 @@ const DateStatus = ({ row }: StatusProps) => {
     <div className="absolute left-2">
       {currentStatus != null && (
         <Helper side="top" content={currentStatus.content}>
-          <img
-            src={currentStatus.icon}
-            alt={currentStatus.name}
-            className="w-[1.1rem] h-[1.1rem]"
-          />
+          {currentStatus.icon}
         </Helper>
       )}
     </div>

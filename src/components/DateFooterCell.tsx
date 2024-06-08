@@ -1,9 +1,14 @@
 import { TableTanstack } from "@/models/projectTypes";
-import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { useState } from "react";
-import RadioGroupList from "./RadioGroupList";
 import DateFooterCellContent from "./DateFooterCellContent";
 import { useTableDates } from "@/hooks/useTableDates";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
 
 const DateFooterCell = ({ table }: TableTanstack) => {
   const { date } = useTableDates(table.options.meta?.tableID);
@@ -12,29 +17,28 @@ const DateFooterCell = ({ table }: TableTanstack) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <div className="h-full w-full p-1.5">
-      <Popover
+      <DropdownMenu
         open={isOpen}
-        onOpenChange={(open) =>
-          (date?.startDate || date?.endDate) && setIsOpen(open)
-        }
+        onOpenChange={(value) => date?.startDate && setIsOpen(value)}
       >
-        <PopoverTrigger asChild>
+        <DropdownMenuTrigger asChild>
           <div className="h-full">
             <DateFooterCellContent
               type={type}
               tableID={table.options.meta?.tableID}
             />
           </div>
-        </PopoverTrigger>
-        <PopoverContent className="w-52">
-          <RadioGroupList
-            currentValue={type}
-            list={dueDateTypes}
-            onChange={(value) => setType(value)}
-            onClose={() => setIsOpen(false)}
-          />
-        </PopoverContent>
-      </Popover>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent hideWhenDetached={false}>
+          <DropdownMenuRadioGroup value={type} onValueChange={setType}>
+            {dueDateTypes.map((item, index) => (
+              <DropdownMenuRadioItem key={index} value={item}>
+                {item}
+              </DropdownMenuRadioItem>
+            ))}
+          </DropdownMenuRadioGroup>
+        </DropdownMenuContent>
+      </DropdownMenu>
     </div>
   );
 };

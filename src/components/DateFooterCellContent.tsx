@@ -14,11 +14,15 @@ const DateFooterCellContent = ({ type, tableID }: ContentProps) => {
       {type == "Range" ? (
         <>
           <p className="font-normal text-background group-hover:hidden ">
-            {dateFormating(date?.startDate)} - {dateFormating(date?.endDate)}
+            {date.startDate == date.endDate
+              ? dateFormating(date.endDate)
+              : `${dateFormating(date?.startDate)} - ${dateFormating(
+                  date?.endDate
+                )}`}
           </p>
           {date?.startDate && (
             <p className="font-normal text-background hidden group-hover:block">
-              {days} days
+              {days} {days == 1 ? "day" : "days"}
             </p>
           )}
         </>
