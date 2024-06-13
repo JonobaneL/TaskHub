@@ -12,8 +12,9 @@ export const useLableField = (
   remove: () => void
 ) => {
   const dispatch = useTypeDispatch();
-  const ids = useOptionUse(fieldName as TaskKeys, fieldItem.name);
+  const ids = useOptionUse(fieldName as TaskKeys, fieldItem.labelID);
   const removeHandler = () => {
+    if (fieldItem?.role) return;
     if (ids.length === 0) remove();
   };
   const blurHandler = (value: string) => {
@@ -21,7 +22,7 @@ export const useLableField = (
       if (ids.length === 0) remove();
       return;
     }
-    if (fieldItem.name !== value) {
+    if (fieldItem.labelID !== value) {
       if (ids.length > 0) {
         ids.forEach((item) => {
           console.log(item);
@@ -29,7 +30,7 @@ export const useLableField = (
             updateTask({
               ...item,
               key: fieldName as TaskKeys,
-              value: value,
+              value: fieldItem.labelID,
             })
           );
         });

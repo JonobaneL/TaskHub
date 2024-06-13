@@ -3,6 +3,8 @@ import TableName from "./TableName";
 import {
   ColumnDef,
   getCoreRowModel,
+  getFilteredRowModel,
+  getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
 import { taskTableColumns } from "@/data/tasksTableColumns";
@@ -17,25 +19,28 @@ type TasksTableProps = {
 
 const TasksTable = ({ table }: TasksTableProps) => {
   const columns: ColumnDef<TaskParams>[] = taskTableColumns;
-  const { editColumns } = useTableContex();
+  const { editColumns, columnFilters, groupsFilter } = useTableContex();
   const tableMeta = generateTableMeta(table);
   const tableTemplate = useReactTable({
     data: table.tasks || [],
     columns,
     state: {
       columnVisibility: editColumns,
+      columnFilters,
     },
     meta: tableMeta,
     getCoreRowModel: getCoreRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
+    getSortedRowModel: getSortedRowModel(),
   });
-
-  return (
-    <div>
-      <TableName table={table} taskAmount={table.tasks?.length || 0} />
-      <TableTemplate color={table.color} table={tableTemplate} />
-      <TasksTableStatistic table={tableTemplate} />
-    </div>
-  );
+  if (groupsFilter.length == 0 || groupsFilter.includes(table.id))
+    return (
+      <div>
+        <TableName table={table} taskAmount={table.tasks?.length || 0} />
+        <TableTemplate color={table.color} table={tableTemplate} />
+        <TasksTableStatistic table={tableTemplate} />
+      </div>
+    );
 };
 
 export default TasksTable;

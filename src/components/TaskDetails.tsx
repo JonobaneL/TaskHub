@@ -2,14 +2,14 @@ import { TaskParams } from "@/models/projectTypes";
 import { Textarea } from "./ui/textarea";
 import { Row } from "@tanstack/react-table";
 import { dateFormating } from "@/utils/dateFormating";
-import { getLabelsColors } from "@/utils/getLabelsColors";
+import { getLabel } from "@/utils/getLabel";
 type TaskProps = {
   row: Row<TaskParams>;
 };
 
 const TaskDetails = ({ row }: TaskProps) => {
   const { notes, status, priority, due_date } = row.original;
-  const { statusColor, priorityColor } = getLabelsColors(status, priority);
+  const { statusLabel, priorityLabel } = getLabel(status, priority);
   // think about content in this component
   return (
     <div>
@@ -24,9 +24,9 @@ const TaskDetails = ({ row }: TaskProps) => {
           <p className="text-sm text-slate-600 font-main">Status</p>
           <div
             className="px-4 py-1 w-fit rounded-sm text-white capitalize text-sm"
-            style={{ background: statusColor }}
+            style={{ background: statusLabel?.color }}
           >
-            {status}
+            {statusLabel?.name}
           </div>
         </div>
         <div className="space-y-2">
@@ -39,9 +39,9 @@ const TaskDetails = ({ row }: TaskProps) => {
           <p className="text-sm text-slate-600 font-main">Priority</p>
           <div
             className="px-4 py-1 w-fit rounded-sm text-white capitalize text-sm"
-            style={{ background: priorityColor }}
+            style={{ background: priorityLabel?.color }}
           >
-            {priority}
+            {priorityLabel?.name}
           </div>
         </div>
       </div>

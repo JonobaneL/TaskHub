@@ -49,7 +49,7 @@ const PieChart = ({
           title: () => "",
           label(tooltipItem) {
             const key = tooltipItem.label;
-            return `${params[key].value}/${totalValue} ${key}`;
+            return `${params[key].value}/${totalValue} ${params[key].name}`;
           },
         },
       },

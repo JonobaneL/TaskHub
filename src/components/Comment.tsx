@@ -13,7 +13,6 @@ type CommentProps = {
 
 const Comment = ({ commentsID, comment }: CommentProps) => {
   const { edit, setCommentstID } = useComment();
-  console.log(edit);
   useEffect(() => setCommentstID(commentsID), []);
   return (
     <div className="rounded border p-2">

@@ -11,14 +11,17 @@ type TableProps = {
 };
 const TableTemplate = ({ color, table }: TableProps) => {
   return (
-    <Table
-      style={{ borderColor: color }}
-      className="border-l-4 border-y border-y-slate-200 shadow"
-    >
-      <TasksTableHeader table={table} />
-      <TasksTableBody table={table} />
-      <TaskTableFooter table={table} />
-    </Table>
+    <div className="h-fit relative">
+      <div
+        style={{ background: color }}
+        className="absolute h-full w-1 left-0 top-0 rounded-l-sm"
+      />
+      <Table className="border-y border-y-slate-200 shadow-sm ml-1">
+        <TasksTableHeader table={table} />
+        <TasksTableBody table={table} />
+        <TaskTableFooter table={table} />
+      </Table>
+    </div>
   );
 };
 

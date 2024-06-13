@@ -4,6 +4,7 @@ import TasksTable from "@/components/TasksTable";
 import { TableParams } from "@/models/projectTypes";
 import Loader from "@/components/ui/Loader";
 import { TableProvider } from "@/context/TableContext";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 
 const TablesPage = () => {
   const { isLoading, project } = useTypeSelector(
@@ -19,14 +20,13 @@ const TablesPage = () => {
         {isLoading ? (
           <Loader type="bouncing" />
         ) : (
-          <div className="space-y-4 w-full overflow-x-scroll pb-10">
+          <ScrollArea className="space-y-4 pb-8">
             {project.tables?.map((item: TableParams) => (
               <TasksTable key={item.id} table={item} />
             ))}
-          </div>
+            <ScrollBar orientation="horizontal" className="h-2" />
+          </ScrollArea>
         )}
-        <br />
-        <br />
       </section>
     </TableProvider>
   );

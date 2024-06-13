@@ -1,9 +1,9 @@
 import { useMemo } from "react";
 import { Row } from "@tanstack/react-table";
 import { TaskParams } from "@/models/projectTypes";
-import { checkDeadline } from "@/utils/checkDeadline";
 import Helper from "./ui/Helper";
 import { dateStatuses } from "@/data/dateStatuses";
+import { isDone, isDoneOverdue, isOverdue } from "@/utils/additionalDateEvents";
 
 type StatusProps = {
   row: Row<TaskParams>;
@@ -11,18 +11,27 @@ type StatusProps = {
 
 const DateStatus = ({ row }: StatusProps) => {
   const { status, due_date } = row.original;
-  const isDeadlinePassed = checkDeadline(due_date);
+  const check = due_date
+    ? [
+        isOverdue(due_date, status),
+        isDone(due_date, status),
+        isDoneOverdue(due_date, status),
+      ]
+    : null;
+
   const currentStatus = useMemo(() => {
-    if (status == "done" && !isDeadlinePassed) return dateStatuses[1];
-    if (status == "done" && isDeadlinePassed) return dateStatuses[2];
-    if (isDeadlinePassed) return dateStatuses[0];
-    return null;
+    const index = check?.reduce((prev, item, index) => {
+      if (item == true) return index;
+      return prev;
+    }, -1);
+    if (index == -1 || due_date == null) return null;
+    return index !== undefined ? dateStatuses[index] : null;
   }, [status, due_date]);
   return (
     <div className="absolute left-2">
       {currentStatus != null && (
         <Helper side="top" content={currentStatus.content}>
-          {currentStatus.icon}
+          <div>{currentStatus.icon}</div>
         </Helper>
       )}
     </div>

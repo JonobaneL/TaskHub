@@ -14,3 +14,6 @@ type Column = {
   checked: boolean;
 };
 export type EditColumnsParams = Column[];
+export type ColumnFiltersParams = {
+  [key: string]: string[] | string;
+};

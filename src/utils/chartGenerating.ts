@@ -9,7 +9,10 @@ export const chartGenerating = (
   const initial: DynamicKeyObject =
     labels?.reduce(
       (prev, current) => {
-        return { ...prev, [current.name]: { value: 0, color: current.color } };
+        return {
+          ...prev,
+          [current.labelID]: { value: 0, color: current.color },
+        };
       },
       { empty: { value: 0, color: "#fff" } }
     ) || {};

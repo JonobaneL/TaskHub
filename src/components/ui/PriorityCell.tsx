@@ -5,12 +5,12 @@ import { CellDefaultProps } from "@/models/projectTypes";
 import { useTypeSelector } from "@/hooks/useReduxHooks";
 import priorityIcon from "../../assets/images/priority-add.svg";
 import HoverEditButton from "./HoverEditButton";
-import { getLabelsColors } from "@/utils/getLabelsColors";
+import { getLabel } from "@/utils/getLabel";
 
 const PriorityCell = ({ options }: CellDefaultProps) => {
   const { project } = useTypeSelector((state) => state.projectReducer);
   const { table, column, row } = options;
-  const { priorityColor } = getLabelsColors(null, row.original.priority);
+  const { priorityLabel } = getLabel(null, row.original.priority);
   const [isOpen, setIsOpen] = useState(false);
   const handler = (value: string) => {
     const currentPriority = row.original.priority;
@@ -24,10 +24,10 @@ const PriorityCell = ({ options }: CellDefaultProps) => {
         <PopoverTrigger asChild>
           {row.original?.priority ? (
             <div
-              style={{ backgroundColor: priorityColor }}
+              style={{ backgroundColor: priorityLabel?.color }}
               className="h-full cursor-pointer px-4 capitalize text-center leading-9 text-background"
             >
-              {row.original?.priority}
+              {priorityLabel?.name}
             </div>
           ) : (
             <div className="h-full">

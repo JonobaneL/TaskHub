@@ -1,6 +1,6 @@
 import { TableTanstack } from "@/models/projectTypes";
-import { flexRender } from "@tanstack/react-table";
 import { TableHead, TableHeader, TableRow } from "./table";
+import HeaderCellContent from "./HeaderCellContent";
 
 const TasksTableHeader = ({ table }: TableTanstack) => {
   return (
@@ -14,14 +14,9 @@ const TasksTableHeader = ({ table }: TableTanstack) => {
                 width: `${header.column.columnDef.size}rem`,
                 minWidth: `${header.column.columnDef?.minSize}rem`,
               }}
-              className={` px-0 text-center font-main h-9`}
+              className={`group px-0 text-center font-main h-9`}
             >
-              {header.isPlaceholder
-                ? null
-                : flexRender(
-                    header.column.columnDef.header,
-                    header.getContext()
-                  )}
+              <HeaderCellContent header={header} />
             </TableHead>
           ))}
           <TableHead className="px-0 h-9" />

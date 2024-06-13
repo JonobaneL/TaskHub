@@ -5,7 +5,7 @@ type ListProps = {
   handler: (value: string) => void;
 };
 
-const LablesList = ({ labels, handler }: ListProps) => {
+const LabelsList = ({ labels, handler }: ListProps) => {
   const labelsLength = labels?.length || 0;
 
   return (
@@ -19,7 +19,7 @@ const LablesList = ({ labels, handler }: ListProps) => {
           key={index}
           className="w-[10.5rem] h-9 text-background capitalize text-center leading-9 cursor-pointer rounded-sm text-sm"
           style={{ backgroundColor: item.color }}
-          onClick={() => handler(item.name)}
+          onClick={() => handler(item.labelID)}
         >
           {item.name}
         </li>
@@ -28,4 +28,4 @@ const LablesList = ({ labels, handler }: ListProps) => {
   );
 };
 
-export default LablesList;
+export default LabelsList;

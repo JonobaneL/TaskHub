@@ -3,12 +3,12 @@ import Labels from "../Labels";
 import { useState } from "react";
 import { CellDefaultProps } from "@/models/projectTypes";
 import { useTypeSelector } from "@/hooks/useReduxHooks";
-import { getLabelsColors } from "@/utils/getLabelsColors";
+import { getLabel } from "@/utils/getLabel";
 
 const StatusCell = ({ options }: CellDefaultProps) => {
   const { project } = useTypeSelector((state) => state.projectReducer);
   const { table, column, row } = options;
-  const { statusColor } = getLabelsColors(row.original.status, null);
+  const { statusLabel } = getLabel(row.original.status, null);
   const [isOpen, setIsOpen] = useState(false);
   const handler = (value: string) => {
     const currentStatus = row.original.status;
@@ -21,10 +21,10 @@ const StatusCell = ({ options }: CellDefaultProps) => {
       <Popover open={isOpen} onOpenChange={setIsOpen}>
         <PopoverTrigger asChild>
           <div
-            style={{ backgroundColor: statusColor }}
+            style={{ backgroundColor: statusLabel?.color }}
             className="h-full cursor-pointer px-4 capitalize text-center leading-9 text-background"
           >
-            {row.original.status}
+            {statusLabel?.name}
           </div>
         </PopoverTrigger>
         <PopoverContent className="w-fit rounded-sm shadow-md ">

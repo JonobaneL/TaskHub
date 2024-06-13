@@ -5,6 +5,7 @@ export type LabelParams = {
   color: string;
   name: string;
   labelID: string;
+  role?: string;
 };
 
 export type ProjectParams = {

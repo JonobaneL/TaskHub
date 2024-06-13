@@ -1,19 +1,7 @@
 import ExtendedProjectsList from "@/components/ExtendedProjectsList";
 import { Button } from "@/components/ui/button";
-import { useTypeDispatch, useTypeSelector } from "@/hooks/useReduxHooks";
-import { updateLabels } from "@/store/thunks/projectsThunks";
 
 const Dashboard = () => {
-  const { project } = useTypeSelector((state) => state.projectReducer);
-  const dispatch = useTypeDispatch();
-  const handler = () => {
-    dispatch(
-      updateLabels({
-        type: "status_labels",
-        labels: project.status_labels || [],
-      })
-    );
-  };
   return (
     <div key="check">
       <h1 className="font-main text-primary font-semibold text-3xl mb-2">

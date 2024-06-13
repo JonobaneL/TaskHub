@@ -1,4 +1,4 @@
-import { ColumnDef } from "@tanstack/react-table";
+import { ColumnDef, Row } from "@tanstack/react-table";
 import SelectCell from "@/components/ui/SelectCell";
 import TaskCell from "@/components/ui/TaskCell";
 import { TaskParams } from "@/models/projectTypes";
@@ -10,6 +10,13 @@ import StatusFooterCell from "@/components/StatusFooterCell";
 import PriorityFooterCell from "@/components/PriorityFooterCell";
 import DateFooterCell from "@/components/DateFooterCell";
 import SelectHeaderCell from "@/components/ui/SelectHeaderCell";
+import {
+  dueDateFilterEvent,
+  dueDateSortingEvent,
+  notesFilterEvent,
+  priorityFilterEvent,
+  statusFilterEvent,
+} from "@/utils/columnsEvents";
 
 export const taskTableColumns = [
   {
@@ -18,6 +25,7 @@ export const taskTableColumns = [
     cell: ({ row }) => <SelectCell row={row} />,
     enableSorting: false,
     enableHiding: false,
+    enableColumnFilter: false,
     size: 2.25, //rem
     minSize: 2.25,
   },
@@ -28,6 +36,9 @@ export const taskTableColumns = [
     size: 22, //rem
     minSize: 22,
     enableHiding: false,
+    enableColumnFilter: true,
+    enableSorting: true,
+    filterFn: "includesString",
   },
 
   {
@@ -37,6 +48,9 @@ export const taskTableColumns = [
     size: 10, //rem
     minSize: 10,
     footer: ({ table }) => <StatusFooterCell table={table} />,
+    enableColumnFilter: true,
+    enableSorting: false,
+    filterFn: statusFilterEvent,
   },
   {
     accessorKey: "due_date",
@@ -45,6 +59,9 @@ export const taskTableColumns = [
     size: 9, //rem
     minSize: 9,
     footer: ({ table }) => <DateFooterCell table={table} />,
+    enableColumnFilter: true,
+    sortingFn: dueDateSortingEvent,
+    filterFn: dueDateFilterEvent,
   },
   {
     accessorKey: "priority",
@@ -52,13 +69,19 @@ export const taskTableColumns = [
     cell: (props) => <PriorityCell options={props} />,
     size: 9, //rem
     minSize: 9,
+    enableColumnFilter: true,
+    sortingFn: "text",
     footer: ({ table }) => <PriorityFooterCell table={table} />,
+    filterFn: priorityFilterEvent,
   },
   {
     accessorKey: "notes",
-    header: "Note",
+    header: "Notes",
     cell: (props) => <NoteCell options={props} />,
     size: 10, //rem
     minSize: 10,
+    enableColumnFilter: true,
+    enableSorting: false,
+    filterFn: notesFilterEvent,
   },
 ] as ColumnDef<TaskParams>[];

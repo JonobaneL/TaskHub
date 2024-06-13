@@ -77,10 +77,13 @@ export const addNewTask = createAsyncThunk<
   try {
     const state = getState();
     const { project } = state.projectReducer;
+    const noneStatus = project.status_labels?.find(
+      (item) => item.role == "none"
+    );
     const { user } = state.userReducer;
     const defaultTask = {
       due_date: null,
-      status: "none",
+      status: noneStatus?.labelID || "",
       priority: null,
       commentsID: null,
       notes: "",

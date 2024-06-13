@@ -5,11 +5,15 @@ import HoverEditButton from "./HoverEditButton";
 import DateStatus from "../DateStatus";
 import removeIcon from "../../assets/images/remove.svg";
 import { dateFormating } from "@/utils/dateFormating";
+import { useTypeSelector } from "@/hooks/useReduxHooks";
 
 const DueDateCell = ({ options }: CellDefaultProps) => {
   const { table, column, row } = options;
   const { status, due_date } = row.original;
-
+  const { project } = useTypeSelector((state) => state.projectReducer);
+  const defaultLabel = project.status_labels?.find(
+    (item) => item?.role == "done"
+  )?.labelID;
   const updateHandler = (value: string) => {
     const currentDate = value.slice(4, 15);
     if (due_date !== currentDate && value) {
@@ -26,7 +30,7 @@ const DueDateCell = ({ options }: CellDefaultProps) => {
         {due_date ? (
           <div className="w-full h-full flex items-center justify-center cursor-pointer relative">
             <DateStatus row={row} />
-            <p className={`${status == "done" && "line-through"}`}>
+            <p className={`${status == defaultLabel && "line-through"}`}>
               {dateFormating(due_date)}
             </p>
             <img

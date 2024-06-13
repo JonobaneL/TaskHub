@@ -4,16 +4,20 @@ import Helper from "./ui/Helper";
 import { TbClockHour8 } from "react-icons/tb";
 import { timeAgoFormatter } from "@/utils/timeAgoFormatter";
 import { CommentParams } from "@/models/commentTypes";
-import TimeAgo from "react-timeago";
 import CommentMenu from "./CommentMenu";
 import PinBadge from "./ui/PinBadge";
 import { useComment } from "@/context/CommentContext";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
 
 type HeaderProps = {
   comment: CommentParams;
 };
+dayjs.extend(relativeTime);
 
 const CommentHeader = ({ comment }: HeaderProps) => {
+  const d = dayjs(comment.date);
+  const timeFromNow = d.fromNow(true);
   const { edit } = useComment();
   return (
     <div className="flex items-center justify-between mb-5 relative">
@@ -31,12 +35,9 @@ const CommentHeader = ({ comment }: HeaderProps) => {
           <Helper content={dateFormating(comment.date, true)}>
             <div className="flex gap-0.5 items-center">
               <TbClockHour8 className="size-4 text-gray-500" />
-              <TimeAgo
-                date={comment.date}
-                live={false}
-                className="text-sm font-main text-gray-500 font-medium pointer-events-none"
-                formatter={timeAgoFormatter}
-              />
+              <p className="text-sm font-main text-gray-500 font-medium pointer-events-none">
+                {timeAgoFormatter(timeFromNow)}
+              </p>
             </div>
           </Helper>
           <CommentMenu comment={comment} />

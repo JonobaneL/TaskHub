@@ -40,7 +40,7 @@ const ChartLegend = ({
           <p className="text-sm">
             -{" "}
             <span className={!keys.includes(item) ? "line-through" : ""}>
-              {item}
+              {params[item].name}
             </span>
           </p>
         </div>

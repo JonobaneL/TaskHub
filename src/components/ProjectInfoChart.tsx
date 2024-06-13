@@ -12,7 +12,14 @@ const ProjectInfoChart = ({ project, tasks }: ChartProps) => {
   const chartData = useMemo(() => {
     const initial: DynamicKeyObject =
       project.status_labels?.reduce((prev, current) => {
-        return { ...prev, [current.name]: { value: 0, color: current.color } };
+        return {
+          ...prev,
+          [current.labelID]: {
+            value: 0,
+            color: current.color,
+            name: current.name,
+          },
+        };
       }, {}) || {};
     tasks?.forEach((task) => {
       const status = task.status;

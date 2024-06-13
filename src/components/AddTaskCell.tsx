@@ -19,7 +19,7 @@ const AddTaskCell = ({ table }: TableTanstack) => {
           onBlur={addTaskHandler}
           type="text"
           placeholder="+ Add task"
-          className="bg-transparent font-normal w-full"
+          className="bg-transparent font-normal w-full focus:outline-none focus:ring-0"
         />
       </div>
     </TableCell>
