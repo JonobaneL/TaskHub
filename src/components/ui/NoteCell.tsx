@@ -30,7 +30,7 @@ const NoteCell = ({ options }: CellDefaultProps) => {
           <input
             defaultValue={notes}
             ref={noteRef}
-            className="w-full h-full px-1 border border-grey-500"
+            className="w-full h-full px-1 border border-grey-500 focus:outline-none focus:ring-0"
             onBlur={changeHandler}
             autoFocus
           />

@@ -8,6 +8,7 @@ type PickerProps = {
   colors: readonly string[];
   onChange: (name: string) => void;
   asChild?: boolean;
+  disableContent?: boolean;
 };
 
 const ColorPicker = ({
@@ -16,6 +17,7 @@ const ColorPicker = ({
   colors,
   onChange,
   asChild = false,
+  disableContent = false,
 }: PickerProps) => {
   const [visible, setVisible] = useState(false);
   const handler = (colorName: string) => {
@@ -34,21 +36,23 @@ const ColorPicker = ({
           } cursor-pointer ${type == "round" ? "rounded-full" : "rounded-sm"}`}
         />
       </PopoverTrigger>
-      <PopoverContent id="popOver" align="start" className="w-36">
-        <ul className="flex gap-1.5 flex-wrap justify-center">
-          {colors.map(
-            (item, index) =>
-              item !== color && (
-                <ColorPickerItem
-                  key={index}
-                  item={item}
-                  type={type}
-                  handler={handler}
-                />
-              )
-          )}
-        </ul>
-      </PopoverContent>
+      {!disableContent && (
+        <PopoverContent id="popOver" align="start" className="w-36">
+          <ul className="flex gap-1.5 flex-wrap justify-center">
+            {colors.map(
+              (item, index) =>
+                item !== color && (
+                  <ColorPickerItem
+                    key={index}
+                    item={item}
+                    type={type}
+                    handler={handler}
+                  />
+                )
+            )}
+          </ul>
+        </PopoverContent>
+      )}
     </Popover>
   );
 };

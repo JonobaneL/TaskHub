@@ -23,7 +23,7 @@ const Editor = ({ value, onChange, onClose = () => {} }: EditorProps) => {
   return (
     <div ref={editorRef}>
       <EditorToolbar editor={editor} />
-      <EditorContent editor={editor} />
+      <EditorContent className="focus-visible:*:ring-primary" editor={editor} />
     </div>
   );
 };

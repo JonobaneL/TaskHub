@@ -15,7 +15,6 @@ const TaskContextMenu = ({ table, row, children }: TaskContextMenuProps) => {
   const { project } = useTypeSelector((state) => state.projectReducer);
   const currentTableID = table.options.meta?.tableID || "";
   const currentTaskID = row.original.id;
-
   const { deleteHandler, moveToHandler, duplicateHandler } = useMenuMethods(
     currentTaskID,
     currentTableID

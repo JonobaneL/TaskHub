@@ -45,7 +45,7 @@ const SearchFilters = () => {
             className="absolute w-4 left-2 top-1/2 -translate-y-1/2"
           />
           <Input
-            className="pl-8"
+            className="pl-8 focus-visible:ring-primary"
             autoFocus
             value={filters.task}
             onChange={(e) => changeHandler(e.target.value)}

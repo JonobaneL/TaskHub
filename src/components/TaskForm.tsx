@@ -1,36 +1,40 @@
-import { useTypeDispatch, useTypeSelector } from "@/hooks/useReduxHooks";
+import { useTypeSelector } from "@/hooks/useReduxHooks";
 import Field from "./ui/Field";
 import { Button } from "./ui/button";
 import { useForm } from "react-hook-form";
 import { fieldValidation } from "@/data/formOptions";
-import { addNewTask } from "@/store/thunks/tasksThunks";
-import { NewTaskFormParams } from "@/models/formTypes";
+import { TaskFormParams, TaskFormProps } from "@/models/formTypes";
 import NewTaskDateSelect from "./NewTaskDateSelect";
 import NewTaskDepSelect from "./NewTaskDepSelect";
+import { equalValidation } from "@/utils/formValidations";
 
-type FormProps = {
-  onClose: () => void;
-};
-const NewTaskForm = ({ onClose }: FormProps) => {
+const TaskForm = ({
+  onClose,
+  defaultValues,
+  btnContent,
+  submitHandler,
+}: TaskFormProps) => {
   const { project } = useTypeSelector((state) => state.projectReducer);
+  const defaultStatus =
+    project.status_labels?.find((item) => item?.role == "none")?.labelID || "";
   const {
     register,
     control,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<NewTaskFormParams>({
-    defaultValues: {
+  } = useForm<TaskFormParams>({
+    values: defaultValues,
+    defaultValues: defaultValues || {
       notes: "",
-      status: "none",
+      status: defaultStatus,
       due_date: null,
       priority: null,
     },
   });
-  const dispatch = useTypeDispatch();
-  const onSubmit = (data: NewTaskFormParams) => {
-    const tableID =
-      project?.tables?.find((item) => item.main == true)?.id || "";
-    dispatch(addNewTask({ ...data, tableID: tableID }));
+  const onSubmit = (data: TaskFormParams) => {
+    const equalCheck = equalValidation<TaskFormParams>(data, defaultValues);
+    if (!equalCheck) return;
+    submitHandler(data);
     onClose();
   };
   return (
@@ -63,10 +67,10 @@ const NewTaskForm = ({ onClose }: FormProps) => {
         type="submit"
         disabled={isSubmitting}
       >
-        Add Task
+        {btnContent}
       </Button>
     </form>
   );
 };
 
-export default NewTaskForm;
+export default TaskForm;

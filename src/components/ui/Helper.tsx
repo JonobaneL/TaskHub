@@ -9,7 +9,7 @@ import { TooltipArrow } from "@radix-ui/react-tooltip";
 
 type HelperProps = {
   side?: "right" | "top" | "bottom" | "left";
-  content: string | string[];
+  content: string | string[] | React.ReactNode;
   children: React.ReactNode;
   disableContent?: boolean;
 };
@@ -40,9 +40,13 @@ const Helper = ({
             sideOffset={8}
             className={`overflow-visible w-fit px-3 h-8 bg-primary rounded-md flex items-center justify-center shadow-sm after:content[''] after:z-50 after:fixed `}
           >
-            <p className="font-main text-xs text-background">
-              {Array.isArray(content) ? content.join(" ") : content}
-            </p>
+            {!React.isValidElement(content) ? (
+              <p className="font-main text-xs text-background">
+                {Array.isArray(content) ? content.join(" ") : content}
+              </p>
+            ) : (
+              content
+            )}
             <TooltipArrow className="fill-primary" width={12} height={6} />
           </TooltipContent>
         )}

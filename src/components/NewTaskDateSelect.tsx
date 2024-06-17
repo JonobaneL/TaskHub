@@ -1,10 +1,10 @@
 import { Control, Controller } from "react-hook-form";
 import DateSelect from "./ui/DateSelect";
-import { NewTaskFormParams } from "@/models/formTypes";
+import { TaskFormParams } from "@/models/formTypes";
 import { dateFormating } from "@/utils/dateFormating";
 
 type SelectProps = {
-  control: Control<NewTaskFormParams>;
+  control: Control<TaskFormParams>;
 };
 
 const NewTaskDateSelect = ({ control }: SelectProps) => {

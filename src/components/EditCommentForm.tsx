@@ -4,7 +4,7 @@ import { useComment } from "@/context/CommentContext";
 import { Button } from "./ui/button";
 import { useTypeDispatch } from "@/hooks/useReduxHooks";
 import { modifiComment } from "@/store/thunks/commentsThunks";
-import { CommentParams } from "@/models/commentTypes";
+import { CommentFormParams, CommentParams } from "@/models/commentTypes";
 import { editCommentEvent } from "@/utils/commentMenuEvents";
 
 type FormProps = {

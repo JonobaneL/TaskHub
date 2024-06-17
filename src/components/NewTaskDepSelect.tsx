@@ -6,13 +6,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "./ui/select";
-import { NewTaskFormParams } from "@/models/formTypes";
+import { TaskFormParams } from "@/models/formTypes";
 import { LabelParams } from "@/models/projectTypes";
 
 type SelectProps = {
-  control: Control<NewTaskFormParams>;
+  control: Control<TaskFormParams>;
   labels: LabelParams[] | null;
-  name: FieldPath<NewTaskFormParams>;
+  name: FieldPath<TaskFormParams>;
 };
 
 const NewTaskDepSelect = ({ control, labels, name }: SelectProps) => {
@@ -35,7 +35,7 @@ const NewTaskDepSelect = ({ control, labels, name }: SelectProps) => {
                 <SelectItem
                   key={item.color}
                   className="capitalize"
-                  value={item.name}
+                  value={item.labelID}
                 >
                   {item.name}
                 </SelectItem>

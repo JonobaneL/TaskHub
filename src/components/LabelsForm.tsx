@@ -23,7 +23,7 @@ const LabelsForm = ({ labels, type, onClose }: FormProps) => {
     submitHandler,
   } = useLabelForm(labels, type, onClose);
   const errors = formState.errors.stages ? formState.errors.stages : [];
-
+  // console.log(labels);
   return (
     <form onSubmit={handleSubmit(submitHandler)}>
       <ul

@@ -1,4 +1,4 @@
-import { ColumnDef, Row } from "@tanstack/react-table";
+import { ColumnDef } from "@tanstack/react-table";
 import SelectCell from "@/components/ui/SelectCell";
 import TaskCell from "@/components/ui/TaskCell";
 import { TaskParams } from "@/models/projectTypes";
@@ -32,12 +32,13 @@ export const taskTableColumns = [
   {
     accessorKey: "task",
     header: "Task",
-    cell: ({ row }) => <TaskCell row={row} />,
+    cell: (options) => <TaskCell options={options} />,
     size: 22, //rem
     minSize: 22,
     enableHiding: false,
     enableColumnFilter: true,
     enableSorting: true,
+    sortingFn: "text",
     filterFn: "includesString",
   },
 

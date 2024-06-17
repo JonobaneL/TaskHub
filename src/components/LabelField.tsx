@@ -28,8 +28,12 @@ const LabelField = ({
         error ? "border-red-500" : "border-slate-200"
       } relative flex gap-2 p-1 items-center`}
     >
-      {fieldItem.name.length > 0 && (
-        <LabelRemoveButton idsLength={ids.length} handler={removeHandler} />
+      {fieldItem?.name?.length > 0 && (
+        <LabelRemoveButton
+          idsLength={ids.length}
+          handler={removeHandler}
+          role={fieldItem?.role}
+        />
       )}
       <Controller
         name={`stages.${index}.color`}
@@ -40,6 +44,9 @@ const LabelField = ({
             type="square"
             colors={labelColors}
             color={field.value}
+            disableContent={
+              fieldItem?.role == "none" || fieldItem?.role == "done"
+            }
             onChange={(value) => {
               field.onChange(value);
               colorHandler(value);
@@ -56,6 +63,7 @@ const LabelField = ({
           <input
             className="w-full h-full text-sm"
             type="text"
+            disabled={fieldItem?.role == "none"}
             {...field}
             autoComplete="off"
             onBlur={(e) => {

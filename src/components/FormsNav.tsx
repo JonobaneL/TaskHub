@@ -8,12 +8,22 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "./ui/sheet";
-import NewTaskForm from "./NewTaskForm";
+import TaskForm from "./TaskForm";
 import NewGroupForm from "./NewGroupForm";
+import { TaskFormParams } from "@/models/formTypes";
+import { useTypeDispatch, useTypeSelector } from "@/hooks/useReduxHooks";
+import { addNewTask } from "@/store/thunks/tasksThunks";
 
 const FormsNav = () => {
   const [newTask, setNewTask] = useState(false);
   const [newGroup, setNewGroup] = useState(false);
+  const { project } = useTypeSelector((state) => state.projectReducer);
+  const dispatch = useTypeDispatch();
+  const addTaskHandler = (data: TaskFormParams) => {
+    const tableID =
+      project?.tables?.find((item) => item.main == true)?.id || "";
+    dispatch(addNewTask({ ...data, tableID: tableID }));
+  };
   return (
     <div className="w-fit space-x-2">
       <Sheet open={newTask} onOpenChange={setNewTask}>
@@ -33,7 +43,11 @@ const FormsNav = () => {
               organized and keep track of your tasks with TaskHub!
             </SheetDescription>
           </SheetHeader>
-          <NewTaskForm onClose={() => setNewTask(false)} />
+          <TaskForm
+            onClose={() => setNewTask(false)}
+            btnContent="Add Task"
+            submitHandler={addTaskHandler}
+          />
         </SheetContent>
       </Sheet>
 

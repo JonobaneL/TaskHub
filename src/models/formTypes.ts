@@ -1,7 +1,7 @@
 import { Control, FieldArrayWithId } from "react-hook-form";
 import { LabelParams } from "./projectTypes";
 
-export type NewTaskFormParams = {
+export type TaskFormParams = {
   task: string;
   notes: string;
   status: string;
@@ -26,4 +26,10 @@ export type LabelFieldProps = {
   remove: () => void;
   updateLabel: (key: string, value: string) => void;
   fieldName: string;
+};
+export type TaskFormProps = {
+  onClose: () => void;
+  defaultValues?: TaskFormParams;
+  btnContent: string;
+  submitHandler: (data: TaskFormParams) => void;
 };

@@ -40,7 +40,7 @@ const TableName = ({ table, taskAmount }: NameProps) => {
               style={{
                 color: table.color,
               }}
-              className="cursor-text font-main font-semibold text-lg hover:ring-1 px-1 hover:ring-gray-300 rounded-[1px] -translate-x-7 group-hover:translate-x-1 transition-transform	duration-300"
+              className="cursor-text font-main font-semibold text-lg hover:ring-1 px-1 hover:ring-gray-300 rounded-[2px] -translate-x-7 group-hover:translate-x-1 transition-transform	duration-300"
             >
               {table.name}
             </h3>

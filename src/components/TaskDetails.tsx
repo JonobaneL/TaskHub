@@ -3,6 +3,7 @@ import { Textarea } from "./ui/textarea";
 import { Row } from "@tanstack/react-table";
 import { dateFormating } from "@/utils/dateFormating";
 import { getLabel } from "@/utils/getLabel";
+
 type TaskProps = {
   row: Row<TaskParams>;
 };
@@ -12,13 +13,13 @@ const TaskDetails = ({ row }: TaskProps) => {
   const { statusLabel, priorityLabel } = getLabel(status, priority);
   // think about content in this component
   return (
-    <div>
+    <div className="">
       <div className="text-right my-2">
         <p className="text-sm text-slate-600 font-main">
           Last Update: <span className="font-medium">27 May</span>
         </p>
       </div>
-      <Textarea value={notes} className="min-h-32" readOnly />
+      <Textarea value={notes || ""} className="min-h-32" readOnly />
       <div className="my-5 flex justify-between">
         <div className="space-y-2">
           <p className="text-sm text-slate-600 font-main">Status</p>
