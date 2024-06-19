@@ -10,8 +10,14 @@ type EditorParams = {
   table: TableParams;
   onClose: () => void;
   condition: (e: Event) => boolean | undefined;
+  defaultOpen: boolean;
 };
-const TableHeaderEditor = ({ table, onClose, condition }: EditorParams) => {
+const TableHeaderEditor = ({
+  table,
+  onClose,
+  condition,
+  defaultOpen,
+}: EditorParams) => {
   const nameRef = useRef<HTMLInputElement>(null);
   const dispatch = useTypeDispatch();
   const colorHandler = async (name: string) => {
@@ -41,12 +47,13 @@ const TableHeaderEditor = ({ table, onClose, condition }: EditorParams) => {
   useEventListener("click", onBlurHandler);
 
   return (
-    <>
+    <div className="flex items-center gap-1">
       <ColorPicker
         color={table.color}
         colors={table_colors}
         type="round"
         onChange={colorHandler}
+        defaultOpen={defaultOpen}
       />
       <input
         autoFocus
@@ -55,7 +62,7 @@ const TableHeaderEditor = ({ table, onClose, condition }: EditorParams) => {
         ref={nameRef}
         type="text"
       />
-    </>
+    </div>
   );
 };
 

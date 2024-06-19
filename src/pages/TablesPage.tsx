@@ -20,10 +20,13 @@ const TablesPage = () => {
         {isLoading ? (
           <Loader type="bouncing" />
         ) : (
-          <ScrollArea className="space-y-4 pb-8">
-            {project.tables?.map((item: TableParams) => (
-              <TasksTable key={item.id} table={item} />
-            ))}
+          <ScrollArea>
+            <div className="space-y-4 pb-8 mt-2">
+              {project.tables?.map((item: TableParams) => (
+                <TasksTable key={item.id} table={item} />
+              ))}
+            </div>
+
             <ScrollBar orientation="horizontal" className="h-2" />
           </ScrollArea>
         )}

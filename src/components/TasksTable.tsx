@@ -12,6 +12,8 @@ import TableTemplate from "./TableTemplate";
 import TasksTableStatistic from "./TasksTableStatistic";
 import { generateTableMeta } from "@/utils/generateTableMeta";
 import { useTableContex } from "@/context/TableContext";
+import { useState } from "react";
+import CollapsedTable from "./CollapsedTable";
 
 type TasksTableProps = {
   table: TableParams;
@@ -19,6 +21,7 @@ type TasksTableProps = {
 
 const TasksTable = ({ table }: TasksTableProps) => {
   const columns: ColumnDef<TaskParams>[] = taskTableColumns;
+  const [isCollapsed, setCollapse] = useState(false);
   const { editColumns, columnFilters, groupsFilter } = useTableContex();
   const tableMeta = generateTableMeta(table);
   const tableTemplate = useReactTable({
@@ -33,14 +36,33 @@ const TasksTable = ({ table }: TasksTableProps) => {
     getFilteredRowModel: getFilteredRowModel(),
     getSortedRowModel: getSortedRowModel(),
   });
+
   if (groupsFilter.length == 0 || groupsFilter.includes(table.id))
     return (
-      <div>
-        <TableName table={table} taskAmount={table.tasks?.length || 0} />
-        <TableTemplate color={table.color} table={tableTemplate} />
-        <TasksTableStatistic table={tableTemplate} />
-      </div>
+      <>
+        {isCollapsed ? (
+          <CollapsedTable
+            table={table}
+            collapse={isCollapsed}
+            collapseHandler={setCollapse}
+            tableTemplate={tableTemplate}
+          />
+        ) : (
+          <div>
+            <TableName
+              table={table}
+              taskAmount={table.tasks?.length || 0}
+              collapse={isCollapsed}
+              collapseHandler={setCollapse}
+            />
+            <TableTemplate color={table.color} table={tableTemplate} />
+            <TasksTableStatistic table={tableTemplate} />
+          </div>
+        )}
+      </>
     );
+
+  return null;
 };
 
 export default TasksTable;

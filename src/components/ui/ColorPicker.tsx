@@ -9,6 +9,7 @@ type PickerProps = {
   onChange: (name: string) => void;
   asChild?: boolean;
   disableContent?: boolean;
+  defaultOpen?: boolean;
 };
 
 const ColorPicker = ({
@@ -18,8 +19,9 @@ const ColorPicker = ({
   onChange,
   asChild = false,
   disableContent = false,
+  defaultOpen = false,
 }: PickerProps) => {
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(defaultOpen);
   const handler = (colorName: string) => {
     onChange(colorName);
     setVisible(false);
@@ -38,7 +40,7 @@ const ColorPicker = ({
       </PopoverTrigger>
       {!disableContent && (
         <PopoverContent id="popOver" align="start" className="w-36">
-          <ul className="flex gap-1.5 flex-wrap justify-center">
+          <ul className="flex gap-1.5 flex-wrap">
             {colors.map(
               (item, index) =>
                 item !== color && (

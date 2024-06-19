@@ -8,7 +8,12 @@ type ContentProps = {
 
 const DateFooterCellContent = ({ type, tableID }: ContentProps) => {
   const { date, days } = useTableDates(tableID);
-  if (!date?.startDate && !date?.startDate) return <div />;
+  if (!date?.startDate && !date?.startDate)
+    return (
+      <div className="h-full text-center text bg-accent leading-5 rounded-[0.2rem]">
+        <p>&#8212;</p>
+      </div>
+    );
   return (
     <div className="group h-full flex items-center justify-center bg-accent-b rounded-[0.2rem] cursor-pointer text-sm">
       {type == "Range" ? (
