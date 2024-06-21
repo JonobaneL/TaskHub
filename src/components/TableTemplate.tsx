@@ -11,12 +11,12 @@ type TableProps = {
 };
 const TableTemplate = ({ color, table }: TableProps) => {
   return (
-    <div className="h-fit relative">
+    <div className="h-fit flex">
       <div
         style={{ background: color }}
-        className="absolute h-full w-1 left-0 top-0 rounded-l-sm"
+        className="h-auto w-1 flex-cover rounded-l-sm"
       />
-      <Table className="border-y border-y-slate-200 shadow-sm ml-1">
+      <Table className="border-y border-y-slate-200 shadow-sm pl-1">
         <TasksTableHeader table={table} />
         <TasksTableBody table={table} />
         <TaskTableFooter table={table} />

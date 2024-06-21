@@ -14,6 +14,7 @@ import { generateTableMeta } from "@/utils/generateTableMeta";
 import { useTableContex } from "@/context/TableContext";
 import { useState } from "react";
 import CollapsedTable from "./CollapsedTable";
+import SelectedTasksMenu from "./SelectedTasksMenu";
 
 type TasksTableProps = {
   table: TableParams;
@@ -59,6 +60,7 @@ const TasksTable = ({ table }: TasksTableProps) => {
             <TasksTableStatistic table={tableTemplate} />
           </div>
         )}
+        <SelectedTasksMenu table={tableTemplate} />
       </>
     );
 

@@ -2,7 +2,7 @@ import { CellDefaultProps } from "@/models/projectTypes";
 import edit from "../../assets/images/note-edit.svg";
 import { useRef, useState } from "react";
 import HoverEditButton from "./HoverEditButton";
-import removeIcon from "../../assets/images/remove.svg";
+import { IoCloseCircleOutline } from "react-icons/io5";
 
 const NoteCell = ({ options }: CellDefaultProps) => {
   const noteRef = useRef<HTMLInputElement>(null);
@@ -16,7 +16,7 @@ const NoteCell = ({ options }: CellDefaultProps) => {
     }
     setIsOpen(false);
   };
-  const removeHandler = (e: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
+  const removeHandler = (e: React.MouseEvent<SVGElement, MouseEvent>) => {
     e.stopPropagation();
     table.options.meta?.updateData(row.index, column.id, null);
   };
@@ -42,11 +42,10 @@ const NoteCell = ({ options }: CellDefaultProps) => {
         >
           <p className="text-nowrap truncate">{notes}</p>
           <div className="bg-background absolute right-2 opacity-0 group-hover:opacity-100 cursor-pointer">
-            <img
-              src={removeIcon}
+            <IoCloseCircleOutline
               onClick={(e) => removeHandler(e)}
-              className="w-[1.1rem] h-[1.1rem]"
-              alt="remove"
+              size="1.4rem"
+              className="text-gray-500"
             />
           </div>
         </div>

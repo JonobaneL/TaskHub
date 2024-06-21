@@ -1,5 +1,5 @@
 import Helper from "./ui/Helper";
-import removeIcon from "../assets/images/remove.svg";
+import { IoCloseCircleOutline } from "react-icons/io5";
 
 type ButtonProps = {
   handler: () => void;
@@ -18,7 +18,7 @@ const LabelRemoveButton = ({ handler, idsLength, role = "" }: ButtonProps) => {
       className="absolute right-1.5 bg-background cursor-pointer opacity-0 invisible group-hover:opacity-100  group-hover:visible"
     >
       <Helper side="right" content={content} disableContent={idsLength == 0}>
-        <img src={removeIcon} alt="remove" className="size-4" />
+        <IoCloseCircleOutline size="1.3rem" className="text-gray-500" />
       </Helper>
     </div>
   );

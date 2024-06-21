@@ -3,9 +3,9 @@ import calendarIcon from "../../assets/images/calendar-add.svg";
 import DateSelect from "./DateSelect";
 import HoverEditButton from "./HoverEditButton";
 import DateStatus from "../DateStatus";
-import removeIcon from "../../assets/images/remove.svg";
 import { dateFormating } from "@/utils/dateFormating";
 import { useTypeSelector } from "@/hooks/useReduxHooks";
+import { IoCloseCircleOutline } from "react-icons/io5";
 
 const DueDateCell = ({ options }: CellDefaultProps) => {
   const { table, column, row } = options;
@@ -20,7 +20,7 @@ const DueDateCell = ({ options }: CellDefaultProps) => {
       table.options.meta?.updateData(row.index, column.id, currentDate);
     }
   };
-  const removeHandler = (e: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
+  const removeHandler = (e: React.MouseEvent<SVGElement, MouseEvent>) => {
     e.stopPropagation();
     table.options.meta?.updateData(row.index, column.id, null);
   };
@@ -33,11 +33,10 @@ const DueDateCell = ({ options }: CellDefaultProps) => {
             <p className={`${status == defaultLabel && "line-through"}`}>
               {dateFormating(due_date)}
             </p>
-            <img
-              src={removeIcon}
+            <IoCloseCircleOutline
               onClick={(e) => removeHandler(e)}
-              className="w-[1.1rem] h-[1.1rem] absolute right-2 opacity-0 group-hover:opacity-100 cursor-pointer"
-              alt="remove"
+              size="1.4rem"
+              className="absolute right-2 opacity-0 group-hover:opacity-100 cursor-pointer text-gray-500"
             />
           </div>
         ) : (
