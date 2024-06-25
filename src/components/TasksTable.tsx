@@ -12,9 +12,8 @@ import TableTemplate from "./TableTemplate";
 import TasksTableStatistic from "./TasksTableStatistic";
 import { generateTableMeta } from "@/utils/generateTableMeta";
 import { useTableContex } from "@/context/TableContext";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CollapsedTable from "./CollapsedTable";
-import SelectedTasksMenu from "./SelectedTasksMenu";
 
 type TasksTableProps = {
   table: TableParams;
@@ -37,6 +36,13 @@ const TasksTable = ({ table }: TasksTableProps) => {
     getFilteredRowModel: getFilteredRowModel(),
     getSortedRowModel: getSortedRowModel(),
   });
+  const selectedRows = tableTemplate.getSelectedRowModel().rows;
+  const { addTasks } = useTableContex();
+  const callback = tableTemplate.toggleAllRowsSelected;
+  useEffect(() => {
+    const rows = selectedRows.map((item) => item.original);
+    addTasks(table.id, rows, callback, table.color);
+  }, [selectedRows.length]);
 
   if (groupsFilter.length == 0 || groupsFilter.includes(table.id))
     return (
@@ -60,7 +66,6 @@ const TasksTable = ({ table }: TasksTableProps) => {
             <TasksTableStatistic table={tableTemplate} />
           </div>
         )}
-        <SelectedTasksMenu table={tableTemplate} />
       </>
     );
 

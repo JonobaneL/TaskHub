@@ -1,10 +1,9 @@
-import { IoIosClose } from "react-icons/io";
 import { Button } from "./ui/button";
-import { Input } from "./ui/input";
 import magGlass from "../assets/images/mag-glass.svg";
 import { useRef, useState } from "react";
 import { useEventListener } from "@/hooks/useEventListener";
 import { useTableContex } from "@/context/TableContext";
+import SearchField from "./ui/searchField";
 
 const SearchFilters = () => {
   const { filters, setFilters } = useTableContex();
@@ -38,29 +37,7 @@ const SearchFilters = () => {
           Search
         </Button>
       ) : (
-        <div className="relative w-52">
-          <img
-            src={magGlass}
-            alt="search"
-            className="absolute w-4 left-2 top-1/2 -translate-y-1/2"
-          />
-          <Input
-            className="pl-8 focus-visible:ring-primary"
-            autoFocus
-            value={filters.task}
-            onChange={(e) => changeHandler(e.target.value)}
-          />
-          {activeFilter && (
-            <IoIosClose
-              onClick={(e) => {
-                e.stopPropagation();
-                changeHandler("");
-              }}
-              className="absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer"
-              size="1.2rem"
-            />
-          )}
-        </div>
+        <SearchField value={filters.task as string} onChange={changeHandler} />
       )}
     </div>
   );

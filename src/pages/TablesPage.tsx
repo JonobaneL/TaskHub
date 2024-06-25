@@ -5,6 +5,7 @@ import { TableParams } from "@/models/projectTypes";
 import Loader from "@/components/ui/Loader";
 import { TableProvider } from "@/context/TableContext";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import SelectedTasksBar from "@/components/SelectedTasksBar";
 
 const TablesPage = () => {
   const { isLoading, project } = useTypeSelector(
@@ -13,14 +14,15 @@ const TablesPage = () => {
   return (
     <TableProvider>
       <section className="p-5">
-        <h2 className="font-main text-[1.5rem] font-semibold text-text">
+        <h2 className="font-main text-[1.5rem] font-semibold text-text ">
           Tables
         </h2>
         <TablesNav />
+
         {isLoading ? (
           <Loader type="bouncing" />
         ) : (
-          <ScrollArea className="w-full whitespace-nowrap">
+          <ScrollArea className="w-full ">
             <div className="space-y-4 pb-8 mt-2">
               {project.tables?.map((item: TableParams) => (
                 <TasksTable key={item.id} table={item} />
@@ -30,6 +32,7 @@ const TablesPage = () => {
           </ScrollArea>
         )}
       </section>
+      <SelectedTasksBar />
     </TableProvider>
   );
 };

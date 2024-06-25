@@ -10,7 +10,6 @@ import DueDateFilters from "./DueDateFilters";
 
 const ColumnsFilters = () => {
   const { columnFilters, groupsFilter } = useTableContex();
-
   const isActive =
     columnFilters.some((item) => item.value.length > 0 && item.id !== "task") ||
     groupsFilter.length > 0;

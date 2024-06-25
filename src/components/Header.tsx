@@ -19,7 +19,7 @@ const Header = () => {
         />
       </div>
       <div className="flex items-center gap-[1rem]">
-        <SearchField />
+        <SearchField value="" onChange={(value) => console.log(value)} />
         <img src={notification} alt="notification" />
         <img src={user} onClick={() => navigate("/user-info")} alt="user" />
       </div>
