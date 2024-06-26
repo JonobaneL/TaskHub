@@ -1,4 +1,5 @@
 export type SingUpFormParams = {
+  avatar: File | null;
   firstName: string;
   lastName: string;
   email: string;

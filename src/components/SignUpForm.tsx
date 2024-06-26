@@ -8,26 +8,51 @@ import mailIcon from "../assets/images/mail.svg";
 import Field from "./ui/Field";
 import PasswordField from "./ui/PasswordField";
 import { Button } from "./ui/button";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { useTypeDispatch } from "@/hooks/useReduxHooks";
 import { signUpUser } from "@/store/reducers/userSlice";
 import { useNavigate } from "react-router-dom";
 import { passwordConfirmValidation } from "@/utils/formValidations";
+import FileField from "./ui/FileField";
+import { LuImagePlus } from "react-icons/lu";
+import { useState } from "react";
 
 const SignUpForm = () => {
+  const [img, setImg] = useState<File | null>(null);
   const {
+    control,
     register,
     handleSubmit,
+    setValue,
     formState: { errors, isSubmitting },
   } = useForm<SingUpFormParams>();
   const dispatch = useTypeDispatch();
   const navigate = useNavigate();
   const onSubmit = (data: SingUpFormParams) => {
-    dispatch(signUpUser(data));
-    navigate("/dashboard");
+    // dispatch(signUpUser(data));
+    // navigate("/dashboard");
+
+    console.log(data);
   };
+
   return (
     <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
+      <Controller
+        control={control}
+        name="avatar"
+        render={({ field }) => (
+          <FileField
+            icon={<LuImagePlus size="1.2rem" className="text-primary" />}
+            file={field.value}
+            onChange={(e) =>
+              field.onChange(e.target.files ? e.target.files[0] : null)
+            }
+            clearHandler={() => setValue("avatar", null)}
+            accept=".svg,.jpg,.png,.jpeg"
+          />
+        )}
+      />
+
       <div className="flex gap-4">
         {/* maybe change flex direcition on smaller screens */}
         <Field
