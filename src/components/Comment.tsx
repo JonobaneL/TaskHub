@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { CommentParams } from "@/models/commentTypes";
 import EditCommentForm from "./EditCommentForm";
 import { CgMailReply } from "react-icons/cg";
+import CommentReply from "./CommentReply";
 
 type CommentProps = {
   commentsID: string | null;
@@ -12,7 +13,7 @@ type CommentProps = {
 };
 
 const Comment = ({ commentsID, comment }: CommentProps) => {
-  const { edit, setCommentstID } = useComment();
+  const { edit, setCommentstID, setReply } = useComment();
   useEffect(() => setCommentstID(commentsID), []);
   return (
     <div className="rounded border p-2">
@@ -26,6 +27,7 @@ const Comment = ({ commentsID, comment }: CommentProps) => {
           <Button
             variant="ghost"
             className="p-2 flex gap-0.5 items-center mr-0 ml-auto"
+            onClick={() => setReply((p) => !p)}
           >
             <CgMailReply size="1.3rem" className="text-primary" />
             <p className="text-sm text-primary font-main leading-9">Reply</p>
@@ -34,6 +36,7 @@ const Comment = ({ commentsID, comment }: CommentProps) => {
       ) : (
         <EditCommentForm comment={comment} />
       )}
+      <CommentReply />
     </div>
   );
 };

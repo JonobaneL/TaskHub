@@ -22,7 +22,7 @@ const SignUpPage = () => {
         <SignUpForm />
         <div className="text-sm font-main font-medium text-text text-center mt-5">
           Already have an account?{" "}
-          <Link className="text-primary font-main underline" to="/sign-up">
+          <Link className="text-primary font-main underline" to="/log-in">
             Log In
           </Link>
         </div>

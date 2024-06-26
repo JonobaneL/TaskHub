@@ -1,6 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getDoc, getFirestore } from "firebase/firestore";
+import { getStorage } from "firebase/storage";
 
 //Firebase configuration
 const firebaseConfig = {
@@ -15,4 +16,5 @@ const firebaseConfig = {
 export const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const firestoreDB = getFirestore(app);
+export const firestoreStorage = getStorage(app);
 export type FirestoreDocType = Awaited<ReturnType<typeof getDoc>>;

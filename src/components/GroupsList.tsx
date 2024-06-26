@@ -15,6 +15,7 @@ const GroupsList = ({ callback }: ListProps) => {
     <PopoverContent side="top" sideOffset={15} className="max-w-60 space-y-0.5">
       {project.tables?.map((item) => (
         <div
+          key={item.id}
           className="group flex items-center cursor-pointer gap-2 p-1 hover:bg-accent transition-all rounded-sm  aria-disabled:pointer-events-none aria-disabled:bg-gray-50 "
           aria-disabled={
             selectedGroups[item.id].tasks.length > 0 && !groupCheck
