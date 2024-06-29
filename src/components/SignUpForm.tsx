@@ -8,17 +8,14 @@ import mailIcon from "../assets/images/mail.svg";
 import Field from "./ui/Field";
 import PasswordField from "./ui/PasswordField";
 import { Button } from "./ui/button";
-import { Controller, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { useTypeDispatch } from "@/hooks/useReduxHooks";
-import { signUpUser } from "@/store/reducers/userSlice";
 import { useNavigate } from "react-router-dom";
 import { passwordConfirmValidation } from "@/utils/formValidations";
-import FileField from "./ui/FileField";
-import { LuImagePlus } from "react-icons/lu";
-import { useState } from "react";
+import AvatarField from "./AvatarField";
+import { signUpUser, uploadUserAvatar } from "@/store/thunks/userThunks";
 
 const SignUpForm = () => {
-  const [img, setImg] = useState<File | null>(null);
   const {
     control,
     register,
@@ -29,30 +26,17 @@ const SignUpForm = () => {
   const dispatch = useTypeDispatch();
   const navigate = useNavigate();
   const onSubmit = (data: SingUpFormParams) => {
-    // dispatch(signUpUser(data));
-    // navigate("/dashboard");
-
-    console.log(data);
+    dispatch(signUpUser(data)).then(() => {
+      if (data.avatar?.name) {
+        dispatch(uploadUserAvatar(data.avatar));
+      }
+      navigate("/dashboard");
+    });
   };
 
   return (
     <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
-      <Controller
-        control={control}
-        name="avatar"
-        render={({ field }) => (
-          <FileField
-            icon={<LuImagePlus size="1.2rem" className="text-primary" />}
-            file={field.value}
-            onChange={(e) =>
-              field.onChange(e.target.files ? e.target.files[0] : null)
-            }
-            clearHandler={() => setValue("avatar", null)}
-            accept=".svg,.jpg,.png,.jpeg"
-          />
-        )}
-      />
-
+      <AvatarField control={control} setValue={setValue} />
       <div className="flex gap-4">
         {/* maybe change flex direcition on smaller screens */}
         <Field

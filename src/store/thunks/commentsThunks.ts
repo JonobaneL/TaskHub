@@ -28,7 +28,7 @@ export const addComment = createAsyncThunk<
   ) => {
     try {
       const { project } = getState().projectReducer;
-      const collection = project.id + "_comments";
+      const collection = project.projectID + "_comments";
       const currentDate = new Date(Date.now()).toString();
       const modifiedComment = {
         ...comment,
@@ -116,7 +116,7 @@ export const modifiComment = createAsyncThunk<
   ) => {
     if (!commentsID || !id) return rejectWithValue("no such value");
     const { project } = getState().projectReducer;
-    const collection = project.id + "_comments";
+    const collection = project.projectID + "_comments";
     const { table, task } = getTableTask(project, "commentsID", commentsID);
     const modifiedComments = callback(task?.comments || [], id, content);
     dispatch(

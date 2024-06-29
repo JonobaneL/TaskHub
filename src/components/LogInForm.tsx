@@ -10,7 +10,7 @@ import {
   passwordValidation,
 } from "@/data/formOptions";
 import { useTypeDispatch } from "@/hooks/useReduxHooks";
-import { logInUser } from "@/store/reducers/userSlice";
+import { logInUser } from "@/store/thunks/userThunks";
 
 const LogInForm = () => {
   const {

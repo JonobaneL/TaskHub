@@ -109,10 +109,9 @@ export const updateLabels = createAsyncThunk<
     try {
       const { project } = getState().projectReducer;
       dispatch(updateLabelsAction({ type, labels }));
-      if (!project.id) return rejectWithValue("no projectID");
-      await updateLabelsMethod(project.id, type, labels);
+      if (!project.projectID) return rejectWithValue("no projectID");
+      await updateLabelsMethod(project.projectID, type, labels);
     } catch (err) {
-      console.log(err);
       return rejectWithValue("something wrong project/delete-group");
     }
   }

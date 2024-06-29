@@ -31,21 +31,23 @@ const FileField = ({
         </div>
       </label>
       {file?.name ? (
-        <p className="text-sm font-main text-nowrap truncate text-sm">
-          {file?.name}
-        </p>
+        <>
+          <p className="text-sm font-main text-nowrap truncate text-sm">
+            {file?.name}
+          </p>
+          <div className="absolute right-0 top-0">
+            <IoClose
+              size="1.2rem"
+              className="cursor-pointer"
+              onClick={clearHandler}
+            />
+          </div>
+        </>
       ) : (
         <p className="text-sm font-main text-sm text-gray-400">
           Choose your avatar
         </p>
       )}
-      <div className="absolute right-0 top-0">
-        <IoClose
-          size="1.2rem"
-          className="cursor-pointer"
-          onClick={clearHandler}
-        />
-      </div>
     </div>
   );
 };

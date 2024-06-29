@@ -19,7 +19,7 @@ const ProjectInfoDetails = ({ project, tasks }: DetailsProps) => {
     <div>
       <div
         className="flex items-center gap-2 cursor-pointer"
-        onClick={() => navigate(`project/${project.id}/tables`)}
+        onClick={() => navigate(`project/${project.projectID}/tables`)}
       >
         <div
           style={{ background: project.color }}

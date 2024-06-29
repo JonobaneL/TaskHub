@@ -9,7 +9,7 @@ export type LabelParams = {
 };
 
 export type ProjectParams = {
-  id: string | null;
+  projectID: string | null;
   name: string | null;
   members: string[] | null;
   priority_labels: LabelParams[] | null;

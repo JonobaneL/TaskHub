@@ -8,7 +8,7 @@ const ExtendedProjectsList = () => {
   return (
     <ul className="divide-y-2">
       {user.projects?.map((item) => (
-        <ProjectInfo key={item.id} project={item} />
+        <ProjectInfo key={item.projectID} project={item} />
       ))}
     </ul>
   );

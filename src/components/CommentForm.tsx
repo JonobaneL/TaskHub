@@ -3,7 +3,7 @@ import { Button } from "./ui/button";
 import Editor from "./ui/Editor";
 import { Controller, useForm } from "react-hook-form";
 import { TaskParams } from "@/models/projectTypes";
-import { useTypeDispatch } from "@/hooks/useReduxHooks";
+import { useTypeDispatch, useTypeSelector } from "@/hooks/useReduxHooks";
 import { addComment } from "@/store/thunks/commentsThunks";
 import { CommentFormParams } from "@/models/commentTypes";
 
@@ -14,6 +14,7 @@ type FormProps = {
 const CommentForm = ({ task }: FormProps) => {
   const [visible, setVisible] = useState(false);
   const { control, handleSubmit, setValue } = useForm<CommentFormParams>({});
+  const { user } = useTypeSelector((state) => state.userReducer);
   const dispatch = useTypeDispatch();
   const onSubmit = (data: CommentFormParams) => {
     dispatch(
@@ -22,7 +23,7 @@ const CommentForm = ({ task }: FormProps) => {
         taskID: task.id,
         commentsID: task.commentsID,
         comment: {
-          authorID: "author1", //change it later to actual userID
+          authorID: user.id || "",
           content: data.comment,
         },
       })

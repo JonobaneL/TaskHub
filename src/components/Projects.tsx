@@ -31,8 +31,8 @@ const Projects = () => {
           user.projects?.map((item) => (
             <DropdownMenuItem
               className="flex items-center gap-2"
-              key={item.id}
-              onClick={() => navigate(`project/${item.id}/tables`)}
+              key={item.projectID}
+              onClick={() => navigate(`project/${item.projectID}/tables`)}
             >
               <div
                 style={{ background: item.color }}

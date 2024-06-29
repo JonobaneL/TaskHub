@@ -3,13 +3,14 @@ import "./App.css";
 import { useTypeDispatch } from "./hooks/useReduxHooks";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase";
-import { fetchUserInfo } from "./store/reducers/userSlice";
 import HubRoutes from "./routes/Routes.tsx";
+import { fetchUserInfo } from "./store/thunks/userThunks.ts";
 
 function App() {
   const dispatch = useTypeDispatch();
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
+      console.log(user?.uid);
       dispatch(fetchUserInfo(user?.uid));
     });
     return unsubscribe;
