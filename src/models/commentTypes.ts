@@ -5,8 +5,14 @@ export type CommentParams = {
   authorID: string;
   content: string;
   date: string;
-  reply: null;
+  reply: null | ReplyParams[];
   isPinned: boolean;
+};
+export type ReplyParams = {
+  replyID: string;
+  authorID: string;
+  content: string;
+  date: string;
 };
 export type CommentProviderParams = {
   edit: boolean;

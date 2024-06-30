@@ -10,7 +10,7 @@ import {
 } from "./ui/dropdown-menu";
 import { Button } from "./ui/button";
 import { CommentParams } from "@/models/commentTypes";
-import { useTypeDispatch } from "@/hooks/useReduxHooks";
+import { useTypeDispatch, useTypeSelector } from "@/hooks/useReduxHooks";
 import { modifiComment } from "@/store/thunks/commentsThunks";
 import { deleteCommentEvent, pinCommentEvent } from "@/utils/commentMenuEvents";
 import { useComment } from "@/context/CommentContext";
@@ -21,6 +21,7 @@ type MenuProps = {
 
 const CommentMenu = ({ comment }: MenuProps) => {
   const { commentsID, setEdit } = useComment();
+  const { user } = useTypeSelector((state) => state.userReducer);
   const dispatch = useTypeDispatch();
   const deleteHandler = () => {
     dispatch(
@@ -36,6 +37,11 @@ const CommentMenu = ({ comment }: MenuProps) => {
       modifiComment({ commentsID, id: comment.id, callback: pinCommentEvent })
     );
   };
+  const editHandler = () => {
+    if (user.id === comment.authorID) {
+      setEdit(true);
+    }
+  };
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -48,8 +54,9 @@ const CommentMenu = ({ comment }: MenuProps) => {
         className="min-w-36 text-gray-500 font-medium font-main"
       >
         <DropdownMenuItem
-          onClick={() => setEdit(true)}
+          onClick={editHandler}
           className="flex justify-between"
+          disabled={user.id !== comment.authorID}
         >
           Edit
           <AiOutlineEdit size="1rem" />
