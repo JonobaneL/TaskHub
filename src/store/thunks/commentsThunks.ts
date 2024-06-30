@@ -71,22 +71,39 @@ export const addComment = createAsyncThunk<
   }
 );
 
-export const fetchComments = createAsyncThunk<TaskParams[], fetchCommentsProps>(
-  "task/fetch-comments",
-  async ({ projectID, tasks }, { rejectWithValue }) => {
+// export const fetchComments = createAsyncThunk<TaskParams[], fetchCommentsProps>(
+//   "task/fetch-comments",
+//   async ({ projectID, tasks }, { rejectWithValue }) => {
+//     try {
+//       const collection = `${projectID}_comments`;
+//       const modifiedTasks = await Promise.all(
+//         tasks.map(async (item) => {
+//           if (item.commentsID) {
+//             const res = await getAllComments(collection, item.commentsID);
+//             const comments = res.data() as CommentsResponse;
+//             return { ...item, comments: comments.comments };
+//           }
+//           return { ...item, comments: null };
+//         })
+//       );
+//       return modifiedTasks;
+//     } catch (err) {
+//       return rejectWithValue(err);
+//     }
+//   }
+// );
+export const fetchComments = createAsyncThunk<
+  CommentParams[],
+  fetchCommentsProps
+>(
+  "comments/fetch-comments",
+  async ({ projectID, commentsID }, { rejectWithValue }) => {
     try {
       const collection = `${projectID}_comments`;
-      const modifiedTasks = await Promise.all(
-        tasks.map(async (item) => {
-          if (item.commentsID) {
-            const res = await getAllComments(collection, item.commentsID);
-            const comments = res.data() as CommentsResponse;
-            return { ...item, comments: comments.comments };
-          }
-          return { ...item, comments: null };
-        })
-      );
-      return modifiedTasks;
+      if (commentsID == null) return rejectWithValue("commentsID is null");
+      const res = await getAllComments(collection, commentsID);
+      const commentsRes = res.data() as CommentsResponse;
+      return commentsRes.comments;
     } catch (err) {
       return rejectWithValue(err);
     }

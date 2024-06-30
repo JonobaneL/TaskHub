@@ -29,9 +29,13 @@ export type AddCommentProps = {
     content: string;
   };
 };
+// export type fetchCommentsProps = {
+//   projectID: string | null;
+//   tasks: TaskParams[];
+// };
 export type fetchCommentsProps = {
   projectID: string | null;
-  tasks: TaskParams[];
+  commentsID: string | null;
 };
 export type CommentsResponse = {
   comments: CommentParams[];

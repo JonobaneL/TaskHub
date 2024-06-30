@@ -7,7 +7,6 @@ import { createSlice } from "@reduxjs/toolkit";
 import { fetchTasks } from "../thunks/tasksThunks";
 import { fetchProject } from "../thunks/projectsThunks";
 import { LabelsTypeParams } from "@/models/RareUseTypes";
-import { fetchComments } from "../thunks/commentsThunks";
 
 type InitialProps = {
   isLoading: boolean;
@@ -18,7 +17,7 @@ type InitialProps = {
 
 const initialState: InitialProps = {
   project: {
-    id: null,
+    projectID: null,
     name: null,
     members: null,
     priority_labels: null,
@@ -111,7 +110,7 @@ const projectSlice = createSlice({
       .addCase(fetchTasks.pending, (state) => {
         state.isTasksLoading = true;
       })
-      .addCase(fetchComments.fulfilled, (state, action) => {
+      .addCase(fetchTasks.fulfilled, (state, action) => {
         const allTasks = action.payload as TaskParams[];
         const tables = state.project.tables?.map((table) => {
           const tasks = allTasks.filter((item) => item.tableID === table.id);

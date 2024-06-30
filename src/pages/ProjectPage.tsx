@@ -19,15 +19,7 @@ const ProjectPage = () => {
       })
       .then((data) => {
         const project = data.payload as ProjectParams;
-        dispatch(fetchTasks(project.tasksID)).then((data) => {
-          const tasks = data.payload as TaskParams[];
-          dispatch(
-            fetchComments({
-              projectID: project.projectID,
-              tasks: tasks,
-            })
-          );
-        });
+        dispatch(fetchTasks(project.tasksID));
       });
   }, []);
   return (

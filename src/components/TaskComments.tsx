@@ -1,14 +1,26 @@
 import CommentForm from "./CommentForm";
 import { TaskParams } from "@/models/projectTypes";
 import CommentsList from "./CommentsList";
+import { useEffect } from "react";
+import { useTypeDispatch, useTypeSelector } from "@/hooks/useReduxHooks";
+import { fetchComments } from "@/store/thunks/commentsThunks";
+import { useParams } from "react-router-dom";
 
 type UpdateProps = {
   task: TaskParams;
 };
 
 const TaskComments = ({ task }: UpdateProps) => {
-  const pinnedComments = task.comments?.filter((item) => item.isPinned);
-  const restComments = task.comments?.filter((item) => !item.isPinned);
+  const { comments } = useTypeSelector((state) => state.commentsReducer);
+  const pinnedComments = comments?.filter((item) => item.isPinned);
+  const restComments = comments?.filter((item) => !item.isPinned);
+  const { id } = useParams();
+  const dispatch = useTypeDispatch();
+  useEffect(() => {
+    dispatch(
+      fetchComments({ projectID: id || "", commentsID: task.commentsID })
+    );
+  }, []);
   return (
     <div className="mt-4">
       <CommentForm task={task} />

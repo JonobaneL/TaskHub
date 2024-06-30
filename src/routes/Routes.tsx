@@ -1,4 +1,3 @@
-import App from "@/App";
 import Dashboard from "@/pages/Dashboard";
 import LogInPage from "@/pages/LogInPage";
 import PageWrapper from "@/pages/PageWrapper";

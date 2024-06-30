@@ -15,7 +15,6 @@ type CommentProps = {
 const Comment = ({ commentsID, comment }: CommentProps) => {
   const { edit, setCommentstID, setReply } = useComment();
   useEffect(() => setCommentstID(commentsID), []);
-  console.log(comment);
   return (
     <div className="rounded border p-2">
       <CommentHeader comment={comment} />
