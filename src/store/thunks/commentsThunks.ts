@@ -1,8 +1,8 @@
 import {
   AddCommentProps,
   CommentsResponse,
-  fetchCommentsProps,
   CommentParams,
+  CommentModifieProps,
 } from "@/models/commentTypes";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { RootStore } from "../store";
@@ -13,22 +13,21 @@ import {
 } from "@/firebase/taskAPI";
 import { updateTaskAction } from "../reducers/projectsSlice";
 import { updateTaskMethod } from "@/firebase/tablesAPI";
-import { TaskParams } from "@/models/projectTypes";
-import { getTableTask } from "@/utils/getTableTask";
+import {
+  addCommentAction,
+  updateCommentsAction,
+} from "../reducers/commentsSlice";
 
 export const addComment = createAsyncThunk<
   void,
   AddCommentProps,
   { state: RootStore }
 >(
-  "project/add-comment",
-  async (
-    { commentsID, comment, tableID, taskID },
-    { rejectWithValue, getState, dispatch }
-  ) => {
+  "comments/add-comment",
+  async ({ task, comment }, { rejectWithValue, getState, dispatch }) => {
     try {
       const { project } = getState().projectReducer;
-      const collection = project.projectID + "_comments";
+      const { comments } = getState().commentsReducer;
       const currentDate = new Date(Date.now()).toString();
       const modifiedComment = {
         ...comment,
@@ -37,113 +36,78 @@ export const addComment = createAsyncThunk<
         reply: null,
         isPinned: false,
       };
-      const { task } = getTableTask(project, "id", taskID);
-      if (!task) return rejectWithValue("cannot find task");
-      if (!commentsID) {
-        const res = await addCommentsMethod(collection, modifiedComment);
+      dispatch(addCommentAction(modifiedComment));
+
+      if (!task.commentsID) {
+        const res = await addCommentsMethod(
+          project.commentsID || "",
+          modifiedComment
+        );
+        await updateTaskMethod(project.tasksID, task.id, "commentsID", res.id);
         dispatch(
           updateTaskAction({
-            tableID,
-            taskID,
+            tableID: task.tableID,
+            taskID: task.id,
             key: "commentsID",
             value: res.id,
           })
         );
-
-        await updateTaskMethod(project.tasksID, taskID, "commentsID", res.id);
       } else {
-        await updateCommentsMethod(collection, commentsID, [
-          ...(task?.comments || []),
+        await updateCommentsMethod(project.commentsID || "", task.commentsID, [
+          ...(comments || []),
           modifiedComment,
         ]);
       }
-      dispatch(
-        updateTaskAction({
-          tableID,
-          taskID,
-          key: "comments",
-          value: [...(task?.comments || []), modifiedComment],
-        })
-      );
     } catch (err) {
       rejectWithValue(err);
     }
   }
 );
 
-// export const fetchComments = createAsyncThunk<TaskParams[], fetchCommentsProps>(
-//   "task/fetch-comments",
-//   async ({ projectID, tasks }, { rejectWithValue }) => {
-//     try {
-//       const collection = `${projectID}_comments`;
-//       const modifiedTasks = await Promise.all(
-//         tasks.map(async (item) => {
-//           if (item.commentsID) {
-//             const res = await getAllComments(collection, item.commentsID);
-//             const comments = res.data() as CommentsResponse;
-//             return { ...item, comments: comments.comments };
-//           }
-//           return { ...item, comments: null };
-//         })
-//       );
-//       return modifiedTasks;
-//     } catch (err) {
-//       return rejectWithValue(err);
-//     }
-//   }
-// );
+type fetchCommentsRes = {
+  commentsID: string | null;
+  comments: CommentParams[];
+};
 export const fetchComments = createAsyncThunk<
-  CommentParams[],
-  fetchCommentsProps
+  fetchCommentsRes,
+  string | null,
+  {
+    state: RootStore;
+  }
 >(
   "comments/fetch-comments",
-  async ({ projectID, commentsID }, { rejectWithValue }) => {
+  async (commentsID, { rejectWithValue, getState }) => {
     try {
-      const collection = `${projectID}_comments`;
-      if (commentsID == null) return rejectWithValue("commentsID is null");
-      const res = await getAllComments(collection, commentsID);
+      const { project } = getState().projectReducer;
+      if (commentsID == null) return { commentsID, comments: [] };
+      const res = await getAllComments(project.commentsID || "", commentsID);
       const commentsRes = res.data() as CommentsResponse;
-      return commentsRes.comments;
+      return { commentsID, comments: commentsRes.comments };
     } catch (err) {
       return rejectWithValue(err);
     }
   }
 );
 
-type CommentMenuProps = {
-  commentsID: string | null;
-  id: string;
-  content?: string;
-  callback: (
-    comments: CommentParams[],
-    id: string,
-    content?: string
-  ) => CommentParams[];
-};
-
-export const modifiComment = createAsyncThunk<
+export const modifieComment = createAsyncThunk<
   void,
-  CommentMenuProps,
+  CommentModifieProps,
   { state: RootStore }
 >(
-  "task/pin-comment",
+  "comments/modifie-comment",
   async (
     { commentsID, id, content, callback },
     { rejectWithValue, getState, dispatch }
   ) => {
     if (!commentsID || !id) return rejectWithValue("no such value");
     const { project } = getState().projectReducer;
-    const collection = project.projectID + "_comments";
-    const { table, task } = getTableTask(project, "commentsID", commentsID);
-    const modifiedComments = callback(task?.comments || [], id, content);
-    dispatch(
-      updateTaskAction({
-        tableID: table?.id,
-        taskID: task?.id,
-        key: "comments",
-        value: modifiedComments,
-      })
+    const { comments } = getState().commentsReducer;
+    const modifiedComments = callback(comments || [], id, content);
+    dispatch(updateCommentsAction(modifiedComments));
+    await updateCommentsMethod(
+      project.commentsID || "",
+      commentsID || "",
+      modifiedComments
     );
-    await updateCommentsMethod(collection, commentsID || "", modifiedComments);
   }
 );

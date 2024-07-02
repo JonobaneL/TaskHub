@@ -2,8 +2,6 @@ import { createContext, useContext, useState } from "react";
 type CommentProviderParams = {
   edit: boolean;
   setEdit: (value: boolean) => void;
-  commentsID: string | null;
-  setCommentstID: React.Dispatch<React.SetStateAction<string | null>>;
   reply: boolean;
   setReply: React.Dispatch<React.SetStateAction<boolean>>;
 };
@@ -20,14 +18,11 @@ type ProviderProps = {
 export const CommentProvider = ({ children }: ProviderProps) => {
   const [edit, setEdit] = useState(false);
   const [reply, setReply] = useState(false);
-  const [commentsID, setCommentstID] = useState<string | null>("");
   const intialValue: CommentProviderParams = {
     edit,
     setEdit,
     reply,
     setReply,
-    commentsID,
-    setCommentstID,
   };
 
   return (

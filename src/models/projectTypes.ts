@@ -1,5 +1,4 @@
 import { CellContext, Table } from "@tanstack/react-table";
-import { CommentParams } from "./commentTypes";
 
 export type LabelParams = {
   color: string;
@@ -16,6 +15,7 @@ export type ProjectParams = {
   status_labels: LabelParams[] | null;
   tablesID: string | null;
   tasksID: string | null;
+  commentsID: string | null;
   tables: TableParams[] | null;
   color: string;
 };
@@ -34,7 +34,6 @@ export type TaskParams = {
   priority: string | null;
   notes: string;
   commentsID: null;
-  comments: null | CommentParams[];
   tableID: string;
   author: string;
 };

@@ -43,7 +43,10 @@ const EditorToolbar = ({ editor }: ToolbarProps) => {
   ];
 
   return (
-    <div className="flex gap-0.5 p-1 h-fit w-full rounded-t-sm border">
+    <div
+      className="flex gap-0.5 p-1 h-fit w-full rounded-t-sm border"
+      onMouseDown={(e) => e.preventDefault()}
+    >
       {toolbar.map((item, index) => (
         <Toggle
           key={index}

@@ -4,22 +4,39 @@ import { Avatar, AvatarFallback, AvatarImage } from "./avatar";
 import { getInitials } from "@/utils/getInitials";
 
 type BadgeProps = {
-  isLoading: boolean;
+  isLoading?: boolean;
   user: UserDetails | undefined;
+  mode?: "short" | "default";
+  size?: string;
 };
 
-const UserBadge = ({ isLoading, user }: BadgeProps) => {
+const UserBadge = ({
+  isLoading = false,
+  user,
+  mode = "default",
+  size = "",
+}: BadgeProps) => {
   const initials = getInitials(user);
   return (
-    <div className="flex gap-2 items-center p-1 rounded w-fit">
+    <div
+      className={`flex gap-2 ${
+        mode == "default" ? "p-1 items-center" : "items-start"
+      } rounded w-fit`}
+    >
       {isLoading ? (
         <>
-          <Skeleton className="size-9 rounded-full bg-gray-200" />
-          <Skeleton className="h-4 w-24 rounded-[2px] bg-gray-200" />
+          <Skeleton
+            className={`size-10 rounded-full bg-gray-200 ${
+              size ? `size-${size}` : ""
+            }`}
+          />
+          {mode == "default" && (
+            <Skeleton className="h-4 w-24 rounded-[2px] bg-gray-200" />
+          )}
         </>
       ) : (
         <>
-          <Avatar>
+          <Avatar className={size ? `size-${size}` : ""}>
             <AvatarImage
               className="object-cover object-top"
               src={user?.avatar || ""}
@@ -28,9 +45,11 @@ const UserBadge = ({ isLoading, user }: BadgeProps) => {
               {initials}
             </AvatarFallback>
           </Avatar>
-          <p className="text-sm font-main">
-            {user?.firstName} {user?.lastName}
-          </p>
+          {mode == "default" && (
+            <p className="text-sm font-main">
+              {user?.firstName} {user?.lastName}
+            </p>
+          )}
         </>
       )}
     </div>

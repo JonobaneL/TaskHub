@@ -1,4 +1,5 @@
 import { TaskParams } from "./projectTypes";
+import { ReplyParams } from "./replyTypes";
 
 export type CommentParams = {
   id: string;
@@ -8,12 +9,7 @@ export type CommentParams = {
   reply: null | ReplyParams[];
   isPinned: boolean;
 };
-export type ReplyParams = {
-  replyID: string;
-  authorID: string;
-  content: string;
-  date: string;
-};
+
 export type CommentProviderParams = {
   edit: boolean;
   setEdit: (value: boolean) => void;
@@ -21,25 +17,26 @@ export type CommentProviderParams = {
   setCommentstID: (value: string | null) => void;
 };
 export type AddCommentProps = {
-  tableID: string;
-  taskID: string;
-  commentsID: string | null;
+  task: TaskParams;
   comment: {
     authorID: string;
     content: string;
   };
 };
-// export type fetchCommentsProps = {
-//   projectID: string | null;
-//   tasks: TaskParams[];
-// };
-export type fetchCommentsProps = {
-  projectID: string | null;
-  commentsID: string | null;
-};
+
 export type CommentsResponse = {
   comments: CommentParams[];
 };
 export type CommentFormParams = {
   comment: string;
+};
+export type CommentModifieProps = {
+  commentsID: string | null;
+  id: string;
+  content?: string;
+  callback: (
+    comments: CommentParams[],
+    id: string,
+    content?: string
+  ) => CommentParams[];
 };

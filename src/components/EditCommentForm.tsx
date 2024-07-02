@@ -2,8 +2,8 @@ import { Controller, useForm } from "react-hook-form";
 import Editor from "./ui/Editor";
 import { useComment } from "@/context/CommentContext";
 import { Button } from "./ui/button";
-import { useTypeDispatch } from "@/hooks/useReduxHooks";
-import { modifiComment } from "@/store/thunks/commentsThunks";
+import { useTypeDispatch, useTypeSelector } from "@/hooks/useReduxHooks";
+import { modifieComment } from "@/store/thunks/commentsThunks";
 import { CommentFormParams, CommentParams } from "@/models/commentTypes";
 import { editCommentEvent } from "@/utils/commentMenuEvents";
 
@@ -12,7 +12,8 @@ type FormProps = {
 };
 
 const EditCommentForm = ({ comment }: FormProps) => {
-  const { commentsID, setEdit } = useComment();
+  const { setEdit } = useComment();
+  const { commentsID } = useTypeSelector((state) => state.commentsReducer);
   const { control, handleSubmit, formState } = useForm<CommentFormParams>({
     defaultValues: {
       comment: comment.content,
@@ -21,7 +22,7 @@ const EditCommentForm = ({ comment }: FormProps) => {
   const dispatch = useTypeDispatch();
   const onSubmit = (data: CommentFormParams) => {
     dispatch(
-      modifiComment({
+      modifieComment({
         commentsID,
         id: comment.id,
         content: data.comment,

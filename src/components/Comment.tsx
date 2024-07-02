@@ -1,20 +1,17 @@
 import { useComment } from "@/context/CommentContext";
 import CommentHeader from "./CommentHeader";
 import { Button } from "./ui/button";
-import { useEffect } from "react";
 import { CommentParams } from "@/models/commentTypes";
 import EditCommentForm from "./EditCommentForm";
 import { CgMailReply } from "react-icons/cg";
 import CommentReply from "./CommentReply";
 
 type CommentProps = {
-  commentsID: string | null;
   comment: CommentParams;
 };
 
-const Comment = ({ commentsID, comment }: CommentProps) => {
-  const { edit, setCommentstID, setReply } = useComment();
-  useEffect(() => setCommentstID(commentsID), []);
+const Comment = ({ comment }: CommentProps) => {
+  const { edit, setReply } = useComment();
   return (
     <div className="rounded border p-2">
       <CommentHeader comment={comment} />
@@ -27,7 +24,10 @@ const Comment = ({ commentsID, comment }: CommentProps) => {
           <Button
             variant="ghost"
             className="p-2 flex gap-0.5 items-center mr-0 ml-auto"
-            onClick={() => setReply((p) => !p)}
+            onClick={(e) => {
+              e.stopPropagation();
+              setReply(true);
+            }}
           >
             <CgMailReply size="1.3rem" className="text-primary" />
             <p className="text-sm text-primary font-main leading-9">Reply</p>

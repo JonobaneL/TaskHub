@@ -11,7 +11,7 @@ import {
 import { Button } from "./ui/button";
 import { CommentParams } from "@/models/commentTypes";
 import { useTypeDispatch, useTypeSelector } from "@/hooks/useReduxHooks";
-import { modifiComment } from "@/store/thunks/commentsThunks";
+import { modifieComment } from "@/store/thunks/commentsThunks";
 import { deleteCommentEvent, pinCommentEvent } from "@/utils/commentMenuEvents";
 import { useComment } from "@/context/CommentContext";
 
@@ -20,21 +20,23 @@ type MenuProps = {
 };
 
 const CommentMenu = ({ comment }: MenuProps) => {
-  const { commentsID, setEdit } = useComment();
+  const { setEdit } = useComment();
   const { user } = useTypeSelector((state) => state.userReducer);
+  const { commentsID } = useTypeSelector((state) => state.commentsReducer);
   const dispatch = useTypeDispatch();
   const deleteHandler = () => {
-    dispatch(
-      modifiComment({
-        commentsID,
-        id: comment.id,
-        callback: deleteCommentEvent,
-      })
-    );
+    if (user.id === comment.authorID)
+      dispatch(
+        modifieComment({
+          commentsID,
+          id: comment.id,
+          callback: deleteCommentEvent,
+        })
+      );
   };
   const pinHandler = () => {
     dispatch(
-      modifiComment({ commentsID, id: comment.id, callback: pinCommentEvent })
+      modifieComment({ commentsID, id: comment.id, callback: pinCommentEvent })
     );
   };
   const editHandler = () => {
@@ -66,6 +68,7 @@ const CommentMenu = ({ comment }: MenuProps) => {
           <AiOutlinePushpin size="1rem" />
         </DropdownMenuItem>
         <DropdownMenuItem
+          disabled={user.id !== comment.authorID}
           className="flex justify-between"
           onClick={deleteHandler}
         >

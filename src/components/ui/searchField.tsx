@@ -5,9 +5,14 @@ import { Input } from "./input";
 type SearchProps = {
   value: string;
   onChange: (value: string) => void;
+  setActive?: (value: boolean) => void;
 };
 
-const SearchField = ({ value, onChange }: SearchProps) => {
+const SearchField = ({
+  value,
+  onChange,
+  setActive = () => {},
+}: SearchProps) => {
   const activeFilter = value.length > 0;
   return (
     <div className="relative w-52">
@@ -20,12 +25,13 @@ const SearchField = ({ value, onChange }: SearchProps) => {
         className="pl-8 focus-visible:ring-primary"
         autoFocus
         value={value}
+        onBlur={() => setActive(false)}
         onChange={(e) => onChange(e.target.value)}
       />
       {activeFilter && (
         <IoIosClose
-          onClick={(e) => {
-            e.stopPropagation();
+          onMouseDown={(e) => {
+            e.preventDefault();
             onChange("");
           }}
           className="absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer"

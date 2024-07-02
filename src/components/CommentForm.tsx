@@ -13,26 +13,24 @@ type FormProps = {
 
 const CommentForm = ({ task }: FormProps) => {
   const [visible, setVisible] = useState(false);
-  const { control, handleSubmit, setValue } = useForm<CommentFormParams>({});
+  const { control, handleSubmit, reset } = useForm<CommentFormParams>({});
   const { user } = useTypeSelector((state) => state.userReducer);
   const dispatch = useTypeDispatch();
   const onSubmit = (data: CommentFormParams) => {
     dispatch(
       addComment({
-        tableID: task.tableID,
-        taskID: task.id,
-        commentsID: task.commentsID,
+        task: task,
         comment: {
           authorID: user.id || "",
           content: data.comment,
         },
       })
-    );
-    setValue("comment", "");
+    ).catch((err) => console.log(err));
+    reset();
     setVisible(false);
   };
   const onClose = () => {
-    setValue("comment", "");
+    reset();
     setVisible(false);
   };
   return (
