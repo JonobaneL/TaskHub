@@ -1,6 +1,10 @@
-import { TableTanstack } from "@/models/projectTypes";
+import { Table } from "@tanstack/react-table";
 
-const SelectHeaderCell = ({ table }: TableTanstack) => {
+type HeaderProps<T> = {
+  table: Table<T>;
+};
+
+const SelectHeaderCell = <T,>({ table }: HeaderProps<T>) => {
   return (
     <div className="size-9 flex justify-center items-center">
       <input

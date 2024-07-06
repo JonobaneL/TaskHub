@@ -1,4 +1,12 @@
-import { doc, getDoc, updateDoc } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  updateDoc,
+  where,
+} from "firebase/firestore";
 import { firestoreDB } from ".";
 import { LabelsTypeParams } from "@/models/RareUseTypes";
 import { LabelParams } from "@/models/projectTypes";
@@ -17,4 +25,12 @@ export const updateLabelsMethod = (
   return updateDoc(docRef, {
     [type]: labels,
   });
+};
+export const getAllMembers = (projectID: string) => {
+  const collectionRef = collection(firestoreDB, "users");
+  const usersRef = query(
+    collectionRef,
+    where("projects", "array-contains", projectID)
+  );
+  return getDocs(usersRef);
 };

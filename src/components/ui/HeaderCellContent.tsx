@@ -4,11 +4,11 @@ import Helper from "./Helper";
 import { PiArrowsDownUpBold } from "react-icons/pi";
 import { TbSortAscending2, TbSortDescending2 } from "react-icons/tb";
 
-type HeaderProps = {
-  header: Header<TaskParams, unknown>;
+type HeaderProps<T> = {
+  header: Header<T, unknown>;
 };
 
-const HeaderCellContent = ({ header }: HeaderProps) => {
+const HeaderCellContent = <T,>({ header }: HeaderProps<T>) => {
   const canSort = header.column.getCanSort();
   const isSorted = header.column.getIsSorted();
   const content = !isSorted ? (

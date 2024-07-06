@@ -1,10 +1,9 @@
 import { Row } from "@tanstack/react-table";
-import { TaskParams } from "@/models/projectTypes";
 
-type SelectProps = {
-  row: Row<TaskParams>;
+type SelectProps<T> = {
+  row: Row<T>;
 };
-const SelectCell = ({ row }: SelectProps) => {
+const SelectCell = <T,>({ row }: SelectProps<T>) => {
   return (
     <div className="flex items-center justify-center size-9">
       <input

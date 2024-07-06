@@ -1,7 +1,6 @@
 import ProjectNav from "@/components/ProjectNav";
 import { useTypeDispatch } from "@/hooks/useReduxHooks";
-import { ProjectParams, TaskParams } from "@/models/projectTypes";
-import { fetchComments } from "@/store/thunks/commentsThunks";
+import { ProjectParams } from "@/models/projectTypes";
 import { fetchProject } from "@/store/thunks/projectsThunks";
 import { fetchTasks } from "@/store/thunks/tasksThunks";
 import { useEffect } from "react";

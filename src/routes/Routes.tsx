@@ -1,5 +1,6 @@
 import Dashboard from "@/pages/Dashboard";
 import LogInPage from "@/pages/LogInPage";
+import MembersPage from "@/pages/MembersPage";
 import PageWrapper from "@/pages/PageWrapper";
 import ProjectPage from "@/pages/ProjectPage";
 import SignUpPage from "@/pages/SignUpPage";
@@ -30,6 +31,10 @@ const HubRoutes = () => {
             {
               path: "tables/",
               element: <TablesPage />,
+            },
+            {
+              path: "members/",
+              element: <MembersPage />,
             },
           ],
         },
