@@ -1,10 +1,10 @@
-import { defaultColumns } from "@/data/defaultColumns";
+import { defaultTasksColumns } from "@/data/defaultColumns";
 import { ColumnFiltersParams } from "@/models/TableTypes";
 import { useState } from "react";
 
 export const useColumnFilters = () => {
   const [filters, setFilters] = useState<ColumnFiltersParams>(
-    defaultColumns.reduce(
+    defaultTasksColumns.reduce(
       (prev, item) => {
         return { ...prev, [item.label]: [] };
       },

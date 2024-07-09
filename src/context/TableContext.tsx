@@ -1,4 +1,4 @@
-import { defaultColumns } from "@/data/defaultColumns";
+import { defaultTasksColumns } from "@/data/defaultColumns";
 import { useColumnFilters } from "@/hooks/useColumnFilters";
 import { useTypeSelector } from "@/hooks/useReduxHooks";
 import { useSelectedGroups } from "@/hooks/useSelectedGroups";
@@ -17,7 +17,7 @@ export const TableProvider = ({ children }: ProviderProps) => {
   const doneStatus =
     project?.status_labels?.find((item) => item?.role == "done") || null;
   const [columns, setColumns] = useState<EditColumnsParams>(
-    defaultColumns.map((item) => {
+    defaultTasksColumns.map((item) => {
       return { ...item, checked: true };
     })
   );

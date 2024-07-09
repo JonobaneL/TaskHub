@@ -7,10 +7,16 @@ export type LabelParams = {
   role?: string;
 };
 
+export type MemberParams = {
+  memberID: string | null;
+  role: "admin" | "member" | "guest" | null;
+  joined: string | null;
+  last_active: string | null;
+};
 export type ProjectParams = {
   projectID: string | null;
   name: string | null;
-  members: string[] | null;
+  members: MemberParams[] | null;
   priority_labels: LabelParams[] | null;
   status_labels: LabelParams[] | null;
   tablesID: string | null;

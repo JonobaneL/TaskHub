@@ -83,3 +83,8 @@
     list-style-type: none;
   }
 }
+@layer components {
+  .btn-primary {
+    @apply h-fit w-fit px-3 py-2 font-medium text-background font-main rounded-sm flex items-center;
+  }
+}

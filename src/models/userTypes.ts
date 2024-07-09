@@ -1,4 +1,4 @@
-import { ProjectParams } from "./projectTypes";
+import { MemberParams, ProjectParams } from "./projectTypes";
 
 export type UserDetails = {
   id: string | null;
@@ -38,3 +38,5 @@ export type logInProps = {
   email: string;
   password: string;
 };
+
+export type MemberDetails = MemberParams & UserDetails;

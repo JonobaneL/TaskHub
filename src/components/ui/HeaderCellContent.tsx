@@ -1,4 +1,3 @@
-import { TaskParams } from "@/models/projectTypes";
 import { Header, flexRender } from "@tanstack/react-table";
 import Helper from "./Helper";
 import { PiArrowsDownUpBold } from "react-icons/pi";
@@ -6,9 +5,13 @@ import { TbSortAscending2, TbSortDescending2 } from "react-icons/tb";
 
 type HeaderProps<T> = {
   header: Header<T, unknown>;
+  align?: "start" | "center";
 };
 
-const HeaderCellContent = <T,>({ header }: HeaderProps<T>) => {
+const HeaderCellContent = <T,>({
+  header,
+  align = "center",
+}: HeaderProps<T>) => {
   const canSort = header.column.getCanSort();
   const isSorted = header.column.getIsSorted();
   const content = !isSorted ? (
@@ -24,7 +27,11 @@ const HeaderCellContent = <T,>({ header }: HeaderProps<T>) => {
     </div>
   );
   return (
-    <div className="flex items-center justify-center gap-1">
+    <div
+      className={`flex items-center ${
+        align == "start" ? "justify-start" : "justify-center"
+      } gap-1`}
+    >
       <span
         className={`${
           canSort

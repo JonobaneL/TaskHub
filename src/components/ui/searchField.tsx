@@ -4,6 +4,8 @@ import { Input } from "./input";
 
 type SearchProps = {
   value: string;
+  placeholder?: string;
+  autoFocus?: boolean;
   onChange: (value: string) => void;
   setActive?: (value: boolean) => void;
 };
@@ -11,6 +13,8 @@ type SearchProps = {
 const SearchField = ({
   value,
   onChange,
+  placeholder = "",
+  autoFocus = false,
   setActive = () => {},
 }: SearchProps) => {
   const activeFilter = value.length > 0;
@@ -23,8 +27,9 @@ const SearchField = ({
       />
       <Input
         className="pl-8 focus-visible:ring-primary"
-        autoFocus
+        autoFocus={autoFocus}
         value={value}
+        placeholder={placeholder}
         onBlur={() => setActive(false)}
         onChange={(e) => onChange(e.target.value)}
       />

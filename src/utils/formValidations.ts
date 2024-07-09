@@ -30,3 +30,16 @@ export const equalValidation = <T>(object1: T, object2: T | undefined) => {
     .includes(false);
   return equalCheck;
 };
+export const emailValidation = (value: string) => {
+  const regx = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/i;
+  return regx.test(value);
+};
+export const invitedEmailsValidation = {
+  validate: (value: string[]) => {
+    if (!value.length) return false;
+    const validationCheck = value.some(
+      (item) => emailValidation(item) == false
+    );
+    return !validationCheck;
+  },
+};

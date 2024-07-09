@@ -11,11 +11,10 @@ import PriorityFooterCell from "@/components/PriorityFooterCell";
 import DateFooterCell from "@/components/DateFooterCell";
 import SelectHeaderCell from "@/components/ui/SelectHeaderCell";
 import {
+  columnFilterEvet,
   dueDateFilterEvent,
   dueDateSortingEvent,
   notesFilterEvent,
-  priorityFilterEvent,
-  statusFilterEvent,
 } from "@/utils/columnsEvents";
 
 export const taskTableColumns = [
@@ -51,7 +50,7 @@ export const taskTableColumns = [
     footer: ({ table }) => <StatusFooterCell table={table} />,
     enableColumnFilter: true,
     enableSorting: false,
-    filterFn: statusFilterEvent,
+    filterFn: (row, _, filter) => columnFilterEvet(row, filter, "status"),
   },
   {
     accessorKey: "due_date",
@@ -73,7 +72,8 @@ export const taskTableColumns = [
     enableColumnFilter: true,
     sortingFn: "text",
     footer: ({ table }) => <PriorityFooterCell table={table} />,
-    filterFn: priorityFilterEvent,
+    filterFn: (row, _, filter) =>
+      columnFilterEvet(row, filter, "priority", true),
   },
   {
     accessorKey: "notes",

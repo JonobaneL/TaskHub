@@ -1,5 +1,5 @@
 //maybe fetch it later into projectReducer
-export const defaultColumns = [
+export const defaultTasksColumns = [
   {
     name: "Status",
     label: "status",

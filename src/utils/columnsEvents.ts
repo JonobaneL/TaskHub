@@ -12,22 +12,13 @@ import {
   isOverdue,
   isSomePeriod,
 } from "./additionalDateEvents";
+import { MemberDetails } from "@/models/userTypes";
 
 dayjs.extend(isToday);
 dayjs.extend(isTomorrow);
 dayjs.extend(isYesterday);
 dayjs.extend(isSameOrBefore);
 dayjs.extend(isSameOrAfter);
-
-export const statusFilterEvent = (
-  row: Row<TaskParams>,
-  _: string,
-  filter: any
-) => {
-  if (filter.length == 0) return true;
-  const status = row.original.status;
-  return filter.includes(status);
-};
 
 export const dueDateFilterEvent = (
   row: Row<TaskParams>,
@@ -36,7 +27,7 @@ export const dueDateFilterEvent = (
 ) => {
   if (filter.length == 0) return true;
   const date = row.original.due_date;
-  if (filter.includes("blank")) return date == null;
+  if (filter.includes("blank") && date == null) return true;
   if (date == null) return false;
   const status = row.original.status;
   return filter.some((item: string) => {
@@ -69,15 +60,18 @@ export const dueDateFilterEvent = (
     }
   });
 };
-export const priorityFilterEvent = (
-  row: Row<TaskParams>,
-  _: string,
-  filter: any
+
+export const columnFilterEvet = <T>(
+  row: Row<T>,
+  filter: any,
+  field: string,
+  includeBlank: boolean = false
 ) => {
   if (filter.length == 0) return true;
-  const priority = row.original.priority;
-  if (filter.includes("blank")) return priority ? false : true;
-  return filter.includes(priority);
+  const columnValue = row.original[field as keyof T];
+  if (includeBlank && filter.includes("blank") && columnValue == null)
+    return true;
+  return filter.includes(columnValue);
 };
 export const notesFilterEvent = (
   row: Row<TaskParams>,
@@ -88,7 +82,8 @@ export const notesFilterEvent = (
   const notes = row.original.notes as string | null;
   if (filter.includes("filled")) {
     return notes ? notes.length > 0 : false;
-  } else if (filter.includes("blank")) {
+  }
+  if (filter.includes("blank")) {
     return notes ? notes.length === 0 : true;
   }
 };
@@ -103,4 +98,28 @@ export const dueDateSortingEvent = (
   const date1 = dayjs(first);
   const date2 = dayjs(second);
   return date1.diff(date2);
+};
+
+export const nameSortingEvent = (
+  rowA: Row<MemberDetails>,
+  rowB: Row<MemberDetails>
+) => {
+  const name1 = `${rowA.original.firstName?.toLowerCase()} ${rowA.original.lastName?.toLowerCase()}`;
+  const name2 = `${rowB.original.firstName?.toLowerCase()} ${rowB.original.lastName?.toLowerCase()}`;
+  if (name1 < name2) {
+    return -1;
+  }
+  if (name1 > name2) {
+    return 1;
+  }
+  return 0;
+};
+export const nameSearch = (row: Row<MemberDetails>, _: string, filter: any) => {
+  if (filter.length == 0) return true;
+  const fullName = `${row.original.firstName?.toLowerCase()} ${row.original.lastName?.toLowerCase()}`;
+  const email = row.original.email?.toLowerCase() || "";
+  const searchQuery = filter.toLowerCase();
+  const searchName = fullName.search(searchQuery) >= 0 ? true : false;
+  const searchEmail = email.search(searchQuery) >= 0 ? true : false;
+  return searchName || searchEmail;
 };

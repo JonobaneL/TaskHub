@@ -31,6 +31,7 @@ const SearchFilters = () => {
         </Button>
       ) : (
         <SearchField
+          autoFocus={true}
           setActive={setActive}
           value={filters.task as string}
           onChange={changeHandler}

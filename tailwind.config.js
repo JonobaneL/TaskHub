@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+
 module.exports = {
   important: true,
   darkMode: ["class"],
@@ -60,6 +61,9 @@ module.exports = {
       flex: {
         cover: "1 0 auto",
         fix: "0 0 auto",
+      },
+      gridTemplateColumns: {
+        "5u": "minmax(14rem,1fr) minmax(12rem, 1fr) repeat(3,minmax(10rem, 1fr))",
       },
       keyframes: {
         "accordion-down": {
