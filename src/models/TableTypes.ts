@@ -4,6 +4,12 @@ import { AddTaskParams } from "./projectTypes";
 declare module "@tanstack/react-table" {
   interface TableMeta<TData extends RowData> {
     updateData: (rowIndex: number, columnId: string, value: unknown) => void;
+    updateCellByID: (
+      tableID: string,
+      taskID: string,
+      columnId: string,
+      value: unknown
+    ) => void;
     addTask: (task: AddTaskParams) => void;
     tableID: string;
   }

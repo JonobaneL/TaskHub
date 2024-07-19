@@ -6,17 +6,17 @@ import { useTypeSelector } from "@/hooks/useReduxHooks";
 import priorityIcon from "../../assets/images/priority-add.svg";
 import HoverEditButton from "./HoverEditButton";
 import { getLabel } from "@/utils/getLabel";
+import { useCellEvent } from "@/hooks/useCellEvent";
 
 const PriorityCell = ({ options }: CellDefaultProps) => {
   const { project } = useTypeSelector((state) => state.projectReducer);
   const { table, column, row } = options;
   const { priorityLabel } = getLabel(null, row.original.priority);
   const [isOpen, setIsOpen] = useState(false);
+  const { updateEvent } = useCellEvent(table, row.index, column.id);
   const handler = (value: string) => {
     const currentPriority = row.original.priority;
-    if (currentPriority !== value) {
-      table.options.meta?.updateData(row.index, column.id, value);
-    }
+    updateEvent(currentPriority, value);
   };
   return (
     <div className="h-full">

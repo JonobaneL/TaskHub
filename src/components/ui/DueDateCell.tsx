@@ -6,6 +6,7 @@ import DateStatus from "../DateStatus";
 import { dateFormating } from "@/utils/dateFormating";
 import { useTypeSelector } from "@/hooks/useReduxHooks";
 import { IoCloseCircleOutline } from "react-icons/io5";
+import { useCellEvent } from "@/hooks/useCellEvent";
 
 const DueDateCell = ({ options }: CellDefaultProps) => {
   const { table, column, row } = options;
@@ -14,15 +15,18 @@ const DueDateCell = ({ options }: CellDefaultProps) => {
   const defaultLabel = project.status_labels?.find(
     (item) => item?.role == "done"
   )?.labelID;
+  const { updateEvent, removeEvent } = useCellEvent(
+    table,
+    row.index,
+    column.id
+  );
   const updateHandler = (value: string) => {
     const currentDate = value.slice(4, 15);
-    if (due_date !== currentDate && value) {
-      table.options.meta?.updateData(row.index, column.id, currentDate);
-    }
+    updateEvent(currentDate, value);
   };
   const removeHandler = (e: React.MouseEvent<SVGElement, MouseEvent>) => {
     e.stopPropagation();
-    table.options.meta?.updateData(row.index, column.id, null);
+    removeEvent();
   };
   return (
     <div className="group w-full h-full">

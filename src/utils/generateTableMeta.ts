@@ -15,6 +15,21 @@ export const generateTableMeta = (table: TableParams) => {
         })
       );
     },
+    updateCellByID: (
+      tableID: string,
+      taskID: string,
+      columnId: string,
+      value: any
+    ) => {
+      dispatch(
+        updateTask({
+          tableID,
+          taskID,
+          key: columnId as TaskKeys,
+          value,
+        })
+      );
+    },
     addTask: (task: AddTaskParams) => {
       dispatch(addNewTask({ ...task, tableID: table.id }));
     },
